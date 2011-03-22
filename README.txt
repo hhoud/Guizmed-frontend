@@ -1,2 +1,1 @@
-this is a placeholder for the GUIZMED project
-Henry says...
+Here comes more information later on.
