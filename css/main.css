@@ -1,0 +1,79 @@
+body{
+	
+	background-color:#f1f1f1;
+	background-image:url(../images/bggradiant.jpg);
+	background-repeat:repeat-x;
+	background-position:left top;
+}
+#guizmed-logo{
+	margin-left:auto;
+	margin-right:auto;
+	display:block;
+	text-align:center;	
+}
+button {
+    background: #ff22ff;
+    border: 5px solid #66FF66;
+    color: #00FF00;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    height: 50px;
+    width: 200px;
+    -webkit-appearance: none;
+}
+
+button:hover {
+    background: #00ff00;
+    border: 5px solid #FF0000;
+    color: #000000;
+}
+.ui-block-menu{	
+display:block;
+width:50%;
+height:50%;
+float:left;
+text-align:center;
+margin-left:auto;
+margin-right:auto;
+}
+.ui-block-menu-icon{
+	width:130px;
+	height:120px;
+	display:block;
+	
+	margin:10px;
+	margin-left:auto;
+	margin-right:auto;
+	
+	padding:2px;
+	padding-top:10px;
+	
+	border: 1px solid 		#a8a8a8;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-appearance: none;
+	
+	background-image: -moz-linear-gradient(top, 
+							#dfdfdf, 
+							#ffffff);
+	background-image: -webkit-gradient(linear,left top,left bottom,
+		color-stop(0, 		#dfdfdf),
+		color-stop(1, 		#ffffff));
+  	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#85bae4', EndColorStr='#5393c5')";
+  	outline: none;
+	
+}
+#notification_icon{
+	
+	margin-right:10px;
+	
+}
+.ui-ul-icon{
+	
+	margin-left:5px;
+	margin-top:5px;
+	
+	
+}
