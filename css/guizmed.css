@@ -1,0 +1,8 @@
+body{
+    background-color:#fff !important;
+}
+
+.smallfield input{
+    width:auto;
+    position:relative;
+}

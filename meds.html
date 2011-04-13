@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="yes" name="apple-mobile-web-app-capable" />
+<meta content="text/html" http-equiv="Content-Type" />
+<meta content="minimum-scale=1.0, width=device-width, maximum-scale=0.6667, user-scalable=no" name="viewport" />
+<script src="javascript/functions.js" type="text/javascript"></script>
+<link href="css/style.css" rel="stylesheet" media="screen" type="text/css" />
+<link href="css/guizmed.css" rel="stylesheet" media="screen" type="text/css" />
+<link href="css/cupertino/jquery-ui-1.8.11.custom.css" rel="stylesheet" media="screen" type="text/css" />
+<script src="javascript/jquery_1.5.2.js" type="text/javascript"></script>
+<script src="javascript/core.js" type="text/javascript"></script>
+<script src="javascript/tempo.min.js" type="text/javascript"></script>
+<script src="javascript/meds.js" type="text/javascript"></script>
+<title>Guizmed - Medicijnen</title>
+<meta content="Guizmed,Guislain,Psychiatric,clinic, psychiatrisch, ziekenhuis, psychiater, psychiatrist, medicine, geneesmiddelen" name="keywords" />
+<meta content="Description of your page" name="description" />
+</head>
+
+<body>
+
+<div id="topbar">
+    <div id="leftbutton"><a href="#" class="btn_back">Back</a></div>
+    <div id="title">Medicijnen</div>
+</div>
+<div id="content">
+    <div id="lookup">
+        <ul class="pageitem">
+            <form class="filterform" action="#">
+                <li class="bigfield"><input placeholder="Search ..." class="filterinput" type="text" /></li>            
+            </form>
+        </ul>
+        <ul class="pageitem" id="m_lookup" >
+            <li data-template class="m_item textbox" style="display:none"><span class="name" id="{{med_id}}">{{med_name}}</span></li>
+        </ul>
+    </div>
+    <div id="info" style="display:none">
+        <table id="m_info" data-template>
+            <tr>
+                <td>Hoofdklasse:</td>
+                <td>{{hoofdklasse}}</td>
+            </tr>
+            <tr>
+                <td>Generische naam:</td>
+                <td>{{gen_naam}}</td>
+            </tr>
+            <tr>
+                <td>Specialiteit:</td>
+                <td>{{specialiteit}}</td>
+            </tr>
+            <tr>
+                <td>Type:</td>
+                <td>{{type}}</td>
+            </tr>
+            <tr>
+                <td>Magistraal type:</td>
+                <td>{{mag_type}}</td>
+            </tr>
+            <tr>
+                <td>D1</td>
+                <td>{{dop_d1}}</td>
+            </tr>
+            <tr>
+                <td>D2</td>
+                <td>{{dop_d2}}</td>
+            </tr>
+            <tr>
+                <td>D3</td>
+                <td>{{dop_d3}}</td>
+            </tr>
+            <tr>
+                <td>D4</td>
+                <td>{{dop_d4}}</td>
+            </tr>
+            <tr>
+                <td>D5</td>
+                <td>{{dop_d5}}</td>
+            </tr>
+            <tr>
+                <td>Histamine H1:</td>
+                <td>{{hist_h1}}</td>
+            </tr>
+            <tr>
+                <td>Muscarine ACh:</td>
+                <td>{{musc_ach}}</td>
+            </tr>
+            <tr>
+                <td>Alfa1</td>
+                <td>{{alfa1}}</td>
+            </tr>
+            <tr>
+                <td>Alfa2</td>
+                <td>{{alfa2}}</td>
+            </tr>
+            <tr>
+                <td>Serotonine 5HT2A</td>
+                <td>{{sero_5ht2a}}</td>
+            </tr>
+            <tr>
+                <td>Serotonine 5HT2C</td>
+                <td>{{sero_5ht2c}}</td>
+            </tr>
+            <tr>
+                <td>Bioavailability</td>
+                <td>{{bioavailability}}</td>
+            </tr>
+            <tr>
+                <td>Proteine binding</td>
+                <td>{{prot_bind}}</td>
+            </tr>
+            <tr>
+                <td>T max h</td>
+                <td>{{t_max_h}}</td>
+            </tr>
+            <tr>
+                <td>Hlf</td>
+                <td>{{hlf}}</td>
+            </tr>
+            <tr>
+                <td>DDD</td>
+                <td>{{ddd}}</td>
+            </tr>
+            <tr>
+                <td>Metabolisatie</td>
+                <td>{{metabolisatie}}</td>
+            </tr>
+            <tr>
+                <td>CYP450 activator</td>
+                <td>{{cyp450_act}}</td>
+            </tr>
+            <tr>
+                <td>CYP450 inhibitor</td>
+                <td>{{cyp450_inh}}</td>
+            </tr>
+        </table>
+        <p data-template-fallback>Sorry, javascript required!</p>
+    </div>
+</div>
+<div id="footer">
+	<!-- Support iWebKit by sending us traffic; please keep this footer on your page, consider it a thank you for our work :-) -->
+	<a class="noeffect" href="http://snippetspace.com">Powered by iWebKit</a></div>
+
+</body>
+
+</html>
