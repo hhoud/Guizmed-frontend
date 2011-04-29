@@ -1,7 +1,7 @@
 /**
  * CONFIG
  * */
-var host = "http://guizmedkit.henryhoudmont.be/webservices";
+var host = "http://www.guizmed.com.localhost/index.php";
 
 function callWebservice(data, path, callback){
 	$.ajax({

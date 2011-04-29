@@ -123,10 +123,16 @@ $(document).ready(function(){
 								{"npsy_id":"new",
 								"npsy_name":"New non-psychofarmaca"}]};
 
-	//Render the list of patients
-	Tempo.prepare("p_lookup").render(patients);
+	/**
+	 * Get the list of patients from the backend
+	 */
+	callWebservice("","/patienten",function(data){
+		var patients = $.parseJSON(data);
+		//Render the list of patients
+		Tempo.prepare("p_lookup").render(patients.allPatients);
+	});
 	
-	$('.p_item').click(function(){
+	$('.p_item').live('click',function(){
 		//update the url for navigation
 		updateHistory(true);
 		//Hide the other pages
