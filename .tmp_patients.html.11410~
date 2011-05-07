@@ -106,6 +106,7 @@
                 <li class="radiobutton"><span class="name">Vrouw</span>
                 <input name="sex" type="radio" value="F" /></li>
             </ul>
+            <!--<input type="submit" name="submit" class="button" value="Toevoegen">-->
             <a href="#" class="button" id="btn_add_patient">Toevoegen</a>
         </form>
     </div>
@@ -118,15 +119,6 @@
                 <li class="bigfield"><input placeholder="Frequentie" type="text" /></li>
                 <li class="bigfield"><input placeholder="Start datum" type="text" class="datepicker" /></li>
                 <li class="textbox"><span class="header">Aanvullingen</span><textarea name="comments" rows="4"></textarea></li>
-            </ul>
-            <a href="#" class="button">Toevoegen</a>
-        </form>
-    </div>
-    <div id="npsy_add" style="display:none">
-        <form name="non_psycho_add" method="post">
-            <ul class="pageitem">
-                <li class="smallfield"><input placeholder="Naam" type="text" /><a href="meds.html?s=presc"><img src="images/icon_search.png" alt="Search" /></a></li>
-                <li class="bigfield"><input placeholder="Start datum" type="text" class="datepicker" /></li>
             </ul>
             <a href="#" class="button">Toevoegen</a>
         </form>

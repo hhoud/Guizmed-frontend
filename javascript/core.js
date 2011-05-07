@@ -1,7 +1,7 @@
 /**
  * CONFIG
  * */
-var host = "http://www.guizmed.com.localhost/index.php";
+var host = "http://www.guizmed.com.localhost/backend_dev.php";
 
 function callWebservice(data, path, callback){
 	$.ajax({
@@ -35,12 +35,18 @@ function updateHistory(up){
 		window.location = url + nr;
 	}
 }
+/**
+ * Hide all the 'subpages' in a page
+ */
+function hidePages(){
+	$('#content').children('div').hide();
+}
 
 /**
  * Get all the input fields of a form and send them through to the function taking care of the ajax call.
  * @param $btn	The submit button that has been clicked
  */
-function processForm($btn){
+function processForm($btn, callback){
 	// get all the inputs into an array.
 	var $form = $btn.parents("form");
     var $inputs = $form.find(':input');
@@ -48,13 +54,21 @@ function processForm($btn){
     // get an associative array of just the values.
     var data = {};
     $inputs.each(function() {
-        data[this.name] = $(this).val();
+    	if($(this).attr('type')=="radio"){
+    		if($(this).is(':checked'))
+    			data[this.name] = $(this).val();
+    	}else{
+    		data[this.name] = $(this).val();
+    	}
     });
 
     //the form should have the path as name attribute
     var path = $form.attr("name");
 
-    switch(path){
+    //send the data to the database and if successful, show the new patient's page.
+    callWebservice(data, path, callback);
+    
+    /*switch(path){
 		case "login":
 			//redirect to the main page if successful
 		    if(($inputs[0].value == "test") && ($inputs[0].value == "test")){
@@ -65,7 +79,7 @@ function processForm($btn){
 		    	$('#dialog').dialog('open');
 		    }
 		    break;
-    }
+    }*/
 }
 
 /**

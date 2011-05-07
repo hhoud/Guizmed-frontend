@@ -23,105 +23,13 @@ $(document).ready(function(){
 		}
 	});
 	
-	$('.datepicker').datepicker({ autoSize: true, dateFormat: 'dd-mm-yy' });
-	
-	/**
-	 * Hide all the 'pages' in patients.html
-	 */
-	function hidePages(){
-		$('#lookup').hide();
-		$('#info').hide();
-		$('#pat_add').hide();
-		$('#info').hide();
-		$('#presc_add').hide();
-	}
+	$('.datepicker').datepicker({ autoSize: true, dateFormat: 'yy-mm-dd' });
 	
 	$('.pat_add').click(function(ev){
 		hidePages();
 		$('#pat_add').show();
 		updateHistory(true);
 	});
-	
-	var patients = [{"pat_id":"hhoud",
-	"pat_lname":"Houdmont",
-	"pat_fname":"Henry"},
-	{"pat_id":"ojans",
-	"pat_lname":"Janssens",
-	"pat_fname":"Olivier"},
-	{"pat_id":"wjans",
-	"pat_lname":"Janssens",
-	"pat_fname":"Willem"}];
-
-	var pat_info = new Array();
-	pat_info["hhoud"] = {"personal":{"lname":"Houdmont",
-									"fname":"Henry",
-									"gender":"M",
-									"dob":"09/02/1988",
-									"since":"24/04/2005"},
-						"meds":[{"med_id":"flup",
-								"med_name":"Flupentixol",
-								"start":"10/04/2011"},
-								{"med_id":"pimo",
-								"med_name":"Pimozide",
-								"start":"24/03/2011"}],
-						"presc":[{"presc_id":"presc1",
-								"med_name":"Flupentixol",
-								"start":"10/04/2011"},
-								{"presc_id":"presc2",
-								"med_name":"Pimozide",
-								"start":"24/03/2011"},
-								{"presc_id":"presc3",
-								"med_name":"Quetiapine",
-								"start":"5/03/2011"},
-								{"presc_id":"new",
-								"med_name":"New prescription"}],
-						"npsy":[{"npsy_id":"cranj",
-								"npsy_name":"Cranberry juice"},
-								{"npsy_id":"new",
-								"npsy_name":"New non-psychofarmaca"}]};
-	pat_info["wjans"] = {"personal":{"lname":"Janssens",
-									"fname":"Willem",
-									"gender":"M",
-									"dob":"20/05/1988",
-									"since":"09/11/2001"},
-							"meds":[{"med_id":"pimo",
-									"med_name":"Pimozide",
-									"start":"24/03/2011"}],
-							"presc":[{"presc_id":"presc2",
-									"med_name":"Pimozide",
-									"start":"24/03/2011"},
-									{"presc_id":"presc3",
-									"med_name":"Quetiapine",
-									"start":"5/03/2011"},
-									{"presc_id":"new",
-									"med_name":"New prescription"}],
-							"npsy":[{"npsy_id":"pinej",
-									"npsy_name":"Pineapple juice"},
-									{"npsy_id":"new",
-									"npsy_name":"New non-psychofarmaca"}]};
-	pat_info["ojans"] = {"personal":{"lname":"Janssens",
-								"fname":"Olivier",
-								"gender":"M",
-								"dob":"07/11/1989",
-								"since":"5/09/1990"},
-						"meds":[{"med_id":"quet",
-								"med_name":"Quetiapine",
-								"start":"5/03/2011"},
-								{"med_id":"pimo",
-								"med_name":"Pimozide",
-								"start":"24/03/2011"}],
-						"presc":[{"presc_id":"presc2",
-								"med_name":"Pimozide",
-								"start":"24/03/2011"},
-								{"presc_id":"presc3",
-								"med_name":"Quetiapine",
-								"start":"5/03/2011"},
-								{"presc_id":"new",
-								"med_name":"New prescription"}],
-						"npsy":[{"npsy_id":"choc",
-								"npsy_name":"Chocolate"},
-								{"npsy_id":"new",
-								"npsy_name":"New non-psychofarmaca"}]};
 
 	/**
 	 * Get the list of patients from the backend
@@ -137,17 +45,22 @@ $(document).ready(function(){
 		updateHistory(true);
 		//Hide the other pages
 		hidePages();
-		//Render the page with all the info
-		Tempo.prepare("info").notify(function(event){
-			if(event.type == TempoEvent.Types.RENDER_COMPLETE){
-				//remove the delete icon for the last row (adding a new item)
-				$('[name|="new"]').parent('li').find('a:nth-child(2)').hide();
-				//activate the accordion
-				$('#accordion').accordion({ fillSpace: true, active: 1, collapsible: true });
-			}
-		}).render(pat_info[$(this).find('span').attr('id')]);
-		//Show the info page of the patient
-		$("#info").show();
+		//retrieve patient info
+		var p_id = $(this).find('span').attr('id');
+		callWebservice("","/patienten/show/patient_id/"+p_id,function(data){
+			var p_info = $.parseJSON(data);
+			//Render the page with all the info
+			Tempo.prepare("info").notify(function(event){
+				if(event.type == TempoEvent.Types.RENDER_COMPLETE){
+					//remove the delete icon for the last row (adding a new item)
+					$('[name|="new"]').parent('li').find('a:nth-child(2)').hide();
+					//activate the accordion
+					$('#accordion').accordion({ fillSpace: true, active: 1, collapsible: true });
+				}
+			}).render(p_info.patient);
+			//Show the info page of the patient
+			$("#info").show();
+		});
 	});
 	
 	//bind the delete function to the icon
@@ -162,6 +75,13 @@ $(document).ready(function(){
 				$('#dialog').dialog('open');
 			}
 		}).render(del);
+	});
+	
+	$('#btn_add_patient').click(function(){
+		processForm($(this), function(data){
+			hidePages();
+	    	$('#p_info').show();
+		});
 	});
 	
 	$('a[name="new"]').live('click',function(){
