@@ -1,0 +1,273 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+
+<style type="text/css" title="currentStyle">
+			@import "css/demo_page.css";
+			@import "css/demo_table.css";
+		</style>
+        <link type="text/css" rel="stylesheet" href="css/adminfrontend.css"/>
+        <script type="text/javascript" language="javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.js"></script>
+        <script type="text/javascript" charset="utf-8">
+			var oTable;
+			var giRedraw = false;
+			
+			$(document).ready(function() {
+				/* Add a click handler to the rows - this could be used as a callback */
+				$("#example tbody").click(function(event) {
+					$(oTable.fnSettings().aoData).each(function (){
+						$(this.nTr).removeClass('row_selected');
+					});
+					$(event.target.parentNode).addClass('row_selected');
+				});
+				
+				/* Add a click handler for the delete row */
+				$('#delete').click( function() {
+					var anSelected = fnGetSelected( oTable );
+					oTable.fnDeleteRow( anSelected[0] );
+				} );
+				
+				/* Init the table */
+				oTable = $('#example').dataTable( );
+			} );
+			
+			
+			/* Get the rows which are currently selected */
+			function fnGetSelected( oTableLocal )
+			{
+				var aReturn = new Array();
+				var aTrs = oTableLocal.fnGetNodes();
+				
+				for ( var i=0 ; i<aTrs.length ; i++ )
+				{
+					if ( $(aTrs[i]).hasClass('row_selected') )
+					{
+						aReturn.push( aTrs[i] );
+					}
+				}
+				return aReturn;
+			}
+		</script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Guizmed - Management panel</title>
+</head>
+
+<body>
+<div id="container">
+  <div id="menu_bar">
+    <div id="menu">
+      <ul>
+        <li><a href="index.html" title="home"><img src="images/home_icon.png" title="home icon"  /></a></li>
+        <li class="divider">&nbsp;</li>
+        <li><a href="/" title="" >manage</a></li>
+        <li class="divider">&nbsp;</li>
+        <li><a href="/" title="" >tools</a></li>
+        <li class="divider">&nbsp;</li>
+        <li><a href="/" title="" >system logs</a></li>
+        <li class="divider">&nbsp;</li>
+        <li class="divider" style="float:right">&nbsp;</li>
+        <li style="float:right"><a href="/" title="" ><img style="float:right" src="images/logout_icon.png" title="" /><span style="float:right;padding-top:2px;margin-right:5px;">Log out</span> </a></li>
+        <li class="divider" style="float:right">&nbsp;</li>
+      </ul>
+    </div>
+  </div>
+  <div class="submenu_bar" id="sub_manage">
+    <div class="submenu" >
+      <ul>
+        <li class="sub_divider">&nbsp;</li>
+        <li><a href="manage_patient.html" title="" >patients</a></li>
+        <li class="sub_divider">&nbsp;</li>
+        <li><a href="manage_doctor.html" title="" >docters</a></li>
+        <li class="sub_divider">&nbsp;</li>
+      </ul>
+    </div>
+  </div>
+  <div class="submenu_bar" id="sub_tools" style="display:none;">
+    <div class="submenu" >
+      <ul>
+        <li class="sub_divider">&nbsp;</li>
+        <li><a href="/" title="" >import patients</a></li>
+        <li class="sub_divider">&nbsp;</li>
+        <li><a href="/" title="" >export patients</a></li>
+        <li class="sub_divider">&nbsp;</li>
+        <li><a href="/" title="" >print report</a></li>
+        <li class="sub_divider">&nbsp;</li>
+      </ul>
+    </div>
+  </div>
+  <div class="submenu_bar" id="sub_manage" style="display:none;">
+    <div class="submenu" >
+      <ul>
+        <li class="sub_divider">&nbsp;</li>
+        <li><a href="/" title="" >show logs</a></li>
+        <li class="sub_divider">&nbsp;</li>
+        <li><a href="/" title="" >clear logs</a></li>
+        <li class="sub_divider">&nbsp;</li>
+      </ul>
+    </div>
+  </div>
+  
+  <div id="content">
+  	
+    <h1>Doctors</h1>
+    
+    
+    <h2>Notifications</h2>
+    <div id="notifications">
+    	<table class="display" >
+        <thead>
+		<tr>
+			<th>Doctor name</th>
+			<th class="col_small"></th>
+			<th class="col_small"></th>
+		</tr>
+	</thead>
+        	<tr class="evenrow">
+            	<td>Jef Van der Neffe</td>
+                <td><img src="images/icon_cross.png" title="deny" height="20px" width="20px" style="text-align:center" /></td>
+                <td><img src="images/icon_allow.png" title="allow" height="20px" width="20px"  /></td>
+            </tr>
+            <tr class="oddrow">
+            	<td>Hendrick Peeters</td>
+               	<td><img src="images/icon_cross.png" title="deny" height="20px" width="20px"  /></td>
+                <td><img src="images/icon_allow.png" title="allow" height="20px" width="20px"  /></td>
+            </tr>
+
+			<tr class="evenrow">
+            	<td>Harry Heemels</td>
+                <td><img src="images/icon_cross.png" title="deny" height="20px" width="20px"  /></td>
+                <td><img src="images/icon_allow.png" title="allow" height="20px" width="20px" /></td>
+            </tr>
+
+        </table>
+    </div>
+    <h2>Dataset</h2>
+    <div id="patient_list_commands">
+   
+    </div>
+    <div id="doctor_list">
+    <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Firstname</th>
+			<th>gender</th>
+			<th>patienten aantal</th>
+			<th>...</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Dr. Peeters</td>
+			<td>Hans mee</td>
+			<td>male</td>
+			<td class="center">4</td>
+			<td class="center">X</td>
+		</tr>
+		<tr>
+			<td>Dr. Peeters</td>
+			<td>Hans mee</td>
+			<td>male</td>
+			<td class="center">4</td>
+			<td class="center">X</td>
+		</tr>
+		
+       <tr>
+			<td>Dr. Peeters</td>
+			<td>Hans mee</td>
+			<td>male</td>
+			<td class="center">4</td>
+			<td class="center">X</td>
+		</tr>
+		<tr>
+			<td>Dr. Peeters</td>
+			<td>Hans mee</td>
+			<td>male</td>
+			<td class="center">4</td>
+			<td class="center">X</td>
+		</tr>
+		<tr>
+			<td>Dr. Peeters</td>
+			<td>Hans mee</td>
+			<td>male</td>
+			<td class="center">4</td>
+			<td class="center">X</td>
+		</tr>
+		<tr>
+			<td>Dr. Peeters</td>
+			<td>Hans mee</td>
+			<td>male</td>
+			<td class="center">4</td>
+			<td class="center">X</td>
+		</tr>
+		<tr>
+			<td>Dr. Peeters</td>
+			<td>Hans mee</td>
+			<td>male</td>
+			<td class="center">4</td>
+			<td class="center">X</td>
+		</tr>
+		<tr>
+			<td>Dr. Peeters</td>
+			<td>Hans mee</td>
+			<td>male</td>
+			<td class="center">4</td>
+			<td class="center">X</td>
+		</tr>
+		<tr>
+			<td>Dr. Peeters</td>
+			<td>Hans mee</td>
+			<td>male</td>
+			<td class="center">4</td>
+			<td class="center">X</td>
+		</tr>
+		<tr>
+			<td>Dr. Peeters</td>
+			<td>Hans mee</td>
+			<td>male</td>
+			<td class="center">4</td>
+			<td class="center">X</td>
+		</tr>
+		<tr>
+			<td>Dr. Peeters</td>
+			<td>Hans mee</td>
+			<td>male</td>
+			<td class="center">4</td>
+			<td class="center">X</td>
+		</tr>
+		<tr>
+			<td>Dr. Peeters</td>
+			<td>Hans mee</td>
+			<td>male</td>
+			<td class="center">4</td>
+			<td class="center">X</td>
+		</tr>
+		<tr>
+			<td>Dr. Peeters</td>
+			<td>Hans mee</td>
+			<td>male</td>
+			<td class="center">4</td>
+			<td class="center">X</td>
+		</tr>
+		<tr>
+			<td>Dr. Peeters</td>
+			<td>Hans mee</td>
+			<td>male</td>
+			<td class="center">4</td>
+			<td class="center">X</td>
+		</tr>
+		
+	</tbody>
+	
+</table>
+<div class="spacer"></div>
+    </div>
+      <div id="footer"><p>Guizmed team</p></div>
+  </div>
+
+</div>
+
+</body>
+</html>
