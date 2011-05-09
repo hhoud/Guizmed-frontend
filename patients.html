@@ -11,6 +11,7 @@
 <link href="css/cupertino/jquery-ui-1.8.11.custom.css" rel="stylesheet" media="screen" type="text/css" />
 <script src="javascript/jquery_1.5.2.js" type="text/javascript"></script>
 <script src="javascript/jquery-ui-1.8.11.custom.min.js" type="text/javascript"></script>
+<script src="javascript/querystring-0.9.0-min.js" type="text/javascript"></script>
 <script src="javascript/core.js" type="text/javascript"></script>
 <script src="javascript/tempo.min.js" type="text/javascript"></script>
 <script src="javascript/patients.js" type="text/javascript"></script>
@@ -37,34 +38,34 @@
             <li data-template class="p_item textbox" style="display:none"><span class="name" id="{{id}}">{{name}}</span></li>
         </ul>
     </div>
-    <div id="info" style="display:none">
+    <div id="info" style="display:none;">
         <div id="accordion" data-template>
-            <h3><a href="#">Personal Information</a></h3>
+            <h3><a href="#">Persoonlijke gegevens</a></h3>
             <div>
-                <table data-template="personalInfo">
+                <table id="{{personalInfo.id}}">
                     <tr>
-                        <td>Familienaam:</td>
-                        <td>{{lName}}</td>
+                        <td>Naam:</td>
+                        <td>{{personalInfo.lName}}</td>
                     </tr>
                     <tr>
                         <td>Voornaam:</td>
-                        <td>{{fName}}</td>
+                        <td>{{personalInfo.fName}}</td>
                     </tr>
                     <tr>
                         <td>Geslacht:</td>
-                        <td>{{sex}}</td>
+                        <td>{{personalInfo.sex}}</td>
                     </tr>
                     <tr>
                         <td>Geboortedatum:</td>
-                        <td>{{Bdate}}</td>
+                        <td>{{personalInfo.bDate}}</td>
                     </tr>
                     <tr>
-                        <td>Sinds:</td>
-                        <td>{{patient_since}}</td>
+                        <td>Patiënt sinds:</td>
+                        <td>{{personalInfo.bDate}}</td>
                     </tr>
                 </table>
             </div>
-            <!--<h3><a href="#">Medecines</a></h3>
+            <h3><a href="#">Geneesmiddelen</a></h3>
             <div>
                 <ul>
                     <li data-template="meds">
@@ -72,24 +73,26 @@
                         <a href="#" class="del"><img src="images/icon_delete.gif" alt="Delete" /></a>
                     </li>
                 </ul>
-            </div>-->
-            <h3><a href="#">Prescriptions</a></h3>
+            </div>
+            <h3><a href="#">Voorschriften</a></h3>
             <div>
                 <ul>
-                    <li data-template="prescriptions"><a class="presc" href="#" name="{{id}}">{{med.name}} {{start}}</a></li>
+                    <li data-template="prescriptions">
+                        <a href="#" class="presc" name="{{id}}">{{med.name}} {{start_date}}</a>
+                    </li>
                 </ul>
             </div>
             <h3><a href="#">Non-psychofarmaca</a></h3>
             <div>
                 <ul>
-                    <li data-template="npsy">
-                        <a href="#" class="npsy" name="{{npsy_id}}">{{npsy_name}}</a>
+                    <li data-template="non_psycho">
+                        <a href="#" class="npsy" name="{{id}}">{{name}} {{start_date}}</a>
                         <a href="#" class="del"><img src="images/icon_delete.gif" alt="Delete"/></a>
                     </li>
                 </ul>
             </div>
         </div>
-        <p data-template-fallback>Sorry, javascript vereist!</p>
+        <p data-template-fallback>Sorry, javascript required!</p>
     </div>
 
     <div id="pat_add" style="display:none">
@@ -113,13 +116,13 @@
     <div id="presc_add" style="display:none">
         <form name="prescription_add" method="post">
             <ul class="pageitem">
-                <li class="smallfield"><input placeholder="Geneesmiddel" type="text" /><a href="meds.html?s=presc"><img src="images/icon_search.png" alt="Search" /></a></li>
-                <li class="bigfield"><input placeholder="Dosering" type="text" /></li>
-                <li class="bigfield"><input placeholder="Frequentie" type="text" /></li>
-                <li class="bigfield"><input placeholder="Start datum" type="text" class="datepicker" /></li>
-                <li class="textbox"><span class="header">Aanvullingen</span><textarea name="comments" rows="4"></textarea></li>
+                <li class="smallfield"><input placeholder="Geneesmiddel" type="text" disabled="true" name="medFormId" /><a href="#" id="presc_s_med"><img src="images/icon_search.png" alt="Search" /></a></li>
+                <li class="bigfield"><input placeholder="Dosering" type="text" name="dose" /></li>
+                <li class="bigfield"><input placeholder="Frequentie" type="text" name="frequency" /></li>
+                <li class="bigfield"><input placeholder="Start datum" type="text" class="datepicker" name="startdate" /></li>
+                <li class="textbox"><span class="header">Aanvullingen</span><textarea name="comment" rows="4"></textarea></li>
             </ul>
-            <a href="#" class="button">Toevoegen</a>
+            <a href="#" id="btn_presc_add" class="button">Toevoegen</a>
         </form>
     </div>
     <div id="npsy_add" style="display:none">
@@ -130,6 +133,46 @@
             </ul>
             <a href="#" class="button">Toevoegen</a>
         </form>
+    </div>
+    <div id="presc_info" style="display:none">
+        <table data-template>
+            <tr>
+                <td>Geneesmiddel:</td>
+                <td><a href="meds.html?m_id={{med.id}}">{{med.name}}</a></td>
+            </tr>
+            <tr>
+                <td>Start datum:</td>
+                <td>{{start_date}}</td>
+            </tr>
+            <tr>
+                <td>Eind datum:</td>
+                <td>{{end_date}}</td>
+            </tr>
+            <tr>
+                <td>Voorschrift datum:</td>
+                <td>{{presc_date}}</td>
+            </tr>
+            <tr>
+                <td>Dosis:</td>
+                <td>{{dose}}</td>
+            </tr>
+            <tr>
+                <td>Frequentie:</td>
+                <td>{{frequency}}</td>
+            </tr>
+            <tr>
+                <td>Commentaar:</td>
+                <td>{{comment}}</td>
+            </tr>
+            <tr>
+                <td>Stop datum:</td>
+                <td>{{stop_date}}</td>
+            </tr>
+            <tr>
+                <td>Stop reden:</td>
+                <td>{{stop_reason}}</td>
+            </tr>
+        </table>
     </div>
 </div>
 <!-- ui-dialog -->

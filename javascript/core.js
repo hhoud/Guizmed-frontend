@@ -3,58 +3,14 @@
  * */
 var host = "http://www.guizmed.com.localhost/backend_dev.php";
 
-function callWebservice(data, path, callback){
-	//find the token
-	var tk = readCookie("tk");
-	//if the cookie has been set before, update it
-	if(tk)createCookie("tk",tk);
-	data["token"] = tk;
-	$.ajax({
-        type: "POST",
-        url: host + path,
-        data: data,
-        success: callback
-    });
-}
-
-/**
- * This function will update the url to be able to go back n-times.
- */
-function updateHistory(up){
-	var url = ""+window.location;
-	var split = url.split("#");
-	var nr = split[1];
-	url = split[0];
-	if(!up && !nr) window.location = "main.html";
-	else{
-		if(!up && nr){
-			if(nr > 1)nr = "#" + (parseInt(nr)-1);
-			else nr = "";
-		}
-		else if(up){
-			if(nr)
-				nr = "#" + (parseInt(nr)+1);
-			else
-				nr = "#1";
-		}
-		window.location = url + nr;
-	}
-}
-/**
- * Hide all the 'subpages' in a page
- */
-function hidePages(){
-	$('#content').children('div').hide();
-}
-
 /**
  * Create a cookie that stays alive for 20 minutes.
  * @param name key of the key-value pair
  * @param value value of the key-value pair
  */
-function createCookie(name,value) {
+function createCookie(name,value, minutes) {
 	var date = new Date();
-	date.setTime(date.getTime()+(20*60*1000));
+	date.setTime(date.getTime()+(minutes*60*1000));
 	var expires = "; expires="+date.toGMTString();
 	document.cookie = name+"="+value+expires+"; path=/";
 }
@@ -79,6 +35,27 @@ function eraseCookie(name) {
 	createCookie(name,"",-1);
 }
 
+function callWebservice(data, path, callback){
+	//find the token
+	var tk = readCookie("tk");
+	//update the timeout cookie
+	if(tk)createCookie("to","timeout", 20);
+	data["token"] = tk;
+	$.ajax({
+        type: "POST",
+        url: host + path,
+        data: data,
+        success: callback
+    });
+}
+
+/**
+ * Hide all the 'subpages' in a page
+ */
+function hidePages(){
+	$('#content').children('div').hide();
+}
+
 /**
  * Check if there's a token, if not the user is not logged in and should be redirected.
  * @return true or false depending if logged in.
@@ -87,6 +64,17 @@ function checkLoggedIn(){
 	//find the token
 	var tk = readCookie("tk");
 	if(tk)return true;
+	else return false;
+}
+
+/**
+ * Check if the application is in timeout, if so, show the unlock page
+ * @return true or false depending on the timeout
+ */
+function checkTimeout(){
+	//find the timeout
+	var to = readCookie("to");
+	if(to)return true;
 	else return false;
 }
 
@@ -145,10 +133,12 @@ function filterList($input, $list){
     });
 }
 $(document).ready(function(){
-	var path = ""+window.location;
+	/*var path = ""+window.location;
 	if(!checkLoggedIn() && path.indexOf("index.html") == -1){
-			window.location = "index.html";
-	}
+		window.location = "index.html";
+	}else if(checkLoggedIn() && !checkTimeout()){
+		window.location = "index.html?p=ul";
+	}*/
 	
 	if($(".button")){
 		$(".button").each(function(){
@@ -172,7 +162,7 @@ $(document).ready(function(){
 	 * Return one page
 	 * */
 	$(".btn_back").click(function(){
-		updateHistory(false);
+		history.back();
 	});
 });
 

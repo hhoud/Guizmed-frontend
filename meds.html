@@ -5,11 +5,12 @@
 <meta content="yes" name="apple-mobile-web-app-capable" />
 <meta content="text/html" http-equiv="Content-Type" />
 <meta content="minimum-scale=1.0, width=device-width, maximum-scale=0.6667, user-scalable=no" name="viewport" />
-<script src="javascript/functions.js" type="text/javascript"></script>
 <link href="css/style.css" rel="stylesheet" media="screen" type="text/css" />
 <link href="css/guizmed.css" rel="stylesheet" media="screen" type="text/css" />
 <link href="css/cupertino/jquery-ui-1.8.11.custom.css" rel="stylesheet" media="screen" type="text/css" />
 <script src="javascript/jquery_1.5.2.js" type="text/javascript"></script>
+<script src="javascript/jquery-ui-1.8.11.custom.min.js" type="text/javascript"></script>
+<script src="javascript/functions.js" type="text/javascript"></script>
 <script src="javascript/querystring-0.9.0-min.js" type="text/javascript"></script>
 <script src="javascript/core.js" type="text/javascript"></script>
 <script src="javascript/tempo.min.js" type="text/javascript"></script>
@@ -52,108 +53,106 @@
             </tr>
             <tr>
                 <td>Type:</td>
-                <td>{{type}}</td>
+                <td>{{type.subtype1}} {{type.subtype2}}</td>
             </tr>
             <tr>
-                <table data-template="submeds">
-                    <tr>
-                        <td>Magistraal type:</td>
-                        <td>{{med_magister_form}}</td>
-                    </tr>
-                    <tr>
-                        <td>Dosering:</td>
-                        <td>{{Dose}}</td>
-                    </tr>
-                    <tr>
-                        <td>Dopamine D1</td>
-                        <td>{{Dopamine_D1}}</td>
-                    </tr>
-                    <tr>
-                        <td>D2</td>
-                        <td>{{Dopamine_D2}}</td>
-                    </tr>
-                    <tr>
-                        <td>D3</td>
-                        <td>{{Dopamine_D3}}</td>
-                    </tr>
-                    <tr>
-                        <td>D4</td>
-                        <td>{{Dopamine_D4}}</td>
-                    </tr>
-                    <tr>
-                        <td>D5</td>
-                        <td>{{Dopamine_D5}}</td>
-                    </tr>
-                    <tr>
-                        <td>Histamine H1:</td>
-                        <td>{{Histamine_H1}}</td>
-                    </tr>
-                    <tr>
-                        <td>Muscarine ACh:</td>
-                        <td>{{Muscarine_ACh}}</td>
-                    </tr>
-                    <tr>
-                        <td>Alfa1</td>
-                        <td>{{Alfa1}}</td>
-                    </tr>
-                    <tr>
-                        <td>Alfa2</td>
-                        <td>{{Alfa2}}</td>
-                    </tr>
-                    <tr>
-                        <td>Serotonine 5HT2A</td>
-                        <td>{{Serotonine_5HT2A}}</td>
-                    </tr>
-                    <tr>
-                        <td>Serotonine 5HT2C</td>
-                        <td>{{Serotonine_5HT2C}}</td>
-                    </tr>
-                    <tr>
-                        <td>Bioavailability</td>
-                        <td>{{Bioavailability}}</td>
-                    </tr>
-                    <tr>
-                        <td>Proteine binding</td>
-                        <td>{{Proteine_binding}}</td>
-                    </tr>
-                    <tr>
-                        <td>T max h</td>
-                        <td>{{T_max_h}}</td>
-                    </tr>
-                    <tr>
-                        <td>Hlf</td>
-                        <td>{{Hlf}}</td>
-                    </tr>
-                    <tr>
-                        <td>DDD</td>
-                        <td>{{Ddd}}</td>
-                    </tr>
-                    <tr>
-                        <td>Metabolisatie</td>
-                        <td>
-                            <ul data-template="metabolism">
-                                <li>{{name}}</li>
-                            </ul>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>CYP450 activator</td>
-                        <td>
-                            <ul data-template="activator">
-                                <li>{{name}}</li>
-                            </ul>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>CYP450 inhibitor</td>
-                        <td>
-                            <ul data-template="inhibitor">
-                                <li>{{name}}</li>
-                            </ul>
-                        </td>
-                    </tr>
-                </table>
+                <td>Magistrale types:</td>
+                <td>&#160;</td>
             </tr>
+            <tr data-template="submeds">
+                <td>&#160;</td><td><a href="#" id="sub_info" name="{{med_form}}">{{med_magister_form}}</a></td>
+            </tr>
+        </table>
+        <p data-template-fallback>Sorry, javascript required!</p>
+    </div>
+    <div id="submed_info" style="display:none">
+        <a href="#" id="add_to_presc" class="button">Toevoegen aan voorschrift</a>
+        <table data-template>
+            <tr id="med_id" name="{{med_form}}">
+                <td>Magistraal type:</td>
+                <td>{{med_magister_form}}</td>
+            </tr>
+            <tr>
+                <td>Dosering:</td>
+                <td>{{Dose}}</td>
+            </tr>
+            <tr>
+                <td>Dopamine D1</td>
+                <td>{{Dopamine_D1}}</td>
+            </tr>
+            <tr>
+                <td>D2</td>
+                <td>{{Dopamine_D2}}</td>
+            </tr>
+            <tr>
+                <td>D3</td>
+                <td>{{Dopamine_D3}}</td>
+            </tr>
+            <tr>
+                <td>D4</td>
+                <td>{{Dopamine_D4}}</td>
+            </tr>
+            <tr>
+                <td>D5</td>
+                <td>{{Dopamine_D5}}</td>
+            </tr>
+            <tr>
+                <td>Histamine H1:</td>
+                <td>{{Histamine_H1}}</td>
+            </tr>
+            <tr>
+                <td>Muscarine ACh:</td>
+                <td>{{Muscarine_ACh}}</td>
+            </tr>
+            <tr>
+                <td>Alfa1</td>
+                <td>{{Alfa1}}</td>
+            </tr>
+            <tr>
+                <td>Alfa2</td>
+                <td>{{Alfa2}}</td>
+            </tr>
+            <tr>
+                <td>Serotonine 5HT2A</td>
+                <td>{{Serotonine_5HT2A}}</td>
+            </tr>
+            <tr>
+                <td>Serotonine 5HT2C</td>
+                <td>{{Serotonine_5HT2C}}</td>
+            </tr>
+            <tr>
+                <td>Bioavailability</td>
+                <td>{{Bioavailability}}</td>
+            </tr>
+            <tr>
+                <td>Proteine binding</td>
+                <td>{{Proteine_binding}}</td>
+            </tr>
+            <tr>
+                <td>T max h</td>
+                <td>{{T_max_h}}</td>
+            </tr>
+            <tr>
+                <td>Hlf</td>
+                <td>{{Hlf}}</td>
+            </tr>
+            <tr>
+                <td>DDD</td>
+                <td>{{Ddd}}</td>
+            </tr>
+            <tr>
+                <td>Metabolism</td>
+                <td>{{metabolism}}</td>
+            </tr>
+            <tr>
+                <td>CYP450 activator</td>
+                <td>{{activator}}</td>
+            </tr>
+            <tr>
+                <td>CYP450 inhibitor</td>
+                <td>{{inhibitor}}</td>
+            </tr>
+            
         </table>
         <p data-template-fallback>Sorry, javascript required!</p>
     </div>
