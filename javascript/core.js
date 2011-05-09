@@ -4,6 +4,11 @@
 var host = "http://www.guizmed.com.localhost/backend_dev.php";
 
 function callWebservice(data, path, callback){
+	//find the token
+	var tk = readCookie("tk");
+	//if the cookie has been set before, update it
+	if(tk)createCookie("tk",tk);
+	data["token"] = tk;
 	$.ajax({
         type: "POST",
         url: host + path,
@@ -40,6 +45,49 @@ function updateHistory(up){
  */
 function hidePages(){
 	$('#content').children('div').hide();
+}
+
+/**
+ * Create a cookie that stays alive for 20 minutes.
+ * @param name key of the key-value pair
+ * @param value value of the key-value pair
+ */
+function createCookie(name,value) {
+	var date = new Date();
+	date.setTime(date.getTime()+(20*60*1000));
+	var expires = "; expires="+date.toGMTString();
+	document.cookie = name+"="+value+expires+"; path=/";
+}
+
+/**
+ * Read a cookie, here used for the token
+ * @param name = name of the key-value
+ * @return the key-value pair in the cookie
+ */
+function readCookie(name) {
+	var nameEQ = name + "=";
+	var ca = document.cookie.split(';');
+	for(var i=0;i < ca.length;i++) {
+		var c = ca[i];
+		while (c.charAt(0)==' ') c = c.substring(1,c.length);
+		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+	}
+	return null;
+}
+
+function eraseCookie(name) {
+	createCookie(name,"",-1);
+}
+
+/**
+ * Check if there's a token, if not the user is not logged in and should be redirected.
+ * @return true or false depending if logged in.
+ */
+function checkLoggedIn(){
+	//find the token
+	var tk = readCookie("tk");
+	if(tk)return true;
+	else return false;
 }
 
 /**
@@ -97,6 +145,11 @@ function filterList($input, $list){
     });
 }
 $(document).ready(function(){
+	var path = ""+window.location;
+	if(!checkLoggedIn() && path.indexOf("index.html") == -1){
+			window.location = "index.html";
+	}
+	
 	if($(".button")){
 		$(".button").each(function(){
 			$(this).button();

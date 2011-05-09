@@ -49,6 +49,7 @@ $(document).ready(function(){
 		var p_id = $(this).find('span').attr('id');
 		callWebservice("","/patienten/show/patient_id/"+p_id,function(data){
 			var p_info = $.parseJSON(data);
+			//check if the prescription was stopped and if it still has effect on the body
 			//Render the page with all the info
 			Tempo.prepare("info").notify(function(event){
 				if(event.type == TempoEvent.Types.RENDER_COMPLETE){

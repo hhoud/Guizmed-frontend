@@ -41,30 +41,30 @@
         <div id="accordion" data-template>
             <h3><a href="#">Personal Information</a></h3>
             <div>
-                <table>
+                <table data-template="personalInfo">
                     <tr>
                         <td>Familienaam:</td>
-                        <td>{{personalInfo.lName}}</td>
+                        <td>{{lName}}</td>
                     </tr>
                     <tr>
                         <td>Voornaam:</td>
-                        <td>{{personalInfo.fName}}</td>
+                        <td>{{fName}}</td>
                     </tr>
                     <tr>
                         <td>Geslacht:</td>
-                        <td>{{personalInfo.sex}}</td>
+                        <td>{{sex}}</td>
                     </tr>
                     <tr>
                         <td>Geboortedatum:</td>
-                        <td>{{personalInfo.Bdate}}</td>
+                        <td>{{Bdate}}</td>
                     </tr>
                     <tr>
                         <td>Sinds:</td>
-                        <td>{{personalInfo.patient_since}}</td>
+                        <td>{{patient_since}}</td>
                     </tr>
                 </table>
             </div>
-            <h3><a href="#">Medecines</a></h3>
+            <!--<h3><a href="#">Medecines</a></h3>
             <div>
                 <ul>
                     <li data-template="meds">
@@ -72,7 +72,7 @@
                         <a href="#" class="del"><img src="images/icon_delete.gif" alt="Delete" /></a>
                     </li>
                 </ul>
-            </div>
+            </div>-->
             <h3><a href="#">Prescriptions</a></h3>
             <div>
                 <ul>

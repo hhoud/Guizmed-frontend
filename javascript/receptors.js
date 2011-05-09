@@ -28,7 +28,14 @@ $(document).ready(function(){
 		filterList($(this), $('#r_lookup'));
 	});
 
-	Tempo.prepare("r_lookup").render(meds);
+	/**
+	 * Get the list of meds from the backend
+	 */
+	callWebservice("","/receptoren",function(data){
+		var rec = $.parseJSON(data);
+		//Render the list of patients
+		Tempo.prepare("r_lookup").render(rec.receptors);
+	});
 	
 	$(".r_item").live('click',function(){
 		//get the id of the receptor
