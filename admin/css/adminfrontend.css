@@ -1,0 +1,335 @@
+@charset "UTF-8";
+/* CSS Document */
+*{
+	border:0 none;
+	font-size:100%;
+	margin:0;
+	outline:0 none;
+	padding:0;
+	
+	font-family:Helvetica,Arial, sans-serif;
+	
+}
+.clear{
+	clear: both;
+	display: block;
+	height: 1px;
+}
+body{
+	background-image:url(../images/bgpattern.png);
+	background-color:#eaeaea;
+	background-repeat:repeat;
+	background-attachment:scroll;
+	background-position:left;
+}
+#container{
+	background-image:url(../images/bgtoppattern.png);
+	background-repeat:repeat-x;
+}
+#menu_bar{
+	display:block;
+	height:37px;
+	background-image:url(../images/menu_bar_pattern.png);
+	background-repeat:repeat-x;
+}
+.submenu_bar{
+	display:block;
+	height:26px;
+	background-image:url(../images/submenu_bar_pattern.png);
+	background-repeat:repeat-x;	
+}
+#menu,.submenu{
+	display:block;
+	height:37px;
+	width:940px;
+	margin-left:auto;
+	margin-right:auto;
+	
+	padding-top:4px;
+}
+.submenu{
+	height:26px;	
+}
+.submenu ul li{
+	list-style-type:none;
+	float:left;	
+	
+	margin-left:10px;
+	margin-right:10px;
+	
+	font-family:Helvetica,Arial, sans-serif;
+	font-size:14px;
+	line-height:20px;
+	color:#FFF;
+	
+	display:block;
+	
+	height:26px; 
+
+}
+#menu ul li{
+	
+	list-style-type:none;
+	float:left;	
+	
+	margin-left:8px;
+	margin-right:8px;
+	
+	font-family:Helvetica,Arial, sans-serif;
+	font-size:16px;
+	line-height:28px;
+	color:#FFF;
+	
+	display:block;
+	
+	height:33px; 
+	
+}
+#menu li a{
+	
+	color:#FFF;
+	text-decoration:none;
+	
+	display:block;
+	height:31px;	
+	
+	background:none;
+	
+}
+.submenu li a{
+	
+	color:#FFF;
+	text-decoration:none;
+	
+	display:block;
+	height:20px;	
+	
+	background:none;
+	
+}
+.submenu a:hover{
+	border-bottom-color:#FFF;
+	border-bottom-style:solid;
+	border-bottom-width:2px;
+}
+#menu a:hover{
+	border-bottom-color:#FFF;
+	border-bottom-style:solid;
+	border-bottom-width:2px;
+}
+.hide{
+	display:none;	
+}
+.menuitem{
+	height:37px;
+	background-image:url(../images/menuitem_pattern.png);
+	background-repeat:repeat-x;
+	display:block;
+}
+.divider{
+	width:4px;
+	height:27px;
+	display:block;
+	background-image:url(../images/divider.png);
+	background-repeat:no-repeat;	
+	background-color:transparent;
+}
+.sub_divider{
+	width:4px;
+	height:15px;
+	display:block;
+	background-image:url(../images/sub_divider.png);
+	background-repeat:no-repeat;	
+	background-color:transparent;
+}
+#content{
+	display:block;
+	height:300px;
+	width:940px;
+	margin-left:auto;
+	margin-right:auto;
+	background-color:transparent;
+}
+#patient_search,#patient_list,#patient_list_commands,#logo,.component_group,#login_page,#doctor_list,#notifications,#patient_detail,#footer{
+	
+	display:block;
+	float:left;
+	width:900px;
+	
+	padding-top:10px;
+	padding-bottom:20px;
+	padding-left:20px;
+}
+#patient_search p{
+	width:110px;
+	float:left;
+	line-height:24px;
+	display:inline;
+}
+#patient_list table,#doctor_list table{
+	
+	font-size:12px;
+}
+
+#patient_list table td,#doctor_list table td{
+	padding:1px;
+	padding-left:5px;
+}
+#patient_list table tr,#doctor_list table tr{
+	border-color:#cfcfcc;
+	border-width:1px;
+	border-style:solid;
+	background-color:#e8e8e8;
+}
+#patient_list table thead,#doctor_list table thead{
+	background-color:#cdcdc9;
+	
+	line-height:20px;
+}
+button{
+	padding:2px;
+	
+	padding-left:5px;
+	padding-right:5px;
+	
+	border-color:#818181;
+	border-width:1px;
+	border-style:solid;
+}
+input{
+	
+	padding:3px;	
+}
+h1, h2,h3{
+	display:block;
+	width:900px;
+	height:28px;
+	float:left;
+	padding-top:20px;
+	padding-left:20px;	
+	
+	
+	
+	color:#343434;
+}
+
+h1{
+	font-size:24px;	
+	margin-bottom:3px;
+}
+h2{
+	height:20px;
+	padding-top:5px;	
+	
+	background-color:#c4c4c4;
+	
+	border-bottom-color:#666;
+	border-bottom-style:solid;
+	border-bottom-width:1px;
+	
+	border-top-color:#666;
+	border-top-style:solid;
+	border-top-width:1px;
+}
+#example{
+	
+	padding-top:13px;	
+	padding-bottom:13px;
+}
+#logo img{
+	
+	margin-top:50px;
+	
+	margin-left:auto;
+	margin-right:auto;
+	display:block;
+}
+#login_page form{
+	
+	margin-left:auto;
+	margin-right:auto;
+	width:315px;
+	
+	padding-bottom:10px;
+	
+	
+}
+.component_group label{
+	
+	width:100px;
+	height:20px;
+	display:block;	
+}
+.component_group input{
+	
+	width:280px;
+	height:20px;
+	display:inline;	
+}
+.component_group_2{
+	
+	width:280px;
+	height:20px;
+	display:block;
+	float:left;
+	padding-top:10px;
+	padding-left:20px;
+}
+.component_group{
+	
+	width:300px;
+	height:30px;
+	display:inline;
+	margin-left:auto;
+	margin-right:auto;
+	
+}
+.col_small{
+	
+	width:25px;	
+	padding-left:0px;
+	padding-right:0px;
+	margin-left:0px;
+	margin-right:0px;
+}
+.btn{
+	
+	float:right;	
+	margin-right:14px;
+	
+}
+#notifications{
+	
+	text-align:left;	
+}
+#notifications tr{
+	
+	height:25px;
+	margin:0px;
+}
+.oddrow{
+	background-color:#d9d9d9;	
+}
+.evenrow{
+	background-color:#e2e1e1;	
+}
+.d_box{
+	display:block;
+	width:450px;	
+	float:left;
+}
+#patient_detail{
+	
+	display:inline;
+	float:left;	
+}
+#footer{
+	
+	font-size:10px;
+	
+	text-align:center;
+	
+	border-top-color:#666;
+	border-top-style:solid;
+	border-top-width:1px;	
+}
