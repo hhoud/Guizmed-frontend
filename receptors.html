@@ -36,9 +36,12 @@
         </ul>
     </div>
     <div id="info" style="display:none">
-        <ul class="pageitem">
-            <li data-template style="display:none">{{med_name}}, Ki: {{med_ki}}</li>
-        </ul>
+        <div data-template>
+            <p id="{{id}}">{{name}}</p>
+            <ul class="pageitem">
+                <li data-template="meds"><a href="meds.html?m_id={{id}}">{{name}}, Ki: {{ki_value}}, Value: {{tagval}}</a></li>
+            </ul>
+        </div>
         <p data-template-fallback>Sorry, javascript required!</p>
     </div>
 </div>
