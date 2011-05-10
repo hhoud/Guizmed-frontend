@@ -107,6 +107,11 @@ body{
 	background:none;
 	
 }
+.active_link{
+	border-bottom-color:#FFF;
+	border-bottom-style:solid;
+	border-bottom-width:2px;	
+}
 .submenu a:hover{
 	border-bottom-color:#FFF;
 	border-bottom-style:solid;
@@ -150,7 +155,7 @@ body{
 	margin-right:auto;
 	background-color:transparent;
 }
-#patient_search,#patient_list,#patient_list_commands,#logo,.component_group,#login_page,#doctor_list,#notifications,#patient_detail,#footer{
+#patient_search,#patient_list,#patient_list_commands,#logo,.component_group,#login_page,#doctor_list,#notifications,#patient_detail,#footer,#add_new_doctor,#add_new_patient,#add_new_medicine{
 	
 	display:block;
 	float:left;
@@ -256,7 +261,7 @@ h2{
 }
 .component_group label{
 	
-	width:100px;
+	width:150px;
 	height:20px;
 	display:block;	
 }
@@ -274,6 +279,42 @@ h2{
 	float:left;
 	padding-top:10px;
 	padding-left:20px;
+		margin-bottom:15px;
+}
+.component_group_2 input{
+	
+	margin-right:5px;	
+}
+.component_group_2 span{
+	
+	margin-right:30px;	
+}
+.component_group_3{
+	
+	margin-top:20px;
+	
+	width:110px;
+	display:block;
+	height:50px;
+	
+	float:left;
+	
+	line-height:20px;
+}
+.component_group_3 label{
+	
+	width:60px;	
+	display:block;
+	height:20px;
+	float:left;
+	text-align:right;
+	line-height:27px;
+	padding-right:6px;
+}
+.component_group_3 input{
+	
+	width:30px;
+	height:20px;
 }
 .component_group{
 	
@@ -282,7 +323,6 @@ h2{
 	display:inline;
 	margin-left:auto;
 	margin-right:auto;
-	
 }
 .col_small{
 	
@@ -332,4 +372,70 @@ h2{
 	border-top-color:#666;
 	border-top-style:solid;
 	border-top-width:1px;	
+}
+.block_div{
+	
+	width:450px;	
+	height:350px;
+	float:left;
+}
+h3{
+	height:20px;
+	padding-top:20px;	
+
+	
+	display:inline;
+	
+	width:80%;
+	margin-bottom:10px;
+	padding-left:5px;
+	margin-left:15px;
+	
+	border-bottom-color:#666;
+	border-bottom-style:solid;
+	border-bottom-width:1px;
+
+}
+.help_div{
+	
+	margin-top:100px;
+	padding:7px;
+	
+	padding-top:10px;
+	
+	border-color:#333;
+	border-width:1px;
+	border-style:solid;
+	
+	background-color:#CCC;
+	
+	display:block;
+	width:350px;
+	height:120px;	
+}
+.help_div p{
+	margin-top:15px;
+	font-size:12px;	
+	line-height:18px;
+}
+#btnRegister,#btnVoegMedicineToe{
+	
+	width:100px;
+	padding:2px;
+	float:right;
+	margin-right:15px;	
+}
+
+
+#add_new_medicine,#btnEditMedicine{
+	
+	height:900px;	
+}
+.icon{
+	
+	width:10px;
+	
+	padding:2px;	
+	
+	text-align:center;
 }
