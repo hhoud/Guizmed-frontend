@@ -1,5 +1,7 @@
 $(document).ready(function(){
 	var m_info;
+	var m_info_template = Tempo.prepare('info');
+	var submed_info_template = Tempo.prepare("submed_info");
 	/**
 	 * Show more info about the chosen medicine.
 	 * @param m_id is the id of the medicine that has been chosen. 
@@ -11,7 +13,7 @@ $(document).ready(function(){
 		callWebservice("","/medicijnbeheer/show/med_form_id/"+m_id,function(data){
 			m_info = $.parseJSON(data);
 			//Render the page with all the info
-			Tempo.prepare("info").notify(function(event){
+			m_info_template.notify(function(event){
 				if(event.type == TempoEvent.Types.RENDER_COMPLETE){
 					$("#m_info tr td").each(function(){
 						if($(this).text() == "")
@@ -26,8 +28,11 @@ $(document).ready(function(){
 	
 	//Check the querystring for a medicine_id or patient_id
 	var m_id = $.QueryString("m_id");
+	var p_id = $.QueryString("p_id");
 	if(m_id)
 		showInfo(m_id);
+	if(!p_id)
+		$('#add_to_presc').hide();
 	
 	$(".filterinput").keyup(function () {
 		filterList($(this), $('#m_lookup'));
@@ -49,7 +54,6 @@ $(document).ready(function(){
 	});
 	
 	$('#add_to_presc').click(function(){
-		var p_id = $.QueryString("p_id");
 		window.location = 'patients.html?p_id='+p_id+'m_id='+$('#med_id').attr('name');
 	});
 	
@@ -65,7 +69,7 @@ $(document).ready(function(){
 		});
 		
 		//Render the page with all the info
-		Tempo.prepare("submed_info").notify(function(event){
+		submed_info_template.notify(function(event){
 			if(event.type == TempoEvent.Types.RENDER_COMPLETE){
 				$("#submed_info table tr td").each(function(){
 					if($(this).text() == "")

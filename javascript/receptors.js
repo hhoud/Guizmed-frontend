@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	var r_info_template = Tempo.prepare("info");
 	/**
 	 * Show more info about the chosen medicine.
 	 * @param r_id is the id of the medicine that has been chosen. 
@@ -10,7 +11,7 @@ $(document).ready(function(){
 		callWebservice("","/receptoren/show/med_chem_bonding_id/"+r_id,function(data){
 			var r_info = $.parseJSON(data);
 			//Render the page with all the info
-			Tempo.prepare("info").notify(function(event){
+			r_info_template.notify(function(event){
 				if(event.type == TempoEvent.Types.RENDER_COMPLETE){
 					$("#r_info tr td").each(function(){
 						if($(this).text() == "")

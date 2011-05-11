@@ -1,7 +1,7 @@
 /**
  * CONFIG
  * */
-var host = "http://www.guizmed.com.localhost/backend_dev.php";
+var host = "/backend_dev.php";
 
 /**
  * Create a cookie that stays alive for 20 minutes.
@@ -162,7 +162,12 @@ $(document).ready(function(){
 	 * Return one page
 	 * */
 	$(".btn_back").click(function(){
-		history.back();
+		if($('#lookup').is(':hidden')){
+			hidePages();
+			$('#lookup').show();
+		}else{
+			window.location="main.html";
+		}
 	});
 });
 

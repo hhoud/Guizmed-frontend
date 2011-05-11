@@ -1,5 +1,9 @@
 $(document).ready(function(){
 	
+	var p_info_template = Tempo.prepare("info");
+	var dialog_template = Tempo.prepare("dialog");
+	var presc_info_template = Tempo.prepare("presc_info");
+	
 	/**
 	 * Catch all input and filter the list
 	 */
@@ -49,11 +53,13 @@ $(document).ready(function(){
 			//check if the prescription was stopped and if it still has effect on the body
 			//create medicines in the p_info object
 			//TODO check Hlf effect on the body in the back-end
+			
+			//Create new objects to add new prescriptions and non-psychofarmaca
 			p_info.patient[0].prescriptions.push({"id":"new","med":{"name":"Nieuw..."}});
 			p_info.patient[0]["non_psycho"] = {"id":"new","name":"Nieuw..."};
 			
 			//Render the page with all the info
-			Tempo.prepare("info").notify(function(event){
+			p_info_template.notify(function(event){
 				if(event.type == TempoEvent.Types.RENDER_COMPLETE){
 					//remove the delete icon for the last row (adding a new item)
 					$('[name|="new"]').parent('li').find('a:nth-child(2)').hide();
@@ -72,7 +78,7 @@ $(document).ready(function(){
 		var del = {"stop_item":$(this).parents('li').find('a:first').text()};
 		
 		//render the dialog
-		Tempo.prepare("dialog").notify(function(event){
+		dialog_template.notify(function(event){
 			if(event.type == TempoEvent.Types.RENDER_COMPLETE){
 				//open the dialog when rendered
 				$('#dialog').dialog('open');
@@ -98,7 +104,7 @@ $(document).ready(function(){
 				var pr_info = $.parseJSON(data);
 				
 				//Render the page with all the info
-				Tempo.prepare("presc_info").notify(function(event){
+				presc_info_template.notify(function(event){
 					if(event.type == TempoEvent.Types.RENDER_COMPLETE){
 						$("#presc_info table tr td").each(function(){
 							if($(this).text() == "")
