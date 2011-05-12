@@ -9,6 +9,7 @@
 <link href="css/developer-style.css" rel="stylesheet" media="screen" type="text/css" />
 <link href="css/guizmed.css" rel="stylesheet" media="screen" type="text/css" />
 <link href="css/cupertino/jquery-ui-1.8.11.custom.css" rel="stylesheet" media="screen" type="text/css" />
+
 <script src="javascript/jquery_1.5.2.js" type="text/javascript"></script>
 <script src="javascript/jquery-ui-1.8.11.custom.min.js" type="text/javascript"></script>
 <script src="javascript/querystring-0.9.0-min.js" type="text/javascript"></script>
@@ -29,65 +30,67 @@
 </div>
 <div id="content">
     <div id="lookup">
-        <ul class="pageitem">
+        <ul class="pageitem top_search_bar">
             <form class="filterform" action="#">
                 <li class="bigfield"><input placeholder="Search ..." class="filterinput" type="text" /></li>            
             </form>
         </ul>
-        <ul class="pageitem" id="p_lookup" >
+        <ul class="pageitem list_view" id="p_lookup" >
             <li data-template class="p_item textbox" style="display:none"><span class="name" id="{{id}}">{{name}}</span></li>
         </ul>
     </div>
     <div id="info" style="display:none;">
-        <div id="accordion" data-template>
+        <div id="accordion" class="" data-template>
             <h3><a href="#">Persoonlijke gegevens</a></h3>
             <div>
-                <table id="{{personalInfo.id}}">
+                <table id="{{personalInfo.id}}" cellspacing="0px" >
                     <tr>
-                        <td>Naam:</td>
+                        <td class="name_tag">Naam:</td>
                         <td>{{personalInfo.lName}}</td>
                     </tr>
                     <tr>
-                        <td>Voornaam:</td>
+                        <td class="name_tag">Voornaam:</td>
                         <td>{{personalInfo.fName}}</td>
                     </tr>
                     <tr>
-                        <td>Geslacht:</td>
+                        <td class="name_tag">Geslacht:</td>
                         <td>{{personalInfo.sex}}</td>
                     </tr>
                     <tr>
-                        <td>Geboortedatum:</td>
+                        <td class="name_tag">Geboortedatum:</td>
                         <td>{{personalInfo.bDate}}</td>
                     </tr>
                     <tr>
-                        <td>Patiënt sinds:</td>
+                        <td class="name_tag">Patiënt sinds:</td>
                         <td>{{personalInfo.bDate}}</td>
                     </tr>
                 </table>
             </div>
             <h3><a href="#">Geneesmiddelen</a></h3>
             <div>
-                <ul>
+                <ul class="list_view_accordion">
                     <li data-template="meds">
-                        <a href="meds.html?m_id={{med_id}}">{{med_name}} {{start}}</a>
-                        <a href="#" class="del"><img src="images/icon_delete.gif" alt="Delete" /></a>
+                    	<a href="#" class="del"><img src="images/del_list.png" alt="Delete" /></a>
+                        <a href="meds.html?m_id={{med_id}}">{{med_name}} <span class="patient_start">{{start}}</span></a>
+                        
                     </li>
                 </ul>
             </div>
             <h3><a href="#">Voorschriften</a></h3>
             <div>
-                <ul>
+                <ul class="list_view_accordion">
                     <li data-template="prescriptions">
-                        <a href="#" class="presc" name="{{id}}">{{med.name}} {{start_date}}</a>
+                        <a href="#" class="presc patient_med" name="{{id}}">{{med.name}} <span class="patient_start">{{start_date}}</span></a>
                     </li>
                 </ul>
             </div>
             <h3><a href="#">Non-psychofarmaca</a></h3>
             <div>
-                <ul>
+                <ul class="list_view_accordion">
                     <li data-template="non_psycho">
-                        <a href="#" class="npsy" name="{{id}}">{{name}} {{start_date}}</a>
-                        <a href="#" class="del"><img src="images/icon_delete.gif" alt="Delete"/></a>
+                    	<a href="#" class="del"><img src="images/del_list.png" alt="Delete" /></a>
+                        <a href="#" class="npsy alink" name="{{id}}">{{name}}  <span class="patient_start">{{start_date}}</span></a>
+                      	
                     </li>
                 </ul>
             </div>
@@ -97,19 +100,20 @@
 
     <div id="pat_add" style="display:none">
         <form name="/patienten/create" method="post">
-            <ul class="pageitem">
-                <li class="bigfield"><input placeholder="Voornaam" type="text" name="fName" /></li>
-                <li class="bigfield"><input placeholder="Achternaam" type="text" name="lName" /></li>
-                <li class="bigfield"><input placeholder="Geboortedatum" type="text" name="bDate" class="datepicker" /></li>
+            <ul class="pageitem input_fields">
+                <li class="bigfield_override bigfield"><input placeholder="Voornaam" type="text" name="fName" /></li>
+                <li class="bigfield bigfield_override"><input placeholder="Achternaam" type="text" name="lName" /></li>
+                <li class="bigfield bigfield_override"><input placeholder="Geboortedatum" type="text" name="bDate" class="datepicker" /></li>
             </ul>
             <span class="graytitle">Geslacht</span>
-            <ul class="pageitem">
+            <ul class="pageitem radiobuttons">
                 <li class="radiobutton"><span class="name">Man</span>
                 <input name="sex" type="radio" value="M" /></li>
                 <li class="radiobutton"><span class="name">Vrouw</span>
                 <input name="sex" type="radio" value="F" /></li>
             </ul>
-            <a href="#" class="button" id="btn_add_patient">Toevoegen</a>
+            <span class="button_holder">
+            <a href="#" class="button" id="btn_add_patient">Toevoegen</a></span>
         </form>
     </div>
 
@@ -135,41 +139,41 @@
         </form>
     </div>
     <div id="presc_info" style="display:none">
-        <table data-template>
+        <table data-template id="presc_info_med">
             <tr>
-                <td>Geneesmiddel:</td>
+                <td class="name_tag">Geneesmiddel:</td>
                 <td><a href="meds.html?m_id={{med.id}}">{{med.name}}</a></td>
             </tr>
             <tr>
-                <td>Start datum:</td>
+                <td class="name_tag">Start datum:</td>
                 <td>{{start_date}}</td>
             </tr>
             <tr>
-                <td>Eind datum:</td>
+                <td class="name_tag">Eind datum:</td>
                 <td>{{end_date}}</td>
             </tr>
             <tr>
-                <td>Voorschrift datum:</td>
+                <td class="name_tag">Voorschrift datum:</td>
                 <td>{{presc_date}}</td>
             </tr>
             <tr>
-                <td>Dosis:</td>
+                <td class="name_tag">Dosis:</td>
                 <td>{{dose}}</td>
             </tr>
             <tr>
-                <td>Frequentie:</td>
+                <td class="name_tag">Frequentie:</td>
                 <td>{{frequency}}</td>
             </tr>
             <tr>
-                <td>Commentaar:</td>
+                <td class="name_tag">Commentaar:</td>
                 <td>{{comment}}</td>
             </tr>
             <tr>
-                <td>Stop datum:</td>
+                <td class="name_tag">Stop datum:</td>
                 <td>{{stop_date}}</td>
             </tr>
             <tr>
-                <td>Stop reden:</td>
+                <td class="name_tag">Stop reden:</td>
                 <td>{{stop_reason}}</td>
             </tr>
         </table>
