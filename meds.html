@@ -27,129 +27,129 @@
     <div id="title">Medicijnen</div>
 </div>
 <div id="content">
-    <div id="lookup">
-        <ul class="pageitem">
+    <div id="lookup" class="" >
+        <ul class="pageitem top_search_bar">
             <form class="filterform" action="#">
                 <li class="bigfield"><input placeholder="Search ..." class="filterinput" type="text" /></li>            
             </form>
         </ul>
-        <ul class="pageitem" id="m_lookup" >
+        <ul class="pageitem list_view" id="m_lookup" >
             <li data-template class="m_item textbox" style="display:none"><span class="name" id="{{id}}">{{speciality}}</span></li>
         </ul>
     </div>
     <div id="info" style="display:none">
-        <table id="m_info" data-template>
+        <table id="m_info" data-template >
             <tr>
-                <td>Hoofdklasse:</td>
+                <td class="name_tag">Hoofdklasse:</td>
                 <td>{{mainclass}}</td>
             </tr>
             <tr>
-                <td>Generische naam:</td>
+                <td class="name_tag">Generische naam:</td>
                 <td>{{gen_name}}</td>
             </tr>
             <tr>
-                <td>Specialiteit:</td>
+                <td class="name_tag">Specialiteit:</td>
                 <td>{{med_base}}</td>
             </tr>
             <tr>
-                <td>Type:</td>
+                <td class="name_tag">Type:</td>
                 <td>{{type.subtype1}} {{type.subtype2}}</td>
             </tr>
             <tr>
-                <td>Magistrale types:</td>
-                <td>&#160;</td>
+                <td class="name_tag">Magistrale types:</td>
+                <td >&#160;</td>
             </tr>
             <tr data-template="submeds">
-                <td>&#160;</td><td><a href="#" id="sub_info" name="{{med_form}}">{{med_magister_form}}</a></td>
+                <td class="goto_tag">&#160;</td><td class="goto_tag_a"><a href="#" id="sub_info" name="{{med_form}}">{{med_magister_form}}</a></td>
             </tr>
         </table>
         <p data-template-fallback>Sorry, javascript required!</p>
     </div>
     <div id="submed_info" style="display:none">
         <a href="#" id="add_to_presc" class="button">Toevoegen aan voorschrift</a>
-        <table data-template>
+        <table id="m_info_submed" data-template>
             <tr id="med_id" name="{{med_form}}">
-                <td>Magistraal type:</td>
+                <td class="name_tag">Magistraal type:</td>
                 <td>{{med_magister_form}}</td>
             </tr>
             <tr>
-                <td>Dosering:</td>
+                <td class="name_tag">Dosering:</td>
                 <td>{{Dose}}</td>
             </tr>
             <tr>
-                <td>Dopamine D1</td>
+                <td class="name_tag">Dopamine D1</td>
                 <td>{{Dopamine_D1}}</td>
             </tr>
             <tr>
-                <td>D2</td>
+                <td class="name_tag">D2</td>
                 <td>{{Dopamine_D2}}</td>
             </tr>
             <tr>
-                <td>D3</td>
+                <td class="name_tag">D3</td>
                 <td>{{Dopamine_D3}}</td>
             </tr>
             <tr>
-                <td>D4</td>
+                <td class="name_tag">D4</td>
                 <td>{{Dopamine_D4}}</td>
             </tr>
             <tr>
-                <td>D5</td>
+                <td class="name_tag">D5</td>
                 <td>{{Dopamine_D5}}</td>
             </tr>
             <tr>
-                <td>Histamine H1:</td>
+                <td class="name_tag">Histamine H1:</td>
                 <td>{{Histamine_H1}}</td>
             </tr>
             <tr>
-                <td>Muscarine ACh:</td>
+                <td class="name_tag">Muscarine ACh:</td>
                 <td>{{Muscarine_ACh}}</td>
             </tr>
             <tr>
-                <td>Alfa1</td>
+                <td class="name_tag">Alfa1</td>
                 <td>{{Alfa1}}</td>
             </tr>
             <tr>
-                <td>Alfa2</td>
+                <td class="name_tag">Alfa2</td>
                 <td>{{Alfa2}}</td>
             </tr>
             <tr>
-                <td>Serotonine 5HT2A</td>
+                <td class="name_tag">Serotonine 5HT2A</td>
                 <td>{{Serotonine_5HT2A}}</td>
             </tr>
             <tr>
-                <td>Serotonine 5HT2C</td>
+                <td class="name_tag">Serotonine 5HT2C</td>
                 <td>{{Serotonine_5HT2C}}</td>
             </tr>
             <tr>
-                <td>Bioavailability</td>
+                <td class="name_tag">Bioavailability</td>
                 <td>{{Bioavailability}}</td>
             </tr>
             <tr>
-                <td>Proteine binding</td>
+                <td class="name_tag">Proteine binding</td>
                 <td>{{Proteine_binding}}</td>
             </tr>
             <tr>
-                <td>T max h</td>
+                <td class="name_tag">T max h</td>
                 <td>{{T_max_h}}</td>
             </tr>
             <tr>
-                <td>Hlf</td>
+                <td class="name_tag">Hlf</td>
                 <td>{{Hlf}}</td>
             </tr>
             <tr>
-                <td>DDD</td>
+                <td class="name_tag">DDD</td>
                 <td>{{Ddd}}</td>
             </tr>
             <tr>
-                <td>Metabolism</td>
+                <td class="name_tag">Metabolism</td>
                 <td>{{metabolism}}</td>
             </tr>
             <tr>
-                <td>CYP450 activator</td>
+                <td class="name_tag">CYP450 activator</td>
                 <td>{{activator}}</td>
             </tr>
             <tr>
-                <td>CYP450 inhibitor</td>
+                <td class="name_tag">CYP450 inhibitor</td>
                 <td>{{inhibitor}}</td>
             </tr>
             
