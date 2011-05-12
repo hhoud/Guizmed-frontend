@@ -26,20 +26,20 @@
 </div>
 <div id="content">
     <div id="lookup">
-        <ul class="pageitem">
+        <ul class="pageitem top_search_bar">
             <form class="filterform" action="#">
                 <li class="bigfield"><input placeholder="Search ..." class="filterinput" type="text" /></li>            
             </form>
         </ul>
-        <ul class="pageitem" id="r_lookup" >
+        <ul class="pageitem list_view" id="r_lookup" >
             <li data-template class="r_item textbox" style="display:none"><span class="name" id="{{id}}">{{name}}</span></li>
         </ul>
     </div>
     <div id="info" style="display:none">
-        <div data-template>
-            <p id="{{id}}">{{name}}</p>
-            <ul class="pageitem">
-                <li data-template="meds"><a href="meds.html?m_id={{id}}">{{name}}, Ki: {{ki_value}}, Value: {{tagval}}</a></li>
+        <div data-template id="recept_name">
+            <p id="{{id}}"><img src="images/icon_info.png" alt="icon" />{{name}}</p>
+            <ul class="pageitem list_view">
+                <li data-template="meds" class="textbox"><a href="meds.html?m_id={{id}}">{{name}}<span class="v_value">{{tagval}}</span><span class="ki_value">{{ki_value}}</span></a></li>
             </ul>
         </div>
         <p data-template-fallback>Sorry, javascript required!</p>

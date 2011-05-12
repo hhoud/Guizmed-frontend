@@ -89,6 +89,8 @@ a:hover .arrow {
 #leftnav a, #rightnav a, #leftbutton a, #rightbutton a, #blueleftbutton a, #bluerightbutton a , #rightbutton span, #leftbutton span{
 	line-height: 30px;
 	height: 30px;
+	padding-left:5px;
+	padding-right:5px;
 }
 #leftnav img, #rightnav img {
 	margin-top: 4px;
@@ -129,6 +131,8 @@ a:hover .arrow {
 #leftnav a, #rightnav a, #leftbutton a, #rightbutton a, #blueleftbutton a, #bluerightbutton a, #rightbutton span, #leftbutton span {
 	line-height: 24px;
 	height: 24px;
+	padding-left:5px;
+	padding-right:5px;
 }
 #leftnav img, #rightnav img {
 	margin-top: 4px;
@@ -252,20 +256,6 @@ a:hover .arrow {
 	font-size: 9pt;
 	color: #4C4C4C;
 	text-shadow: #FFF 0 1px 0;
-}
-.pageitem {
-	-webkit-border-radius: 8px;
-	background-color: #fff;
-	border: #878787 solid 1px;
-	font-size: 12pt;
-	overflow: hidden;
-	padding: 0;
-	position: relative;
-	display: block;
-	height: auto;
-	width: auto;
-	margin: 3px 9px 17px;
-	list-style: none;
 }
 .textbox {
 	padding: 5px 9px;
@@ -444,7 +434,7 @@ fieldset {
 	position: relative;
 	list-style-type: none;
 	display: block;
-	height: 43px;
+	height: 32px;
 	overflow: hidden;
 	border-top: 1px solid #878787;
 	width: auto;
@@ -942,8 +932,8 @@ li:last-child.store .image, .store:last-child a {
 }
 #leftnav a, #rightnav a, #leftbutton a, #rightbutton a, #blueleftbutton a, #bluerightbutton a, #rightbutton span, #leftbutton span {
 	display: block;
-	color: #fff;
-	text-shadow: rgba(0,0,0,0.6) 0 -1px 0;
+	color: #3E3E3E;
+	text-shadow: rgba(0,0,0,0.1) 0 -1px 0;
 	text-decoration: none;
 }
 #leftbutton span:hover, #rightbutton span:hover{
