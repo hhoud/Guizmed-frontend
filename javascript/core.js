@@ -86,23 +86,34 @@ function processForm($btn, callback){
 	// get all the inputs into an array.
 	var $form = $btn.parents("form");
     var $inputs = $form.find(':input');
+    var validCheck = true;
 
     // get an associative array of just the values.
     var data = {};
     $inputs.each(function() {
-    	if($(this).attr('type')=="radio"){
-    		if($(this).is(':checked'))
+    	if($(this).val().split(' ').join('') != ""){
+    		$(this).parent().addClass("valid");
+    		$(this).parent().removeClass("notvalid");
+    		if($(this).attr('type')=="radio"){
+    			if($(this).is(':checked'))
+    				data[this.name] = $(this).val();
+    		}else if($(this).attr('class')!="no_process"){
     			data[this.name] = $(this).val();
-    	}else if($(this).attr('class')!="no_process"){
-    		data[this.name] = $(this).val();
+    		}
+    	}else{
+    		validCheck = false;
+    		$(this).parent().addClass("notvalid");
+    		$(this).parent().removeClass("valid");
     	}
     });
-
-    //the form should have the path as name attribute
-    var path = $form.attr("name");
-
-    //send the data to the database and if successful, show the new patient's page.
-    callWebservice(data, path, callback);
+    if(validCheck){
+	    //the form should have the path as name attribute
+	    var path = $form.attr("name");
+	    //send the data to the database and if successful, show the new patient's page.
+	    callWebservice(data, path, callback);
+    }else{
+    	callback(false);
+    }
 }
 
 /**

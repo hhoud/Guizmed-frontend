@@ -114,6 +114,7 @@ $(document).ready(function(){
 	
 	$('#btn_add_patient').click(function(){
 		processForm($(this), function(data){
+			var test = $.parseJSON(data);
 			hidePages();
 	    	$('#p_info').show();
 		});
