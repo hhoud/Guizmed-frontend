@@ -1015,6 +1015,7 @@ li:last-child.store .image, .store:last-child a {
 	-webkit-border-bottom-right-radius:16px
 }
 #leftbutton a, #rightbutton a {
+	-moz-border-image:url("../images/navbutton.png") 0 5 0 5;
 	-webkit-border-image:url("../images/navbutton.png") 0 5 0 5;
 	border-width:0 5px;
 	-webkit-border-radius:6px
