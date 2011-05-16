@@ -28,10 +28,10 @@
 <div id="content">
     <div id="login">
         <img src="images/logo.png" width="100px" id="front_logo" />
-        <form name="/inlog/inlog/" method="post">
+        <form name="login" method="post">
             <ul class="pageitem">
-                <li class="bigfield"><input placeholder="Username" type="text" name="uName" /></li>
-                <li class="bigfield"><input placeholder="Paswoord" type="password" name="pWord" /></li>
+                <li class="bigfield"><input placeholder="Username" type="text" /></li>
+                <li class="bigfield"><input placeholder="Paswoord" type="password" /></li>
             </ul>
             <a href="#" class="button">Login</a>
         </form>
