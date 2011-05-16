@@ -93,7 +93,7 @@ function processForm($btn, callback){
     	if($(this).attr('type')=="radio"){
     		if($(this).is(':checked'))
     			data[this.name] = $(this).val();
-    	}else{
+    	}else if($(this).attr('class')!="no_process"){
     		data[this.name] = $(this).val();
     	}
     });
@@ -103,19 +103,6 @@ function processForm($btn, callback){
 
     //send the data to the database and if successful, show the new patient's page.
     callWebservice(data, path, callback);
-    
-    /*switch(path){
-		case "login":
-			//redirect to the main page if successful
-		    if(($inputs[0].value == "test") && ($inputs[0].value == "test")){
-		    	//show main page
-		    	window.location = "main.html";
-		    }else{
-		    	//show error
-		    	$('#dialog').dialog('open');
-		    }
-		    break;
-    }*/
 }
 
 /**

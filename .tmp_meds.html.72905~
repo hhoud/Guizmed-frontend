@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="yes" name="apple-mobile-web-app-capable" />
+<meta content="text/html" http-equiv="Content-Type" />
+<meta content="minimum-scale=1.0, width=device-width, maximum-scale=0.6667, user-scalable=no" name="viewport" />
+<link href="css/style.css" rel="stylesheet" media="screen" type="text/css" />
+<link href="css/guizmed.css" rel="stylesheet" media="screen" type="text/css" />
+<link href="css/cupertino/jquery-ui-1.8.11.custom.css" rel="stylesheet" media="screen" type="text/css" />
+<script src="javascript/jquery_1.5.2.js" type="text/javascript"></script>
+<script src="javascript/jquery-ui-1.8.11.custom.min.js" type="text/javascript"></script>
+<script src="javascript/functions.js" type="text/javascript"></script>
+<script src="javascript/querystring-0.9.0-min.js" type="text/javascript"></script>
+<script src="javascript/core.js" type="text/javascript"></script>
+<script src="javascript/tempo.min.js" type="text/javascript"></script>
+<script src="javascript/meds.js" type="text/javascript"></script>
+<title>Guizmed - Medicijnen</title>
+<meta content="Guizmed,Guislain,Psychiatric,clinic, psychiatrisch, ziekenhuis, psychiater, psychiatrist, medicine, geneesmiddelen" name="keywords" />
+<meta content="Description of your page" name="description" />
+</head>
+
+<body>
+
+<div id="topbar">
+    <div id="leftbutton"><a href="#" class="btn_back">Main</a></div>
+    <div id="title">Medicijnen</div>
+</div>
+<div id="content">
+    <div id="lookup" class="" >
+        <ul class="pageitem top_search_bar">
+            <form class="filterform" action="#">
+                <li class="bigfield"><input placeholder="Search ..." class="filterinput" type="text" /></li>            
+            </form>
+        </ul>
+        <ul class="pageitem list_view" id="m_lookup" >
+            <li data-template class="m_item textbox" style="display:none"><span class="name" id="{{id}}">{{speciality}}</span></li>
+        </ul>
+    </div>
+    <div id="info" style="display:none">
+        <table id="m_info" data-template >
+            <tr>
+                <td class="name_tag">Hoofdklasse:</td>
+                <td>{{mainclass}}</td>
+            </tr>
+            <tr>
+                <td class="name_tag">Generische naam:</td>
+                <td>{{gen_name}}</td>
+            </tr>
+            <tr>
+                <td class="name_tag">Specialiteit:</td>
+                <td>{{med_base}}</td>
+            </tr>
+            <tr>
+                <td class="name_tag">Type:</td>
+                <td>{{type.subtype1}} {{type.subtype2}}</td>
+            </tr>
+            <tr>
+                <td class="name_tag">Magistrale types:</td>
+                <td >&#160;</td>
+            </tr>
+            <tr data-template="submeds">
+                <td class="goto_tag">&#160;</td><td class="goto_tag_a"><a href="#" id="sub_info" name="{{med_form}}">{{med_magister_form}}</a></td>
+            </tr>
+        </table>
+        <p data-template-fallback>Sorry, javascript required!</p>
+    </div>
+    <div id="submed_info" style="display:none">
+        <a href="#" id="add_to_presc" class="button">Toevoegen aan voorschrift</a>
+        <table id="m_info_submed" data-template>
+            <tr id="med_id" name="{{med_form}}">
+                <td class="name_tag">Magistraal type:</td>
+                <td>{{med_magister_form}}</td>
+            </tr>
+            <tr>
+                <td class="name_tag">Dosering:</td>
+                <td>{{Dose}}</td>
+            </tr>
+            <tr>
+                <td class="name_tag">Dopamine D1</td>
+                <td>{{Dopamine_D1}}</td>
+            </tr>
+            <tr>
+                <td class="name_tag">D2</td>
+                <td>{{Dopamine_D2}}</td>
+            </tr>
+            <tr>
+                <td class="name_tag">D3</td>
+                <td>{{Dopamine_D3}}</td>
+            </tr>
+            <tr>
+                <td class="name_tag">D4</td>
+                <td>{{Dopamine_D4}}</td>
+            </tr>
+            <tr>
+                <td class="name_tag">D5</td>
+                <td>{{Dopamine_D5}}</td>
+            </tr>
+            <tr>
+                <td class="name_tag">Histamine H1:</td>
+                <td>{{Histamine_H1}}</td>
+            </tr>
+            <tr>
+                <td class="name_tag">Muscarine ACh:</td>
+                <td>{{Muscarine_ACh}}</td>
+            </tr>
+            <tr>
+                <td class="name_tag">Alfa1</td>
+                <td>{{Alfa1}}</td>
+            </tr>
+            <tr>
+                <td class="name_tag">Alfa2</td>
+                <td>{{Alfa2}}</td>
+            </tr>
+            <tr>
+                <td class="name_tag">Serotonine 5HT2A</td>
+                <td>{{Serotonine_5HT2A}}</td>
+            </tr>
+            <tr>
+                <td class="name_tag">Serotonine 5HT2C</td>
+                <td>{{Serotonine_5HT2C}}</td>
+            </tr>
+            <tr>
+                <td class="name_tag">Bioavailability</td>
+                <td>{{Bioavailability}}</td>
+            </tr>
+            <tr>
+                <td class="name_tag">Proteine binding</td>
+                <td>{{Proteine_binding}}</td>
+            </tr>
+            <tr>
+                <td class="name_tag">T max h</td>
+                <td>{{T_max_h}}</td>
+            </tr>
+            <tr>
+                <td class="name_tag">Hlf</td>
+                <td>{{Hlf}}</td>
+            </tr>
+            <tr>
+                <td class="name_tag">DDD</td>
+                <td>{{Ddd}}</td>
+            </tr>
+            <tr>
+                <td class="name_tag">Metabolism</td>
+                <td>{{metabolism}}</td>
+            </tr>
+            <tr>
+                <td class="name_tag">CYP450 activator</td>
+                <td>{{activator}}</td>
+            </tr>
+            <tr>
+                <td class="name_tag">CYP450 inhibitor</td>
+                <td>{{inhibitor}}</td>
+            </tr>
+            
+        </table>
+        <p data-template-fallback>Sorry, javascript required!</p>
+    </div>
+</div>
+<div id="footer">
+	<!-- Support iWebKit by sending us traffic; please keep this footer on your page, consider it a thank you for our work :-) -->
+	<a class="noeffect" href="http://snippetspace.com">Powered by iWebKit</a></div>
+
+</body>
+
+</html>

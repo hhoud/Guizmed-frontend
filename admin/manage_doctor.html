@@ -8,9 +8,13 @@
 			@import "css/demo_table.css";
 		</style>
         <link type="text/css" rel="stylesheet" href="css/adminfrontend.css"/>
-        <script type="text/javascript" language="javascript" src="js/jquery.js"></script>
-        <script type="text/javascript" language="javascript" src="js/jquery.dataTables.js"></script>
-        <script type="text/javascript" src="js/manage_doctor.js"></script>
+        <link href="../css/cupertino/jquery-ui-1.8.11.custom.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="../javascript/jquery_1.5.2.js"></script>
+        <script type="text/javascript" language="javascript" src="../javascript/jquery.dataTables.js"></script>
+        <script type="text/javascript" src="../javascript/tempo.min.js"></script>
+        <script type="text/javascript" src="../javascript/jquery-ui-1.8.11.custom.min.js"></script>
+        <script type="text/javascript" src="../javascript/core.js"></script>
+        <script type="text/javascript" src="../javascript/manage_doctor.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Guizmed - Management panel</title>
 </head>
@@ -80,107 +84,101 @@
     
     <div class="block_div">
     <h3>Personal information</h3>
-      <form id='register_doctor'  method='post' accept-charset='UTF-8'>
+      <form id='register_doctor' name='/users/create' accept-charset='UTF-8'>
         <fieldset >
-    <div class="component_group">
-       <label for='username' >Name:</label>
-       <input type='text' name='name' id='name'  maxlength="50" />
-    </div>
-    <div class="component_group">
-       <label for='username' >Firstname:</label>
-       <input type='text' name='firstname' id='firstname'  maxlength="50" />
-     </div>
-      <div class="component_group">
-       <label for='username' >Phone number:</label>
-       <input type='text' name='phonenumber' id='phonenumber'  maxlength="50" />
-     </div>
-      <div class="component_group">
-       <label for='username' >E-mail:</label>
-       <input type='text' name='e-mail' id='email'  maxlength="80" />
-     </div>
-        <div class="component_group">
-         <input type='submit' name='Submit' value='Submit' id="btnRegister" />
-     </div>
-     
+            <div class="component_group">
+               <label for='username' >Name:</label>
+               <input type='text' name='lName' id='name'  maxlength="50" />
+            </div>
+            <div class="component_group">
+               <label for='username' >Firstname:</label>
+               <input type='text' name='fName' id='firstname'  maxlength="50" />
+             </div>
+              <div class="component_group">
+               <label for='username' >Phone number:</label>
+               <input type='text' name='phone' id='phonenumber'  maxlength="50" />
+             </div>
+              <div class="component_group">
+               <label for='username' >E-mail:</label>
+               <input type='text' name='eMail' id='email'  maxlength="80" />
+             </div>
+             <div class="component_group">
+                 <input type='submit' name='Submit' value='Submit' id="btnRegister" class="no_process" />
+             </div>
      </fieldset>
      </form>
     </div>
   	<div class="block_div">
-    <div class="help_div">
-    <h4>Some extra information:</h4>
-    <p>The system will use a combination of name and firstname to create a logical username. Password will be generated to match a secure password. All this information will be directly e-mail to the user.
-    </p>
-    </div>
+        <div class="help_div">
+            <h4>Some extra information:</h4>
+            <p>The system will use a combination of name and firstname to create a logical username. Password will be generated to match a secure password. All this information will be directly e-mail to the user.</p>
+        </div>
     </div>
     </div>
 
     <h2>All doctors</h2>
-    <div id="patient_list_commands">
-   
-    </div>
     <div id="doctor_list">
     <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
-	<thead>
-		<tr>
-			<th>Name</th>
-			<th>Firstname</th>
-			<th>Phone number</th>
-			<th class="icon"></th>
-            <th class="icon"></th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>Dr. Peeters</td>
-			<td>Hans mee</td>
-			<td>0473537795</td>
-			<td class="icon"><a href="/" title="edit" ><img src="images/edit_icon.png" alt="Edit icon"/></a></td>
-           	<td class="icon"><a href="/" title="delete"><img src="images/icon_cross.png" alt="cross icon"/></a></td>
-		</tr>
-        <tr>
-			<td>Dr. Peeters</td>
-			<td>Hans mee</td>
-			<td>0473537795</td>
-			<td class="icon"><a href="/" title="edit" ><img src="images/edit_icon.png" alt="Edit icon"/></a></td>
-           	<td class="icon"><a href="/" title="delete"><img src="images/icon_cross.png" alt="cross icon"/></a></td>
-		</tr>
-        <tr>
-			<td>Dr. Peeters</td>
-			<td>Hans mee</td>
-			<td>0473537795</td>
-			<td class="icon"><a href="/" title="edit" ><img src="images/edit_icon.png" alt="Edit icon"/></a></td>
-           	<td class="icon"><a href="/" title="delete"><img src="images/icon_cross.png" alt="cross icon"/></a></td>
-		</tr>
-        <tr>
-			<td>Dr. Peeters</td>
-			<td>Hans mee</td>
-			<td>0473537795</td>
-			<td class="icon"><a href="/" title="edit" ><img src="images/edit_icon.png" alt="Edit icon"/></a></td>
-           	<td class="icon"><a href="/" title="delete"><img src="images/icon_cross.png" alt="cross icon"/></a></td>
-		</tr>
-        <tr>
-			<td>Dr. Peeters</td>
-			<td>Hans mee</td>
-			<td>0473537795</td>
-			<td class="icon"><a href="/" title="edit" ><img src="images/edit_icon.png" alt="Edit icon"/></a></td>
-           	<td class="icon"><a href="/" title="delete"><img src="images/icon_cross.png" alt="cross icon"/></a></td>
-		</tr>
-        <tr>
-			<td>Dr. Peeters</td>
-			<td>Hans mee</td>
-			<td>0473537795</td>
-			<td class="icon"><a href="/" title="edit" ><img src="images/edit_icon.png" alt="Edit icon"/></a></td>
-           	<td class="icon"><a href="/" title="delete"><img src="images/icon_cross.png" alt="cross icon"/></a></td>
-		</tr>
-	
-	</tbody>
-	
-</table>
-<div class="spacer"></div>
+    	<thead>
+    		<tr>
+    			<th>Naam</th>
+    			<th>Voornaam</th>
+    			<th>Telefoon</th>
+                <th>E-mail</th>
+    			<th class="icon"></th>
+                <th class="icon"></th>
+    		</tr>
+    	</thead>
+    	<tbody id="u_lookup">
+    		<tr data-template>
+    			<td>Dr. {{lname}}</td>
+    			<td>{{fname}}</td>
+    			<td>{{phone}}</td>
+                <td>{{email}}</td>
+    			<td class="icon"><a href="#" title="edit" name="{{id}}" class="u_item"><img src="images/edit_icon.png" alt="Edit icon"/></a></td>
+               	<td class="icon"><a href="#" title="delete" name="{{id}}" class="del_item"><img src="images/icon_cross.png" alt="cross icon"/></a></td>
+    		</tr>
+    	</tbody>
+    </table>
+  <div class="spacer"></div>
+    </div>
+    <div id="doctor_info" style="display:none;">
+        <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+            <tbody id="u_info">
+                <tr data-template>
+                    <td>Naam</td>
+                    <td>Dr. {{lname}}</td>
+                </tr>
+                <tr>
+                    <td>Voornaam</td>
+                    <td>{{fname}}</td>
+                </tr>
+                <tr>
+                    <td>Telefoon</td>
+                    <td>{{phone}}</td>
+                </tr>
+                <tr>
+                    <td>E-mail</td>
+                    <td>{{email}}</td>
+                </tr>
+                <tr>
+                    <td>Functie</td>
+                    <td>{{function}}</td>
+                </tr>
+                <tr>
+                    <td>Rol</td>
+                    <td>{{role}}</td>
+                </tr>
+            </tbody>
+        </table>
+      <div class="spacer"></div>
     </div>
       <div id="footer"><p>Guizmed team</p></div>
   </div>
-
+</div>
+<!-- ui-dialog -->
+<div id="del_dialog" title="Dokter verwijderen" style="display:none;">
+    <p>Bent u zeker dat u <span id="del_name"></span> wil verwijderen?</p>
 </div>
 
 </body>

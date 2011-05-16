@@ -54,7 +54,7 @@ $(document).ready(function(){
 	});
 	
 	$('#add_to_presc').click(function(){
-		window.location = 'patients.html?p_id='+p_id+'m_id='+$('#med_id').attr('name');
+		window.location = 'patients.html?p_id='+p_id+'&m_id='+$('#med_id').attr('name');
 	});
 	
 	$('#sub_info').live('click',function(){

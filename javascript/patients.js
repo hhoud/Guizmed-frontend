@@ -3,6 +3,10 @@ $(document).ready(function(){
 	var p_info_template = Tempo.prepare("info");
 	var dialog_template = Tempo.prepare("dialog");
 	var presc_info_template = Tempo.prepare("presc_info");
+	var p_id;
+	var presc_id;
+	var stop_item;
+	var stop_item_id;
 	
 	/**
 	 * Catch all input and filter the list
@@ -13,15 +17,24 @@ $(document).ready(function(){
 	
 	/**
 	 * Convert dialog div into dialog and hide it
+	 * This dialog is a confirmation dialog to stop meds
 	 */
 	$('#dialog').dialog({
 		autoOpen: false,
 		width: 'auto',
 		buttons: {
-			"Yes": function() { 
-				$(this).dialog("close"); 
+			"Yes": function() {
+				data = {"reason":$('#stop_reason').val()};
+				if(stop_item=="med")path="/voorschriften/stop/ad_presc_id/";
+				if(stop_item=="npsy")path="/nonPsycho/stop/nonpsycho_id/";
+					
+				callWebservice(data, path+stop_item_id, function(){
+					//Reload the patient_info
+					showInfo(p_id);
+				});
+				$(this).dialog("close");
 			},
-			"No": function(){
+			Cancel: function(){
 				$(this).dialog("close");
 			}
 		}
@@ -43,11 +56,11 @@ $(document).ready(function(){
 		Tempo.prepare("p_lookup").render(patients.allPatients);
 	});
 	
-	$('.p_item').live('click',function(){
-		//Hide the other pages
-		$("#lookup").hide();
-		//retrieve patient info
-		var p_id = $(this).find('span').attr('id');
+	/**
+	 * Show all information about a patient
+	 * p_id: the id of the patient.
+	 */
+	function showInfo(p_id){
 		callWebservice("","/patienten/show/patient_id/"+p_id,function(data){
 			var p_info = $.parseJSON(data);
 			//check if the prescription was stopped and if it still has effect on the body
@@ -56,13 +69,14 @@ $(document).ready(function(){
 			
 			//Create new objects to add new prescriptions and non-psychofarmaca
 			p_info.patient[0].prescriptions.push({"id":"new","med":{"name":"Nieuw..."}});
-			p_info.patient[0]["non_psycho"] = {"id":"new","name":"Nieuw..."};
+			p_info.patient[0].non_psycho.push({"id":"new","name":"Nieuw..."});
 			
 			//Render the page with all the info
 			p_info_template.notify(function(event){
 				if(event.type == TempoEvent.Types.RENDER_COMPLETE){
 					//remove the delete icon for the last row (adding a new item)
 					$('[name|="new"]').parent('li').find('a:nth-child(2)').hide();
+					$('[name|="new"]').parent('li').find('.patient_start').hide();
 					//activate the accordion
 					$('#accordion').accordion({ fillSpace: true, active: 1, collapsible: true });
 				}
@@ -70,10 +84,22 @@ $(document).ready(function(){
 			//Show the info page of the patient
 			$("#info").show();
 		});
+	}
+	
+	$('.p_item').live('click',function(){
+		//Hide the other pages
+		$("#lookup").hide();
+		//retrieve patient info
+		p_id = $(this).find('span').attr('id');
+		showInfo(p_id);
 	});
 	
 	//bind the delete function to the icon
 	$('.del').live('click',function(){
+		//save the prescription id
+		stop_item_id = $(this).attr('name');
+		//check if it's a prescription or a med that's being stopped
+		stop_item = ($(this).siblings('a').hasClass('med'))?"med":"npsy";
 		//find the text of the item that has to be stopped
 		var del = {"stop_item":$(this).parents('li').find('a:first').text()};
 		
@@ -136,14 +162,21 @@ $(document).ready(function(){
 	});
 	
 	//if there's a patient_id, show the add_prescription for this patient
-	var p_id = $.QueryString("p_id");
+	p_id = $.QueryString("p_id");
 	if(p_id){
 		hidePages();
 		$('#presc_add').show();
-		//TODO: get the name of the medicine for which the m_id is in the url and show it
-		//$('#presc_add input[name="medFormId"]').attr('placeholder') = ;
+		//put the patient id in the form (hidden)
+		$('#presc_add input[name="patientId"]').attr('value', p_id);
+		//get the medication id
 		var m_id = $.QueryString("m_id");
-		$('#presc_add input[name="medFormId"]').attr('value',m_id);
+		//get the name of the medicine for the m_id
+		callWebservice("","/medicijnbeheer/show/m_id/"+m_id,function(data){
+			var m_info = $.parseJSON(data);
+			//Show the name of the med in the form and put the id in the value
+			$('#presc_add input[name="medFormId"]').attr('placeholder') = m_info.medicine.name;
+			$('#presc_add input[name="medFormId"]').val(m_id);
+		});
 	}
 	
 	$('#presc_s_med').click(function(){
