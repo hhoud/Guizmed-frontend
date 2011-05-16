@@ -79,15 +79,22 @@ body{
 	
 	display:block;
 	width:100px;
-	height:80px;
+	height:90px;
 	margin-left:auto;
 	margin-right:auto;
-	padding-top:15px;
+	padding-top:5px;
 	text-align:center;
 	
 	-webkit-border-radius: 8px;
 	background-color: #fff;
 	border: #878787 solid 1px;
+	
+	text-decoration:none;
+	
+	color:#000;
+	
+	font-size:14px;
+	line-height:16px;
 		
 }
 #notifications{
@@ -462,4 +469,11 @@ body{
 	color:#000;
 	
 	margin-left:20px;	
+}
+.notvalid{
+	background-color:#FF4242;
+		
+}
+.valid{
+	background-color:white;
 }
