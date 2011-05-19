@@ -114,13 +114,14 @@
     </div>
 
     <div id="presc_add" style="display:none">
-        <form name="prescription_add" method="post">
+        <form name="/voorschriften/create" method="post">
             <ul class="pageitem">
                 <input type="hidden" name="patientId" />
-                <li class="smallfield"><input placeholder="Geneesmiddel" type="text" disabled="true" name="medFormId" /><a href="#" id="presc_s_med"><img src="images/icon_search.png" alt="Search" /></a></li>
+                <li class="smallfield"><input placeholder="Geneesmiddel" type="text" disabled="true" name="medName" class="no_process" /><a href="#" id="presc_s_med"><img src="images/icon_search.png" alt="Search" /></a></li>
+                <input type="hidden" name="medFormId" />
                 <li class="bigfield"><input placeholder="Dosering" type="text" name="dose" /></li>
                 <li class="bigfield"><input placeholder="Frequentie" type="text" name="frequency" /></li>
-                <li class="bigfield"><input placeholder="Start datum" type="text" class="datepicker" name="startdate" /></li>
+                <li class="bigfield"><input placeholder="Start datum" type="text" class="datepicker" name="startDate" /></li>
                 <li class="textbox"><span class="header">Aanvullingen</span><textarea name="comment" rows="4"></textarea></li>
             </ul>
             <a href="#" id="btn_presc_add" class="button">Toevoegen</a>
@@ -180,6 +181,10 @@
 <div id="dialog" title="Medicatie stoppen" style="display:none;">
     <p data-template>Waarom wil u {{stop_item}} stopzetten?</p>
     <p><textarea id="stop_reason" name="reason" rows="4"></textarea></p>
+</div>
+<!-- ui-dialog -->
+<div id="error_dialog" title="Fout!" style="display:none;">
+    <p>Er is een fout gebeurd, gelieve opnieuw te proberen.</p>
 </div>
 <div id="footer">
     <!-- Support iWebKit by sending us traffic; please keep this footer on your page, consider it a thank you for our work :-) -->

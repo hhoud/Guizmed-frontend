@@ -35,26 +35,24 @@
             </ul>
             <a href="#" class="button">Login</a>
         </form>
-        <p><a href="#" id="btn_first_login">Eerste Login</a></p>
     </div>
     <div id="unlock" style="display:none;">
-        <p>
-            <label for="password">Paswoord</label>
-            <input type="password" name="password" id="unlockField" />
-            <button id="unlock_submit">Verzenden</button>
-        </p>
+        <form name="/inlog/unlock">
+            <label for="password">PIN code: </label>
+            <input type="password" name="unlock" id="unlockField" />
+            <a href="#" id="unlock_submit" class="button">Ontgrendelen</button>
+        </form>
     </div>
     <div id="first_login" style="display:none;">
        <form name="first_login" method="post">
             <ul class="pageitem">
-                <li class="bigfield"><input placeholder="Username" type="text" name="uname"/></li>
-                <li class="bigfield"><input placeholder="Oud Paswoord" type="password" name="old_pass" /></li>
-                <li class="bigfield"><input placeholder="Nieuw Paswoord" type="password" name="new_pass" id="new_pass" /></li>
+                <li class="bigfield"><input placeholder="Username" type="text" name="uName"/></li>
+                <li class="bigfield"><input placeholder="Oud Paswoord" type="password" name="old" /></li>
+                <li class="bigfield"><input placeholder="Nieuw Paswoord" type="password" name="new" id="new_pass" /></li>
                 <li class="bigfield"><input placeholder="Bevestig Paswoord" type="password" name="confirm_pass" class="no_process" id="conf_pass" /></li>
                 <p>
                     <label for="password">PIN combinatie</label>
-                    <input type="password" name="password" id="pin" />
-                    <button id="unlock_submit">Verzenden</button>
+                    <input type="password" name="unlock" id="pin" />
                 </p>
             </ul>
             <a href="#" class="button" id="btn_register">Registreer</a>

@@ -140,18 +140,19 @@
     		</tr>
     	</tbody>
     </table>
+    <p id="test_clear">Clear</p>
   <div class="spacer"></div>
     </div>
     <div id="doctor_info" style="display:none;">
-        <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
-            <tbody id="u_info">
-                <tr data-template>
+        <table cellpadding="0" cellspacing="0" border="0" class="display" id="u_info">
+            <tbody data-template>
+                <tr>
                     <td>Naam</td>
-                    <td>Dr. {{lname}}</td>
+                    <td>Dr. {{lName}}</td>
                 </tr>
                 <tr>
                     <td>Voornaam</td>
-                    <td>{{fname}}</td>
+                    <td>{{fName}}</td>
                 </tr>
                 <tr>
                     <td>Telefoon</td>
@@ -180,6 +181,13 @@
 <div id="del_dialog" title="Dokter verwijderen" style="display:none;">
     <p>Bent u zeker dat u <span id="del_name"></span> wil verwijderen?</p>
 </div>
-
+<!-- ui-dialog -->
+<div id="error" title="Fout">
+    <p>Er is een fout gebeurd, gelieve opnieuw te proberen.</p>
+</div>
+<!-- ui-dialog -->
+<div id="success" title="Succesvol toegevoegd">
+    <p>De nieuwe gebruiker is succesvol toegevoegd.</p>
+</div>
 </body>
 </html>

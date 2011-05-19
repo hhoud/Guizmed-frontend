@@ -12,6 +12,12 @@ $(document).ready(function(){
 		//Retrieve med info
 		callWebservice("","/medicijnbeheer/show/med_form_id/"+m_id,function(data){
 			m_info = $.parseJSON(data);
+			//Add a "unknown type" text if the magister form is unknown
+			for(var i in m_info.medicine[0].submeds){
+				if(m_info.medicine[0].submeds[i].med_magister_form == ""){
+					m_info.medicine[0].submeds[i].med_magister_form = "Onbekend type";
+				}
+			}
 			//Render the page with all the info
 			m_info_template.notify(function(event){
 				if(event.type == TempoEvent.Types.RENDER_COMPLETE){

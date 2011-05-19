@@ -40,6 +40,20 @@ $(document).ready(function(){
 		}
 	});
 	
+	/**
+	 * Convert dialog div into dialog and hide it
+	 * This dialog is a confirmation dialog to stop meds
+	 */
+	$('#error_dialog').dialog({
+		autoOpen: false,
+		width: 'auto',
+		buttons: {
+			"OK": function() {
+				$(this).dialog("close");
+			}
+		}
+	});
+	
 	$('.datepicker').datepicker({ autoSize: true, dateFormat: 'yy-mm-dd' });
 	
 	$('.pat_add').click(function(ev){
@@ -114,9 +128,9 @@ $(document).ready(function(){
 	
 	$('#btn_add_patient').click(function(){
 		processForm($(this), function(data){
-			var test = $.parseJSON(data);
+			var patient = $.parseJSON(data);
 			hidePages();
-	    	$('#p_info').show();
+			showInfo(patient.patient[0].personalInfo.id);
 		});
 	});
 	
@@ -157,8 +171,15 @@ $(document).ready(function(){
 	
 	$('#btn_presc_add').click(function(){
 		processForm($(this),function(data){
-			hidePages();
-	    	$('#p_info').show();
+			if(!data){
+				return false;
+			}else{
+				//check if the insert was successful
+				var result = $.parseJSON(data);
+				//show the patient info
+				hidePages();
+				showInfo(p_id);
+			}
 		});
 	});
 	
@@ -170,13 +191,17 @@ $(document).ready(function(){
 		//put the patient id in the form (hidden)
 		$('#presc_add input[name="patientId"]').attr('value', p_id);
 		//get the medication id
-		var m_id = $.QueryString("m_id");
+		var m_id = $.QueryString("m_id").replace('#','');
 		//get the name of the medicine for the m_id
-		callWebservice("","/medicijnbeheer/show/m_id/"+m_id,function(data){
-			var m_info = $.parseJSON(data);
-			//Show the name of the med in the form and put the id in the value
-			$('#presc_add input[name="medFormId"]').attr('placeholder') = m_info.medicine.name;
-			$('#presc_add input[name="medFormId"]').val(m_id);
+		callWebservice("","/medicijnbeheer/getmedname/medFormId/"+m_id,function(data){
+			if(data !== "ERROR"){
+				var m_info = $.parseJSON(data);
+				//Show the name of the med in the form and put the id in the value
+				$('#presc_add input[name="medName"]').val(m_info.medicine.name);
+				$('#presc_add input[name="medFormId"]').val(m_id);
+			}else{
+				$('#error_dialog').dialog('open');
+			}
 		});
 	}
 	

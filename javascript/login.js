@@ -33,8 +33,12 @@ $(document).ready(function(){
 					//save the token in a cookie for 2 hours and set a timeout timer for 20 minutes.
 					createCookie("tk",token, 2*60);
 					createCookie("uid",data.message.userId, 2*60);
-					createCookie("to","timeout",20);
-					//redirect to the main page
+					createCookie("to","timeout",5);
+					//TODO: check if registration is complete
+					//if the registration is not complete, show the first login screen.
+					//$('#first_login').show();
+					
+					//else redirect to the main page
 					window.location = "main.html";
 				}else{
 					//show error message
@@ -46,30 +50,37 @@ $(document).ready(function(){
 	
 	$('#unlock_submit').bind('click',function(e){
 		var unlockcode = $(document.getElementById('unlockField')).val();
-		processForm($(this),function(){
+		processForm($(this),function(data){
 			//if successful unlock, send through to main
-			window.location = "main.html";
-		}); 
+			var check = $.parseJSON(data);
+			if(data == "ERROR" || !check.message.login){
+				$('#dialog').dialog('open');
+			}else{
+				window.location = "main.html";
+			}
+		});
 		e.preventDefault();
 	});
 	
 	//Check the querystring for unlock vs login
 	if($.QueryString("p")=="ul"){
 		hidePages();
-		$("unlock").show();
+		$('#unlock').show();
 	}
-	
-	$('#btn_first_login').click(function(){
-		hidePages();
-		$('#first_login').show();
-	});
 	
 	$('#btn_register').click(function(){
 		//check if conf and new password are the same
 		if($('#new_pass').val() == $('#conf_pass').val()){
-			processForm($(this),function(){
+			processForm($(this),function(data){
+				//check if successful
+				var result = $.parseJSON(data); 
 				//if successful registration, send through to main.html
-				window.location = "main.html";
+				if(result)
+					window.location = "main.html";
+				else{
+					//show error message
+					$('#dialog').dialog('open');
+				}
 			});
 		}
 	});

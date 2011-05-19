@@ -39,13 +39,21 @@ function callWebservice(data, path, callback){
 	//find the token
 	var tk = readCookie("tk");
 	//update the timeout cookie
-	if(tk)createCookie("to","timeout", 20);
-	data["token"] = tk;
+	if(tk)createCookie("to","timeout", 5);
+	if(data)
+		data["token"] = tk;
+	else
+		data = {"token":tk};
+	
 	$.ajax({
         type: "POST",
         url: host + path,
         data: data,
-        success: callback
+        success: callback,
+        error: function(msg){
+			console.log(msg.responseText);
+			callback("ERROR");
+		}
     });
 }
 
@@ -131,12 +139,12 @@ function filterList($input, $list){
     });
 }
 $(document).ready(function(){
-	/*var path = ""+window.location;
+	var path = ""+window.location;
 	if(!checkLoggedIn() && path.indexOf("index.html") == -1){
 		window.location = "index.html";
-	}else if(checkLoggedIn() && !checkTimeout()){
+	}else if(checkLoggedIn() && !checkTimeout() && path.indexOf("index.html") == -1){
 		window.location = "index.html?p=ul";
-	}*/
+	}
 	
 	if($(".button")){
 		$(".button").each(function(){

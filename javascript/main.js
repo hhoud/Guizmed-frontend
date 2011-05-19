@@ -1,7 +1,8 @@
 $(document).ready(function(){
-	var n_lookup_template = Tempo.prepare("notif_lookup");
-	var n_info_template = Tempo.prepare("info");
+	var n_lookup_template = Tempo.prepare("notif_list");
+	var n_info_template = Tempo.prepare("notif_info");
 	var u_id = readCookie("uid");
+	var inout;
 	
 	//convert the dialog div into a dialog box and hide it
 	$('#dialog_confirm').dialog({
@@ -29,12 +30,18 @@ $(document).ready(function(){
 		hidePages();
 		//get the id of the notification
 		var n_id = $(this).find('span').attr('id');
+		inout = ($(this).hasClass('in'))?"in":"out";
 		//Retrieve notification info
-		
-		callWebservice("","/notifications/shownot/notification_id/"+n_id,function(data){
+		callWebservice("","/notifications/shownot/notification_id/"+n_id+"/userId/"+u_id,function(data){
 			n_info = $.parseJSON(data);
 			//Render the page with all the info
-			n_info_template.render(n_info.notification);
+			n_info_template.notify(function(event){
+				if(event.type == TempoEvent.Types.RENDER_COMPLETE){
+					if(inout == "in" && $('#notif_checked').text() == "1"){
+						$('#btn_accept_notif').show();
+					};
+				}
+			}).render(n_info.notification);
 		});
 		$('#notif_info').show();
 	});
