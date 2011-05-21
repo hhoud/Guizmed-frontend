@@ -2,8 +2,6 @@ var oTable;
 var giRedraw = false;
 
 $(document).ready(function() {
-
-	var receptor_template = Tempo.prepare('neuro_list');
 	var kilist;
 	
 	/**
@@ -63,6 +61,22 @@ $(document).ready(function() {
 		var bnfs = $.parseJSON(data);
 		var result = TrimPath.processDOMTemplate("bnf_template", bnfs);
 		$("#bnf_list").html(result);
+	});
+	
+	/**
+	 * Get the list of medicines
+	 */
+	callWebservice("","/medicijnbeheer/indexAdmin",function(data){
+		var meds = $.parseJSON(data);
+		//Render the list of meds
+		var result = TrimPath.processDOMTemplate("meds_template", meds);
+		var rows = "";
+		$(result).find('tbody').each(function(){
+			rows += $(this).html();
+		});
+		$("#m_list").html(rows);
+		/* Init the table */
+		$('#example').dataTable( );
 	});
 	
 	/* Init the table */

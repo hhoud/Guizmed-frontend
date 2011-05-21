@@ -27,7 +27,10 @@ $(document).ready(function(){
 			"Yes": function() {
 				data = {"reason":$('#stop_reason').val()};
 				if(stop_item=="med")path="/voorschriften/stop/ad_presc_id/";
-				if(stop_item=="npsy")path="/nonPsycho/stop/nonpsycho_id/";
+				if(stop_item=="npsy"){
+					path="/nonPsycho/stop";
+					data["nonPsychoPatId"] = stop_item_id;
+				}
 					
 				callWebservice(data, path+stop_item_id, function(){
 					//Reload the patient_info
@@ -203,8 +206,14 @@ $(document).ready(function(){
 		var type = $(this).attr('class');
 		if(type.indexOf("presc") != -1)
 			$('#presc_add').show();
-		else if(type.indexOf("npsy") != -1)
+		else if(type.indexOf("npsy") != -1){
+			callWebservice("","/nonPsycho",function(data){
+				var nonpsys = $.parseJSON(data);
+				var result = TrimPath.processDOMTemplate("nonpsy_template", nonpsys);
+				$("#non_psychos").html(result);
+			});
 			$('#npsy_add').show();
+		}
 	});
 	
 	$('#btn_presc_add').click(function(){
@@ -212,6 +221,20 @@ $(document).ready(function(){
 			if(!data){
 				return false;
 			}else{
+				//check if the insert was successful
+				var result = $.parseJSON(data);
+				//show the patient info
+				hidePages();
+				showInfo(p_id);
+			}
+		});
+	});
+	
+	$('#btn_nonpsy_add').click(function(){
+		processForm($(this),function(data){
+			if(!data)
+				return false;
+			else{
 				//check if the insert was successful
 				var result = $.parseJSON(data);
 				//show the patient info
@@ -237,6 +260,7 @@ $(document).ready(function(){
 				//Show the name of the med in the form and put the id in the value
 				$('#presc_add input[name="medName"]').val(m_info.medicine.name);
 				$('#presc_add input[name="medFormId"]').val(m_id);
+				$('#poss_doses').text("Mogelijke dosissen: " + m_info.medicine.dose);
 			}else{
 				$('#error_dialog').dialog('open');
 			}

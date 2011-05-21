@@ -120,9 +120,8 @@
                 <input type="hidden" name="patientId" />
                 <li class="smallfield"><input placeholder="Geneesmiddel" type="text" disabled="true" name="medName" class="no_process" /><a href="#" id="presc_s_med"><img src="images/icon_search.png" alt="Search" /></a></li>
                 <input type="hidden" name="medFormId" />
-                <p id="poss_doses"></p>
-                <li class="bigfield"><input placeholder="Dosering (enkel getal)" type="text" name="dose" /></li>
-                <li class="bigfield"><input placeholder="Frequentie (per dag)" type="text" name="frequency" /></li>
+                <li class="bigfield"><input placeholder="Dosering" type="text" name="dose" /></li>
+                <li class="bigfield"><input placeholder="Frequentie" type="text" name="frequency" /></li>
                 <li class="bigfield"><input placeholder="Start datum" type="text" class="datepicker" name="startDate" /></li>
                 <li class="textbox"><span class="header">Aanvullingen</span><textarea name="comment" rows="4"></textarea></li>
             </ul>
@@ -132,11 +131,10 @@
     <div id="npsy_add" style="display:none">
         <form name="non_psycho_add" method="post">
             <ul class="pageitem">
-                <li class="bigfield" id="non_psychos">
-                </li>
+                <li class="bigfield"><input placeholder="Naam" type="text" name="name" /></li>
                 <li class="bigfield"><input placeholder="Start datum" type="text" class="datepicker" name="startdate" /></li>
             </ul>
-            <a href="#" class="button" id="btn_nonpsy_add">Toevoegen</a>
+            <a href="#" class="button">Toevoegen</a>
         </form>
     </div>
     <div id="presc_info" style="display:none">
@@ -179,13 +177,6 @@
             </tr>
         </table>
     </div>
-</div>
-<div id="nonpsy_template" style="display:none;">
-    <select name="name">
-        {for np in nonPsycho}
-            <option value="${id}">${name}</option>
-        {/for}
-    </select>
 </div>
 <!-- ui-dialog -->
 <div id="dialog" title="Medicatie stoppen" style="display:none;">

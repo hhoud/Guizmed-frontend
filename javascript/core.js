@@ -94,6 +94,7 @@ function processForm($btn, callback){
 	// get all the inputs into an array.
 	var $form = $btn.parents("form");
     var $inputs = $form.find(':input');
+    var $selects = $form.find('select');
     var validCheck = true;
 
     // get an associative array of just the values.
@@ -114,6 +115,12 @@ function processForm($btn, callback){
     		$(this).parent().removeClass("valid");
     	}
     });
+    
+    //check the select boxes for their values
+    $selects.each(function(){
+    	data[this.name] = $(this).find('option:selected').val();
+    });
+    
     if(validCheck){
 	    //the form should have the path as name attribute
 	    var path = $form.attr("name");

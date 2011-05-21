@@ -4,6 +4,7 @@ $(document).ready(function(){
 	var u_id = readCookie("uid");
 	var n_id;
 	var inout;
+	$('#leftbutton').hide();
 	
 	//convert the dialog div into a dialog box and hide it
 	$('#dialog_confirm').dialog({
@@ -84,6 +85,7 @@ $(document).ready(function(){
 			}).render(n_info.notification);
 		});
 		$('#notif_info').show();
+		$('#leftbutton').show();
 	});
 	
 	$('#btn_notifications').click(function(){
@@ -94,6 +96,7 @@ $(document).ready(function(){
 			n_lookup_template.render(notifs.notifications);
 		});
 		$('#notif_lookup').show();
+		$('#leftbutton').show();
 	});
 	
 	$('#btn_logout').click(function(){

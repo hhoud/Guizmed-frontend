@@ -36,9 +36,10 @@ $(document).ready(function(){
 						createCookie("uid",data.message.userId, 2*60);
 						createCookie("to","timeout",5);
 						//if the registration is not complete, show the first login screen.
-						if(data.message.unlock == "")
+						if(data.message.unlock == "false"){
+							hidePages();
 							$('#first_login').show();
-						else{
+						}else{
 							//else redirect to the main page
 							window.location = "main.html";
 						}
