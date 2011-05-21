@@ -79,8 +79,16 @@ $(document).ready(function() {
 		$('#example').dataTable( );
 	});
 	
-	/* Init the table */
-	oTable = $('#example').dataTable( );
+	/**
+	 * Process the form of the med
+	 */
+	$('#btn_add_medicine').click(function(){
+		processForm($(this),function(data){
+			if(!data && data != "ERROR"){
+				var result = $.parseJSON(data);
+			}
+		});
+	});
 
 	$("#manage_page").hover(
 		function () {

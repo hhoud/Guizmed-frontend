@@ -99,6 +99,11 @@ function processForm($btn, callback){
 
     // get an associative array of just the values.
     var data = {};
+    data["bnf_percentage_id"] = new Array();
+    data["bnf_value"] = new Array();
+    data["chem_bonding_id"] = new Array();
+    data["med_ki_val_id"] = new Array();
+    
     $inputs.each(function() {
     	if($(this).val().split(' ').join('') != ""){
     		$(this).parent().addClass("valid");
@@ -106,19 +111,30 @@ function processForm($btn, callback){
     		if($(this).attr('type')=="radio"){
     			if($(this).is(':checked'))
     				data[this.name] = $(this).val();
+    		}else if($(this).attr('name').indexOf("bnf_") > -1){
+    			data.bnf_percentage_id.push($(this).attr('id'));
+    			data.bnf_value.push($(this).val());
     		}else if($(this).attr('class')!="no_process"){
     			data[this.name] = $(this).val();
     		}
     	}else{
-    		validCheck = false;
-    		$(this).parent().addClass("notvalid");
-    		$(this).parent().removeClass("valid");
+    		if($(this).attr('name').indexOf("bnf_") < 0){
+				validCheck = false;
+				$(this).parent().addClass("notvalid");
+				$(this).parent().removeClass("valid");
+    		}
     	}
     });
     
     //check the select boxes for their values
     $selects.each(function(){
-    	data[this.name] = $(this).find('option:selected').val();
+    	//the med form has to be treated a little different
+    	if(this.name.indexOf("neuro_") > -1){
+    		data.chem_bonding_id.push($(this).attr('id'));
+    		data.med_ki_val_id.push($(this).find('option:selected').val());
+    	}else{
+    		data[this.name] = $(this).find('option:selected').val();
+    	}
     });
     
     if(validCheck){

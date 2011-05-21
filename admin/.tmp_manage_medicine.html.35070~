@@ -77,40 +77,36 @@
             <h1>Medicine</h1>
             <h2>Add new medicine</h2>
             <div id="add_new_medicine">
-              <form id="add_new_medicine_form" name="/medicijnbeheer/create" method='post' accept-charset='UTF-8'>
+              <form id="add_new_medicine_form"  method='post' accept-charset='UTF-8'>
                 <div class="block_div">
-                  <h3>Basis informatie</h3>
+                  <h3>Basic information</h3>
                   <fieldset >
                     <div class="component_group">
-                      <label for='mainclass' >Hoofdklasse:</label>
+                      <label for='mainclass' >Main Class:</label>
                       <input type='text' name='mainclass' id='mainclass'  maxlength="50" />
                     </div>
                     <div class="component_group">
-                      <label for='gen_name' >Generische naam:</label>
+                      <label for='gen_name' >Generic name:</label>
                       <input type='text' name='gen_name' id='gen_name'  maxlength="50" />
                     </div>
                     <div class="component_group">
-                      <label for='speciality' >Specialiteit:</label>
-                      <input type='text' name='speciality' id='speciality'  maxlength="50" />
+                      <label for='Speciality' >Speciality:</label>
+                      <input type='text' name='Speciality' id='Speciality'  maxlength="50" />
                     </div>
                     <div class="component_group">
                       <label for='med_subtype1_id' >Subtype1:</label>
-                      <select name="med_subtype1" id="med_subtype1_id">
+                      <select name="med_subtype1_id" id="med_subtype1_id">
                       </select>
                     </div>
                     <div class="component_group">
                       <label for='med_subtype2_id' >Subtype2:</label>
-                      <select name="med_subtype2" id="med_subtype2_id">
+                      <select name="med_subtype2_id" id="med_subtype2_id">
                       </select>
                     </div>
                     <div class="component_group">
                       <label for='med_magister_form_id' >Magister type:</label>
-                      <select name="med_magister_form" id="med_magister_form_id">
+                      <select name="med_magister_form_id" id="med_magister_form_id">
                       </select>
-                    </div>
-                    <div class="component_group">
-                      <label for='dose' >Dosis (bv. 45mg-100mg):</label>
-                      <input type='text' name='dose' id='dose'  maxlength="50" />
                     </div>
                   </fieldset>
                 </div>
@@ -149,24 +145,25 @@
                       </select>
                     </div>
                      <div class="component_group">
-                      <label for='act_enzymes' >CYP450 activator:</label>
-                      <select name="activator" id="act_enzymes">
+                      <label for='CYP450activator' >CYP450 activator:</label>
+                      <select name="metabolisatie" id="act_enzymes">
                       </select>
                     </div>
                     <div class="component_group">
-                      <label for='inh_enzymes' >CYP450 inhibitor:</label>
-                      <select name="inhibitor" id="inh_enzymes">
+                      <label for='CYP450inhibitor' >CYP450 inhibitor:</label>
+                      <select name="metabolisatie" id="inh_enzymes">
                       </select>
                     </div>
                     <div class="component_group">
                       
-                      <input type='submit' name='Submit' value='Submit' class="btn" id="btn_add_medicine" />
+                      <input type='submit' name='Submit' value='Submit' class="btn" id="btnVoegMedicineToe" />
                     </div>
                     
                   </fieldset>
                 </div>
                 <div class="block_div">
                    <h3>BNF</h3>
+                   
                   <fieldset id="bnf_list">
                   </fieldset>
                 </div>
@@ -218,8 +215,8 @@
         <div id="neuro_template" style="display:none;">
             {for r in receptors}
             <div class="component_group_3">
-                ${r.name}:
-                <select name="neuro_${r.field_name}" id="${r.id}" class="ki_list">
+                <span class="neuro_id" style="display:none;">${r.id}</span>${r.name}:
+                <select name="${r.field_name}" class="ki_list">
                     {for k in r.ki_list}
                     <option value="${k.id}">${k.value} (${k.tagval})</option>
                     {/for}
@@ -230,8 +227,8 @@
         <div id="bnf_template" style="display:none;">
             {for b in bnf_percentages}
                 <div class="component_group_3">
-                  <label for='${b.id}' >%${b.name}:</label>
-                  <input type='text' name='bnf_p${b.name}' id='${b.id}'  maxlength="50" />
+                  <label for='p${b.name}' >%${b.name}:</label>
+                  <input type='text' name='p${b.name}' id='p${b.name}'  maxlength="50" />
                 </div>
             {/for}
         </div>

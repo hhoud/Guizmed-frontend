@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+
+<style type="text/css" title="currentStyle">
+			@import "css/demo_page.css";
+			@import "css/demo_table.css";
+		</style>
+        <link type="text/css" rel="stylesheet" href="css/adminfrontend.css"/>
+        <link href="../css/cupertino/jquery-ui-1.8.11.custom.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="../javascript/jquery_1.5.2.js"></script>
+        <script type="text/javascript" language="javascript" src="../javascript/jquery.dataTables.js"></script>
+        <script type="text/javascript" src="../javascript/trimpath.template.js"></script>
+        <script type="text/javascript" src="../javascript/jquery-ui-1.8.11.custom.min.js"></script>
+        <script type="text/javascript" src="../javascript/core.js"></script>
+        <script type="text/javascript" src="../javascript/manage_doctor.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Guizmed - Management panel</title>
+</head>
+
+<body>
+<div id="container">
+  <div id="menu_bar">
+    <div id="menu">
+      <ul>
+        <li><a href="index.html" title="home"><img src="images/home_icon.png" title="home icon"  /></a></li>
+        <li class="divider">&nbsp;</li>
+        <li><a href="" title="" id="manage_page">manage</a></li>
+        <li class="divider">&nbsp;</li>
+        <li><a href="/" title="" id="tools_page">tools</a></li>
+        <li class="divider">&nbsp;</li>
+        <li><a href="/" title="" id="systemlogs_page" >system logs</a></li>
+        <li class="divider">&nbsp;</li>
+        <li class="divider" style="float:right">&nbsp;</li>
+        <li style="float:right"><a href="/" title="" ><img style="float:right" src="images/logout_icon.png" title="" /><span style="float:right;padding-top:2px;margin-right:5px;">Log out</span> </a></li>
+        <li class="divider" style="float:right">&nbsp;</li>
+      </ul>
+    </div>
+  </div>
+  <div class="submenu_bar" id="sub_manage">
+    <div class="submenu" >
+      <ul>
+        <li class="sub_divider">&nbsp;</li>
+        <li><a href="manage_patient.html" title="" >patients</a></li>
+        <li class="sub_divider">&nbsp;</li>
+        <li><a href="manage_doctor.html" title="" >doctors</a></li>
+        <li class="sub_divider">&nbsp;</li>
+        <li><a href="manage_medicine.html" title="" >medicine</a></li>
+        <li class="sub_divider">&nbsp;</li>
+      </ul>
+    </div>
+  </div>
+  <div class="submenu_bar" id="sub_tools" style="display:none;">
+    <div class="submenu" >
+      <ul>
+        <li class="sub_divider">&nbsp;</li>
+        <li><a href="/" title="" >import patients</a></li>
+        <li class="sub_divider">&nbsp;</li>
+        <li><a href="/" title="" >export patients</a></li>
+        <li class="sub_divider">&nbsp;</li>
+        <li><a href="/" title="" >print report</a></li>
+        <li class="sub_divider">&nbsp;</li>
+      </ul>
+    </div>
+  </div>
+  <div class="submenu_bar" id="sub_logs" style="display:none;">
+    <div class="submenu" >
+      <ul>
+        <li class="sub_divider">&nbsp;</li>
+        <li><a href="/" title="" >show logs</a></li>
+        <li class="sub_divider">&nbsp;</li>
+        <li><a href="/" title="" >clear logs</a></li>
+        <li class="sub_divider">&nbsp;</li>
+      </ul>
+    </div>
+  </div>
+  
+  <div id="content">
+  	
+    <h1>Doctors</h1>
+ 	<h2>Add new doctor</h2>
+    <div id="add_new_doctor"> 
+    
+    <div class="block_div">
+    <h3>Personal information</h3>
+      <form id='register_doctor' name='/users/create' accept-charset='UTF-8'>
+        <fieldset >
+            <div class="component_group">
+               <label for='username' >Name:</label>
+               <input type='text' name='lName' id='name'  maxlength="50" />
+            </div>
+            <div class="component_group">
+               <label for='username' >Firstname:</label>
+               <input type='text' name='fName' id='firstname'  maxlength="50" />
+             </div>
+              <div class="component_group">
+               <label for='username' >Phone number:</label>
+               <input type='text' name='phone' id='phonenumber'  maxlength="50" />
+             </div>
+              <div class="component_group">
+               <label for='username' >E-mail:</label>
+               <input type='text' name='eMail' id='email'  maxlength="80" />
+             </div>
+             <div class="component_group">
+                 <input type='submit' name='Submit' value='Submit' id="btnRegister" class="no_process" />
+             </div>
+     </fieldset>
+     </form>
+    </div>
+  	<div class="block_div">
+        <div class="help_div">
+            <h4>Some extra information:</h4>
+            <p>The system will use a combination of name and firstname to create a logical username. Password will be generated to match a secure password. All this information will be directly e-mail to the user.</p>
+        </div>
+    </div>
+    </div>
+
+    <h2>All doctors</h2>
+    <div id="doctor_list">
+    <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+    	<thead>
+    		<tr>
+    			<th>Naam</th>
+    			<th>Voornaam</th>
+    			<th>Telefoon</th>
+                <th>E-mail</th>
+    			<th class="icon"></th>
+                <th class="icon"></th>
+    		</tr>
+    	</thead>
+    	<tbody id="u_lookup">
+    	</tbody>
+    </table>
+  <div class="spacer"></div>
+    </div>
+    <div id="doctor_info" style="display:none;">
+        
+    </div>
+      <div id="footer"><p>Guizmed team</p></div>
+  </div>
+</div>
+<div id="users_template" style="display:none;">
+    {for u in users}
+    <table>
+    <tr>
+        <td>Dr. ${u.lname}</td>
+        <td>${u.fname}</td>
+        <td>${u.phone}</td>
+        <td>${u.email}</td>
+        <td class="icon"><a href="#" title="edit" name="${u.id}" class="u_item"><img src="images/edit_icon.png" alt="Edit icon"/></a></td>
+        <td class="icon"><a href="#" title="delete" name="${u.id}" class="del_item"><img src="images/icon_cross.png" alt="cross icon"/></a></td>
+    </tr>
+    </table>
+    {/for}
+</div>
+<div id="user_template" style="display:none;">
+    <table cellpadding="0" cellspacing="0" border="0" class="display" id="u_info">
+        <tbody>
+            <tr>
+                <td>Naam</td>
+                <td>Dr. ${user.lName}</td>
+            </tr>
+            <tr>
+                <td>Voornaam</td>
+                <td>${user.fName}</td>
+            </tr>
+            <tr>
+                <td>Telefoon</td>
+                <td>${user.phone}</td>
+            </tr>
+            <tr>
+                <td>E-mail</td>
+                <td>${user.email}</td>
+            </tr>
+            <tr>
+                <td>Functie</td>
+                <td>${user.function}</td>
+            </tr>
+            <tr>
+                <td>Rol</td>
+                <td>${user.role}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="spacer"></div>
+</div>
+<!-- ui-dialog -->
+<div id="del_dialog" title="Dokter verwijderen" style="display:none;">
+    <p>Bent u zeker dat u <span id="del_name"></span> wil verwijderen?</p>
+</div>
+<!-- ui-dialog -->
+<div id="error" title="Fout">
+    <p>Er is een fout gebeurd, gelieve opnieuw te proberen.</p>
+</div>
+<!-- ui-dialog -->
+<div id="success" title="Succesvol toegevoegd">
+    <p>De nieuwe gebruiker is succesvol toegevoegd.</p>
+</div>
+</body>
+</html>
