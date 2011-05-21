@@ -2,6 +2,7 @@ $(document).ready(function(){
 	var n_lookup_template = Tempo.prepare("notif_list");
 	var n_info_template = Tempo.prepare("notif_info");
 	var u_id = readCookie("uid");
+	var n_id;
 	var inout;
 	
 	//convert the dialog div into a dialog box and hide it
@@ -26,10 +27,49 @@ $(document).ready(function(){
 		}
 	});
 	
+	$('#accept_dialog').dialog({
+		resizable: false,
+		autoOpen: false,
+		width: 'auto',
+		modal: true,
+		buttons: {
+			"Toestaan": function() {
+				var data = {
+						"notif_id":n_id,
+						"accepted":true
+				}
+				//save the confirmation
+				callWebservice(data,"/notifications/accept",function(data){
+					var result = $.parseJSON(data);
+					//close the dialog
+					$( this ).dialog( "close" );
+					//send back to the main screen
+					hidePages();
+					$("#notif_lookup").show();
+				});
+			},
+			"Weigeren": function() {
+				var data = {
+						"notif_id":n_id,
+						"accepted":false
+				}
+				//save the confirmation
+				callWebservice(data,"/notifications/accept",function(data){
+					var result = $.parseJSON(data);
+					//close the dialog
+					$( this ).dialog( "close" );
+					//send back to the main screen
+					hidePages();
+					$("#notif_lookup").show();
+				});
+			}
+		}
+	});
+	
 	$('.n_item').live('click',function(){
 		hidePages();
 		//get the id of the notification
-		var n_id = $(this).find('span').attr('id');
+		n_id = $(this).find('span').attr('id');
 		inout = ($(this).hasClass('in'))?"in":"out";
 		//Retrieve notification info
 		callWebservice("","/notifications/shownot/notification_id/"+n_id+"/userId/"+u_id,function(data){
@@ -58,5 +98,9 @@ $(document).ready(function(){
 	
 	$('#btn_logout').click(function(){
 		$('#dialog_confirm').dialog('open');
+	});
+	
+	$('#btn_accept_notif').click(function(){
+		$("#accept_dialog").dialog('open');
 	});
 });

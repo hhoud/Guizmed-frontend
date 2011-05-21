@@ -12,8 +12,9 @@
 <script src="javascript/jquery_1.5.2.js" type="text/javascript"></script>
 <script src="javascript/jquery-ui-1.8.11.custom.min.js" type="text/javascript"></script>
 <script src="javascript/querystring-0.9.0-min.js" type="text/javascript"></script>
-<script src="javascript/core.js" type="text/javascript"></script>
+<script src="javascript/trimpath.template.js" type="text/javascript"></script>
 <script src="javascript/tempo.min.js" type="text/javascript"></script>
+<script src="javascript/core.js" type="text/javascript"></script>
 <script src="javascript/patients.js" type="text/javascript"></script>
 <title>Guizmed - Patiënten</title>
 <meta content="Guizmed,Guislain,Psychiatric,clinic, psychiatrisch, ziekenhuis, psychiater, psychiatrist, medicine, geneesmiddelen" name="keywords" />
@@ -185,6 +186,11 @@
 <!-- ui-dialog -->
 <div id="error_dialog" title="Fout!" style="display:none;">
     <p>Er is een fout gebeurd, gelieve opnieuw te proberen.</p>
+</div>
+<!-- ui-dialog -->
+<div id="req_perm_dialog" title="Geen toegang" style="display:none;">
+    <p>U heeft geen toegang tot deze patient.</p>
+    <p><textarea id="notif_reason" name="reason" rows="4"></textarea></p>
 </div>
 <div id="footer">
     <!-- Support iWebKit by sending us traffic; please keep this footer on your page, consider it a thank you for our work :-) -->

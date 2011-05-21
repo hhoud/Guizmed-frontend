@@ -7,6 +7,7 @@ $(document).ready(function(){
 	var presc_id;
 	var stop_item;
 	var stop_item_id;
+	var u_id = readCookie("uid");;
 	
 	/**
 	 * Catch all input and filter the list
@@ -54,6 +55,37 @@ $(document).ready(function(){
 		}
 	});
 	
+	/**
+	 * Convert dialog div into dialog and hide it
+	 * This dialog is a confirmation dialog to stop meds
+	 */
+	$('#req_perm_dialog').dialog({
+		autoOpen: false,
+		width: 'auto',
+		buttons: {
+			"Toestemming vragen": function() {
+				//ask for permission -> create notification
+				data = {
+						"user_id":u_id,
+						"patient_id":p_id,
+						"reason":$('#notif_reason').val()
+				};
+				callWebservice(data, "/notifications/create", function(data){
+					var result = $.parseJSON(data);
+					//Show the patient list
+					hidePages();
+					$("#lookup").show();
+				});
+				$(this).dialog("close");
+			},
+			Cancel: function(){
+				$(this).dialog("close");
+				//Show the patient list
+				hidePages();
+				$("#lookup").show();
+			}
+		}
+	});
 	$('.datepicker').datepicker({ autoSize: true, dateFormat: 'yy-mm-dd' });
 	
 	$('.pat_add').click(function(ev){
@@ -75,28 +107,34 @@ $(document).ready(function(){
 	 * p_id: the id of the patient.
 	 */
 	function showInfo(p_id){
-		callWebservice("","/patienten/show/patient_id/"+p_id,function(data){
-			var p_info = $.parseJSON(data);
-			//check if the prescription was stopped and if it still has effect on the body
-			//create medicines in the p_info object
-			//TODO check Hlf effect on the body in the back-end
-			
-			//Create new objects to add new prescriptions and non-psychofarmaca
-			p_info.patient[0].prescriptions.push({"id":"new","med":{"name":"Nieuw..."}});
-			p_info.patient[0].non_psycho.push({"id":"new","name":"Nieuw..."});
-			
-			//Render the page with all the info
-			p_info_template.notify(function(event){
-				if(event.type == TempoEvent.Types.RENDER_COMPLETE){
-					//remove the delete icon for the last row (adding a new item)
-					$('[name|="new"]').parent('li').find('a:nth-child(2)').hide();
-					$('[name|="new"]').parent('li').find('.patient_start').hide();
-					//activate the accordion
-					$('#accordion').accordion({ fillSpace: true, active: 1, collapsible: true });
-				}
-			}).render(p_info.patient);
-			//Show the info page of the patient
-			$("#info").show();
+		//check if the user can see this patient, otherwise show dialog to ask permission
+		var data = {"patient_id":p_id};
+		callWebservice(data,"/users/check",function(data){
+			var result = $.parseJSON(data);
+			if(result){
+				callWebservice("","/patienten/show/patient_id/"+p_id,function(data){
+					var p_info = $.parseJSON(data);
+					
+					//Create new objects to add new prescriptions and non-psychofarmaca
+					p_info.patient[0].prescriptions.push({"id":"new","med":{"name":"Nieuw..."}});
+					p_info.patient[0].non_psycho.push({"id":"new","name":"Nieuw..."});
+					
+					//Render the page with all the info
+					p_info_template.notify(function(event){
+						if(event.type == TempoEvent.Types.RENDER_COMPLETE){
+							//remove the delete icon for the last row (adding a new item)
+							$('[name|="new"]').parent('li').find('a:nth-child(2)').hide();
+							$('[name|="new"]').parent('li').find('.patient_start').hide();
+							//activate the accordion
+							$('#accordion').accordion({ fillSpace: true, active: 1, collapsible: true });
+						}
+					}).render(p_info.patient);
+					//Show the info page of the patient
+					$("#info").show();
+				});
+			}else{
+				$('#req_perm_dialog').dialog('open');
+			}
 		});
 	}
 	

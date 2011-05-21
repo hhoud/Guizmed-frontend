@@ -2,17 +2,20 @@ var oTable;
 var giRedraw = false;
 
 $(document).ready(function() {
-	var p_lookup_template = Tempo.prepare("p_lookup");
-	
 	/**
 	 * Get the list of patients from the backend
 	 */
-	callWebservice("","/patienten/showadmin",function(data){
-		var users = $.parseJSON(data);
-		//Render the list of users
-		u_lookup_template.render(users.users);
+	callWebservice("","/patienten/indexAdmin",function(data){
+		var pats = $.parseJSON(data);
+		//Render the list of patients
+		var result = TrimPath.processDOMTemplate("pats_template", pats);
+		var rows = "";
+		$(result).find('tbody').each(function(){
+			rows += $(this).html();
+		});
+		$('#p_lookup').html(rows);
 		/* Init the table */
-		//$('#example').dataTable( );
+		$('#example').dataTable( );
 	});
 
 	$("#manage_page").hover(

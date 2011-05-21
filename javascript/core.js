@@ -1,7 +1,7 @@
 /**
  * CONFIG
  * */
-var host = "/backend_dev.php";
+var host = "/index.php";
 
 /**
  * Create a cookie that stays alive for 20 minutes.
@@ -44,7 +44,7 @@ function callWebservice(data, path, callback){
 		data["token"] = tk;
 	else
 		data = {"token":tk};
-	
+	data["user_id"] = readCookie("uid");
 	$.ajax({
         type: "POST",
         url: host + path,

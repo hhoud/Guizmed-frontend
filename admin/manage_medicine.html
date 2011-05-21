@@ -9,7 +9,7 @@
 <link href="../css/cupertino/jquery-ui-1.8.11.custom.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="../javascript/jquery_1.5.2.js"></script>
 <script type="text/javascript" language="javascript" src="../javascript/jquery.dataTables.js"></script>
-<script type="text/javascript" src="../javascript/tempo.min.js"></script>
+<script type="text/javascript" src="../javascript/trimpath.template.js"></script>
 <script type="text/javascript" src="../javascript/jquery-ui-1.8.11.custom.min.js"></script>
 <script type="text/javascript" src="../javascript/core.js"></script>
 <script type="text/javascript" src="../javascript/manage_medicine.js"></script>
@@ -94,24 +94,25 @@
                       <input type='text' name='Speciality' id='Speciality'  maxlength="50" />
                     </div>
                     <div class="component_group">
-                      <label for='med_type_id' >Type:</label>
-                      <input type='text' name='med_type_id' id='med_type_id'  maxlength="80" />
+                      <label for='med_subtype1_id' >Subtype1:</label>
+                      <select name="med_subtype1_id" id="med_subtype1_id">
+                      </select>
+                    </div>
+                    <div class="component_group">
+                      <label for='med_subtype2_id' >Subtype2:</label>
+                      <select name="med_subtype2_id" id="med_subtype2_id">
+                      </select>
                     </div>
                     <div class="component_group">
                       <label for='med_magister_form_id' >Magister type:</label>
-                      <input type='text' name='med_magister_form_id' id='med_magister_form_id'  maxlength="80" />
+                      <select name="med_magister_form_id" id="med_magister_form_id">
+                      </select>
                     </div>
                   </fieldset>
                 </div>
                 <div class="block_div">
                   <h3>Neurotransmitters</h3>
                   <fieldset id="neuro_list">
-                    <div class="component_group_3" data-template>
-                      <span class="neuro_id" style="display:none;">{{id}}</span>{{name}}:
-                      <select name="{{field_name}}">
-                          <option data-template="ki_list">{{value}} ({{tagval}})</option>
-                      </select>
-                    </div>
                   </fieldset>
                 </div>
                 
@@ -140,15 +141,18 @@
                     </div>
                      <div class="component_group">
                       <label for='metabolisatie' >Metabolisatie:</label>
-                      <input type='text' name='metabolisatie' id='metabolisatie'  maxlength="50" />
+                      <select name="metabolisatie" id="meta_enzymes">
+                      </select>
                     </div>
                      <div class="component_group">
                       <label for='CYP450activator' >CYP450 activator:</label>
-                      <input type='text' name='CYP450activator' id='CYP450activator'  maxlength="50" />
+                      <select name="metabolisatie" id="act_enzymes">
+                      </select>
                     </div>
                     <div class="component_group">
                       <label for='CYP450inhibitor' >CYP450 inhibitor:</label>
-                      <input type='text' name='CYP450inhibitor' id='CYP450inhibitor'  maxlength="50" />
+                      <select name="metabolisatie" id="inh_enzymes">
+                      </select>
                     </div>
                     <div class="component_group">
                       
@@ -160,43 +164,7 @@
                 <div class="block_div">
                    <h3>BNF</h3>
                    
-                  <fieldset>
-                    <div class="component_group_3">
-                      <label for='p5' >%5:</label>
-                      <input type='text' name='p5' id='p5'  maxlength="50" />
-                    </div>
-                    <div class="component_group_3">
-                      <label for='p10' >%10:</label>
-                      <input type='text' name='p10' id='p10'  maxlength="50" />
-                    </div>
-                    <div class="component_group_3">
-                      <label for='d3' >D3:</label>
-                      <input type='text' name='d3' id='d3'  maxlength="50" />
-                    </div>
-                    <div class="component_group_3">
-                      <label for='d4' >D4:</label>
-                      <input type='text' name='d4' id='d4'  maxlength="50" />
-                    </div>
-                    <div class="component_group_3">
-                      <label for='alfa1' >alfa 1:</label>
-                      <input type='text' name='alfa1' id='alfa1'  maxlength="50" />
-                    </div>
-                    <div class="component_group_3">
-                      <label for='alfa2' >alfa 2:</label>
-                      <input type='text' name='alfa2' id='alfa2'  maxlength="50" />
-                    </div>
-                    <div class="component_group_3">
-                      <label for='MuscarineACh' >M. ACh:</label>
-                      <input type='text' name='MuscarineACh' id='MuscarineACh'  maxlength="50" />
-                    </div>
-                    <div class="component_group_3">
-                      <label for='histaminaH1' >H. H1:</label>
-                      <input type='text' name='histaminaH1' id='histaminaH1'  maxlength="50" />
-                    </div>
-                    <div class="component_group_3">
-                      <label for='5HT2A' >5HT2A:</label>
-                      <input type='text' name='5HT2A' id='5HT2A'  maxlength="50" />
-                    </div>
+                  <fieldset id="bnf_list">
                   </fieldset>
                 </div>
               </form>
@@ -273,7 +241,6 @@
                     </div>
                   </fieldset>
                 </div>
-                
                 
                 <div class="block_div">
                 <h3>Values</h3>
@@ -366,5 +333,46 @@
             </div>
           </div>
         </div>
+        <div id="enz_template" style="display:none;">
+            {for e in enzymes}
+                <option value="${e.id}">${e.name}</option>
+            {/for}
+        </div>
+        <div id="magister_template" style="display:none;">
+            {for m in med_magister3}
+                <option value="${m.id}">${m.name}</option>
+            {/for}
+        </div>
+        <div id="type1_template" style="display:none;">
+            {for ms in med_subtype1}
+                <option value="${ms.id}">${ms.name}</option>
+            {/for}
+        </div>
+        <div id="type2_template" style="display:none;">
+            {for ms in med_subtype2}
+                <option value="${ms.id}">${ms.name}</option>
+            {/for}
+        </div>
+        <div id="neuro_template" style="display:none;">
+            {for r in receptors}
+            <div class="component_group_3">
+                <span class="neuro_id" style="display:none;">${r.id}</span>${r.name}:
+                <select name="${r.field_name}" class="ki_list">
+                    {for k in r.ki_list}
+                    <option value="${k.id}">${k.value} (${k.tagval})</option>
+                    {/for}
+                </select>
+            </div>
+            {/for}
+        </div>
+        <div id="bnf_template" style="display:none;">
+            {for b in bnf_percentages}
+                <div class="component_group_3">
+                  <label for='p${b.name}' >%${b.name}:</label>
+                  <input type='text' name='p${b.name}' id='p${b.name}'  maxlength="50" />
+                </div>
+            {/for}
+        </div>
+        
 </body>
 </html>

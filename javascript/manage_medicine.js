@@ -19,11 +19,50 @@ $(document).ready(function() {
 				receptors.receptors[i]["ki_list"] = kilist.ki;
 				receptors.receptors[i]["field_name"] = receptors.receptors[i].name.replace(' ','_').toLowerCase();
 			}
-			receptor_template.notify(function(event){
-				if(event.type == TempoEvent.Types.RENDER_COMPLETE)
-					$('.ki_id').hide();
-			}).render(receptors.receptors);
+			
+			var result = TrimPath.processDOMTemplate("neuro_template", receptors);
+			$("#neuro_list").html(result);
 		});
+	});
+	
+	/**
+	 * Get the list of enzymes
+	 */
+	callWebservice("","/enzym",function(data){
+		var enzymes = $.parseJSON(data);
+		var result = TrimPath.processDOMTemplate("enz_template", enzymes);
+		$("#meta_enzymes").html(result);
+		$("#act_enzymes").html(result);
+		$("#inh_enzymes").html(result);
+	});
+	
+	/**
+	 * Get the list of magister forms
+	 */
+	callWebservice("","/medmagister",function(data){
+		var mags = $.parseJSON(data);
+		var result = TrimPath.processDOMTemplate("magister_template", mags);
+		$("#med_magister_form_id").html(result);
+	});
+	
+	/**
+	 * Get the list of med types
+	 */
+	callWebservice("","/medtypes",function(data){
+		var types = $.parseJSON(data);
+		var result = TrimPath.processDOMTemplate("type1_template", types.types);
+		$("#med_subtype1_id").html(result);
+		var result2 = TrimPath.processDOMTemplate("type2_template", types.types);
+		$("#med_subtype2_id").html(result2);
+	});
+	
+	/**
+	 * Get the list of bnf values
+	 */
+	callWebservice("","/bnfpercentage",function(data){
+		var bnfs = $.parseJSON(data);
+		var result = TrimPath.processDOMTemplate("bnf_template", bnfs);
+		$("#bnf_list").html(result);
 	});
 	
 	/* Init the table */

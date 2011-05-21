@@ -2,24 +2,27 @@ var oTable;
 var giRedraw = false;
 
 $(document).ready(function() {
-	var u_lookup_template = Tempo.prepare("u_lookup");
-	var u_info_template = Tempo.prepare("u_info");
 	var item_id;
 	
+	function renderUsers(users){
+		//Render the list of users
+		var result = TrimPath.processDOMTemplate("users_template", users);
+		var rows = "";
+		$(result).find('tbody').each(function(){
+			rows += $(this).html();
+		});
+		$("#u_lookup").html(rows);
+		/* Init the table */
+		$('#example').dataTable( );
+	}
 	/**
 	 * Get the list of users from the backend
 	 */
 	callWebservice("","/users",function(data){
 		var users = $.parseJSON(data);
-		//Render the list of users
-		u_lookup_template.render(users.users);
-		/* Init the table */
-		//$('#u_info').dataTable( );
+		renderUsers(users);
 	});
 	
-	$('#test_clear').click(function(){
-		u_lookup_template.clear();
-	});
 	/**
 	 * Convert dialog div into dialog and hide it
 	 * This dialog is a confirmation dialog to delete a user(doctor)
@@ -30,12 +33,10 @@ $(document).ready(function() {
 		buttons: {
 			"Yes": function() {
 				callWebservice("", "/users/delete/user_id/"+item_id, function(data){
-					var users = $.parseJSON(data);
-					//Reload the doctor list
-					u_lookup_template.clear();
-					u_lookup_template.render(users.users);
-					/* Init the table */
-					//oTable = $('#u_info').dataTable( );
+					if(data != "ERROR"){
+						var users = $.parseJSON(data);
+						renderUsers(users);
+					}
 				});
 				$(this).dialog("close");
 			},
@@ -67,7 +68,8 @@ $(document).ready(function() {
 		$('#doctor_list').hide();
 		callWebservice("","/users/show/user_id/"+item_id,function(data){
 			var user_info = $.parseJSON(data);
-			u_info_template.render(user_info.user);
+			var result = TrimPath.processDOMTemplate("user_template", user_info);
+			$('#doctor_info').html(result);
 			$('#doctor_info').show();
 		});
 	}

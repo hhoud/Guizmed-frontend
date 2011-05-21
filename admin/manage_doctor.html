@@ -11,7 +11,7 @@
         <link href="../css/cupertino/jquery-ui-1.8.11.custom.css" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="../javascript/jquery_1.5.2.js"></script>
         <script type="text/javascript" language="javascript" src="../javascript/jquery.dataTables.js"></script>
-        <script type="text/javascript" src="../javascript/tempo.min.js"></script>
+        <script type="text/javascript" src="../javascript/trimpath.template.js"></script>
         <script type="text/javascript" src="../javascript/jquery-ui-1.8.11.custom.min.js"></script>
         <script type="text/javascript" src="../javascript/core.js"></script>
         <script type="text/javascript" src="../javascript/manage_doctor.js"></script>
@@ -130,52 +130,60 @@
     		</tr>
     	</thead>
     	<tbody id="u_lookup">
-    		<tr data-template>
-    			<td>Dr. {{lname}}</td>
-    			<td>{{fname}}</td>
-    			<td>{{phone}}</td>
-                <td>{{email}}</td>
-    			<td class="icon"><a href="#" title="edit" name="{{id}}" class="u_item"><img src="images/edit_icon.png" alt="Edit icon"/></a></td>
-               	<td class="icon"><a href="#" title="delete" name="{{id}}" class="del_item"><img src="images/icon_cross.png" alt="cross icon"/></a></td>
-    		</tr>
     	</tbody>
     </table>
-    <p id="test_clear">Clear</p>
   <div class="spacer"></div>
     </div>
     <div id="doctor_info" style="display:none;">
-        <table cellpadding="0" cellspacing="0" border="0" class="display" id="u_info">
-            <tbody data-template>
-                <tr>
-                    <td>Naam</td>
-                    <td>Dr. {{lName}}</td>
-                </tr>
-                <tr>
-                    <td>Voornaam</td>
-                    <td>{{fName}}</td>
-                </tr>
-                <tr>
-                    <td>Telefoon</td>
-                    <td>{{phone}}</td>
-                </tr>
-                <tr>
-                    <td>E-mail</td>
-                    <td>{{email}}</td>
-                </tr>
-                <tr>
-                    <td>Functie</td>
-                    <td>{{function}}</td>
-                </tr>
-                <tr>
-                    <td>Rol</td>
-                    <td>{{role}}</td>
-                </tr>
-            </tbody>
-        </table>
-      <div class="spacer"></div>
+        
     </div>
       <div id="footer"><p>Guizmed team</p></div>
   </div>
+</div>
+<div id="users_template" style="display:none;">
+    {for u in users}
+    <table>
+    <tr>
+        <td>Dr. ${u.lname}</td>
+        <td>${u.fname}</td>
+        <td>${u.phone}</td>
+        <td>${u.email}</td>
+        <td class="icon"><a href="#" title="edit" name="${u.id}" class="u_item"><img src="images/edit_icon.png" alt="Edit icon"/></a></td>
+        <td class="icon"><a href="#" title="delete" name="${u.id}" class="del_item"><img src="images/icon_cross.png" alt="cross icon"/></a></td>
+    </tr>
+    </table>
+    {/for}
+</div>
+<div id="user_template" style="display:none;">
+    <table cellpadding="0" cellspacing="0" border="0" class="display" id="u_info">
+        <tbody>
+            <tr>
+                <td>Naam</td>
+                <td>Dr. ${user.lName}</td>
+            </tr>
+            <tr>
+                <td>Voornaam</td>
+                <td>${user.fName}</td>
+            </tr>
+            <tr>
+                <td>Telefoon</td>
+                <td>${user.phone}</td>
+            </tr>
+            <tr>
+                <td>E-mail</td>
+                <td>${user.email}</td>
+            </tr>
+            <tr>
+                <td>Functie</td>
+                <td>${user.function}</td>
+            </tr>
+            <tr>
+                <td>Rol</td>
+                <td>${user.role}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="spacer"></div>
 </div>
 <!-- ui-dialog -->
 <div id="del_dialog" title="Dokter verwijderen" style="display:none;">

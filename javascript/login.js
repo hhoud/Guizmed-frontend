@@ -28,20 +28,25 @@ $(document).ready(function(){
 			}else{
 				//get the token out of the data if the login was successful
 				var data = $.parseJSON(data);
-				var token = data.message.inlog;
-				if(token != "Failed"){
-					//save the token in a cookie for 2 hours and set a timeout timer for 20 minutes.
-					createCookie("tk",token, 2*60);
-					createCookie("uid",data.message.userId, 2*60);
-					createCookie("to","timeout",5);
-					//TODO: check if registration is complete
-					//if the registration is not complete, show the first login screen.
-					//$('#first_login').show();
-					
-					//else redirect to the main page
-					window.location = "main.html";
+				if(!data.error && data != "ERROR"){
+					var token = data.message.inlog;
+					if(token != "Failed"){
+						//save the token in a cookie for 2 hours and set a timeout timer for 20 minutes.
+						createCookie("tk",token, 2*60);
+						createCookie("uid",data.message.userId, 2*60);
+						createCookie("to","timeout",5);
+						//if the registration is not complete, show the first login screen.
+						if(data.message.unlock == "")
+							$('#first_login').show();
+						else{
+							//else redirect to the main page
+							window.location = "main.html";
+						}
+					}else{
+						//show error message
+						$('#dialog').dialog('open');
+					}
 				}else{
-					//show error message
 					$('#dialog').dialog('open');
 				}
 			}
@@ -52,11 +57,14 @@ $(document).ready(function(){
 		var unlockcode = $(document.getElementById('unlockField')).val();
 		processForm($(this),function(data){
 			//if successful unlock, send through to main
-			var check = $.parseJSON(data);
-			if(data == "ERROR" || !check.message.login){
+			if(data == "ERROR" || !data){
 				$('#dialog').dialog('open');
 			}else{
-				window.location = "main.html";
+				var check = $.parseJSON(data);
+				if(check.message.login)
+					window.location = "main.html";
+				else
+					$('#dialog').dialog('open');
 			}
 		});
 		e.preventDefault();
