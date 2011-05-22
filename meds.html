@@ -49,7 +49,7 @@
             </tr>
             <tr>
                 <td class="name_tag">Specialiteit:</td>
-                <td>{{med_base}}</td>
+                <td id="med_spec">{{med_base}}</td>
             </tr>
             <tr>
                 <td class="name_tag">Type:</td>
@@ -68,6 +68,10 @@
     <div id="submed_info" style="display:none">
         <a href="#" id="add_to_presc" class="button">Toevoegen aan voorschrift</a>
         <table id="m_info_submed" data-template>
+            <tr>
+                <td class="name_tag">Specialiteit: </td>
+                <td id="submed_spec"></td>
+            </tr>
             <tr id="med_id" name="{{med_form}}">
                 <td class="name_tag">Magistraal type:</td>
                 <td>{{med_magister_form}}</td>

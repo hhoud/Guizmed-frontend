@@ -7,7 +7,7 @@ $(document).ready(function(){
 	var presc_id;
 	var stop_item;
 	var stop_item_id;
-	var u_id = readCookie("uid");;
+	var u_id = readCookie("uid");
 	
 	/**
 	 * Catch all input and filter the list
@@ -26,13 +26,14 @@ $(document).ready(function(){
 		buttons: {
 			"Yes": function() {
 				data = {"reason":$('#stop_reason').val()};
-				if(stop_item=="med")path="/voorschriften/stop/ad_presc_id/";
+				if(stop_item=="med")path="/voorschriften/stop/ad_presc_id/"+stop_item_id;
 				if(stop_item=="npsy"){
 					path="/nonPsycho/stop";
 					data["nonPsychoPatId"] = stop_item_id;
 				}
 					
-				callWebservice(data, path+stop_item_id, function(){
+				callWebservice(data, path, function(data){
+					var result = $.parseJSON(data);
 					//Reload the patient_info
 					showInfo(p_id);
 				});
@@ -126,8 +127,14 @@ $(document).ready(function(){
 					p_info_template.notify(function(event){
 						if(event.type == TempoEvent.Types.RENDER_COMPLETE){
 							//remove the delete icon for the last row (adding a new item)
-							$('[name|="new"]').parent('li').find('a:nth-child(2)').hide();
+							$('[name|="new"]').parent('li').find('a:nth-child(1)').hide();
+							//remove the delete button if the item has a stop_date or end_date
+							if($('.stop_date').text() != "0000-00-00" || $('.end_date').text() != "0000-00-00"){
+								$('.stop_date').parent('li').find('a:nth-child(1)').hide();
+								$('.stop_date').parent('li').find('a:nth-child(2)').addClass('stopped');
+							}
 							$('[name|="new"]').parent('li').find('.patient_start').hide();
+							$('.presc').show();
 							//activate the accordion
 							$('#accordion').accordion({ fillSpace: true, active: 1, collapsible: true });
 						}
@@ -231,6 +238,7 @@ $(document).ready(function(){
 	});
 	
 	$('#btn_nonpsy_add').click(function(){
+		$('#patId').val(p_id);
 		processForm($(this),function(data){
 			if(!data)
 				return false;

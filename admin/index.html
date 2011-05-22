@@ -2,7 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <link type="text/css" rel="stylesheet" href="css/adminfrontend.css"/>
+<link href="../css/cupertino/jquery-ui-1.8.11.custom.css" rel="stylesheet" media="screen" type="text/css" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="../javascript/jquery_1.5.2.js" type="text/javascript"></script>
+<script src="../javascript/jquery-ui-1.8.11.custom.min.js" type="text/javascript"></script>
+<script src="../javascript/core.js" type="text/javascript"></script>
+<script src="../javascript/adminlogin.js" type="text/javascript"></script>
 <title>Guizmed - Management panel</title>
 </head>
 
@@ -11,7 +16,7 @@
   <div id="content">
     <div id="logo"><img src="images/logo_large.png"  /></div>
     <div id="login_page">
-      <form id='login'  method='post' accept-charset='UTF-8'>
+      <form id='login' name="/adminLogin"  method='post' accept-charset='UTF-8'>
         <fieldset >
           <div class="component_group">
             <label for='username' >Username:</label>
@@ -21,11 +26,15 @@
             <label for='password' >Password:</label>
             <input type='password' name='password' id='password' maxlength="50" />
           </div>
-          <input type='submit' name='Submit' value='Submit' class="btn" />
+          <a href="#" class="button">Login</a>
         </fieldset>
       </form>
     </div>
   </div>
+</div>
+<!-- ui-dialog -->
+<div id="dialog" title="Foutieve gegevens">
+    <p>Deze gegevens zijn niet correct, gelieve opnieuw te proberen.</p>
 </div>
 </body>
 </html>

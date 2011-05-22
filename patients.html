@@ -70,8 +70,10 @@
             <div>
                 <ul class="list_view_accordion">
                     <li data-template="meds">
-                    	<a href="#" class="del" name="{{presc_id}}"><img src="images/del_list.png" alt="Delete" /></a>
-                        <a href="meds.html?m_id={{med_id}}" class="med">{{med_name}} <span class="patient_start">{{start}}</span></a>
+                    	<a href="#" class="del" name="{{pres_id}}"><img src="images/del_list.png" alt="Delete" /></a>
+                        <a href="meds.html?m_id={{id}}" class="med patient_med">{{name}} <span class="patient_start">{{start_date}}</span></a>
+                        <span class="stop_date" style="display:none;">{{stop_date}}</span>
+                        <span class="end_date" style="display:none;">{{end_date}}</span>
                     </li>
                 </ul>
             </div>
@@ -87,8 +89,9 @@
             <div>
                 <ul class="list_view_accordion">
                     <li data-template="non_psycho">
-                        <a href="#" class="npsy alink" name="{{id}}">{{name}} <span class="patient_start">{{start_date}}</span></a>
                         <a href="#" class="del" name="{{id}}"><img src="images/del_list.png" alt="Delete" /></a>
+                        <a href="#" class="npsy alink" name="{{id}}">{{name}} <span class="patient_start">{{start_date}}</span></a>
+                        <span class="stop_date" style="display:none;">{{stop_date}}</span>
                     </li>
                 </ul>
             </div>
@@ -130,11 +133,12 @@
         </form>
     </div>
     <div id="npsy_add" style="display:none">
-        <form name="non_psycho_add" method="post">
+        <form name="/nonPsycho/create" method="post">
             <ul class="pageitem">
-                <li class="bigfield" id="non_psychos">
+                <input type="hidden" name="patientId" id="patId"/>
+                <li class="select" id="non_psychos">
                 </li>
-                <li class="bigfield"><input placeholder="Start datum" type="text" class="datepicker" name="startdate" /></li>
+                <li class="bigfield"><input placeholder="Start datum" type="text" class="datepicker" name="startDate" /></li>
             </ul>
             <a href="#" class="button" id="btn_nonpsy_add">Toevoegen</a>
         </form>
@@ -181,10 +185,11 @@
     </div>
 </div>
 <div id="nonpsy_template" style="display:none;">
-    <select name="name">
+    <select name="nonPsychoId">
         {for np in nonPsycho}
-            <option value="${id}">${name}</option>
+            <option value="${np.id}">${np.name}</option>
         {/for}
+        <span class="arrow"></span>
     </select>
 </div>
 <!-- ui-dialog -->

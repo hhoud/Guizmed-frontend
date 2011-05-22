@@ -4,24 +4,24 @@ var giRedraw = false;
 $(document).ready(function() {
 	var item_id;
 	
-	function renderUsers(users){
-		//Render the list of users
-		var result = TrimPath.processDOMTemplate("users_template", users);
-		var rows = "";
-		$(result).find('tbody').each(function(){
-			rows += $(this).html();
-		});
-		$("#u_lookup").html(rows);
-		/* Init the table */
-		$('#example').dataTable( );
-	}
+	renderUsers();
 	/**
-	 * Get the list of users from the backend
+	 * Get the list of users from the backend and render it
 	 */
-	callWebservice("","/users",function(data){
-		var users = $.parseJSON(data);
-		renderUsers(users);
-	});
+	function renderUsers(){
+		callWebservice("","/users",function(data){
+			var users = $.parseJSON(data);
+			//Render the list of users
+			var result = TrimPath.processDOMTemplate("users_template", users);
+			var rows = "";
+			$(result).find('tbody').each(function(){
+				rows += $(this).html();
+			});
+			$("#u_lookup").html(rows);
+			/* Init the table */
+			$('#example').dataTable( );
+		});
+	}
 	
 	/**
 	 * Convert dialog div into dialog and hide it
@@ -35,7 +35,7 @@ $(document).ready(function() {
 				callWebservice("", "/users/delete/user_id/"+item_id, function(data){
 					if(data != "ERROR"){
 						var users = $.parseJSON(data);
-						renderUsers(users);
+						renderUsers();
 					}
 				});
 				$(this).dialog("close");
@@ -97,9 +97,9 @@ $(document).ready(function() {
 			if(data == "ERROR"){
 				$('#error').dialog('open');
 			}else{
-				var user = $.parseJSON(data);
+				var result = $.parseJSON(data);
 				$('#success').dialog('open');
-				showInfo(user.user.id);
+				renderUsers();
 				//empty the form
 				$('#register_doctor').find(':input').val("");
 			}

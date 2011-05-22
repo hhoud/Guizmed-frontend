@@ -20,7 +20,7 @@ $(document).ready(function(){
 	/**
 	 * Process the login form
 	 */
-	$(".button").click(function(){
+	$("#btn_login").click(function(){
 		processForm($(this), function(data){
 			if(!data){
 				//show error message

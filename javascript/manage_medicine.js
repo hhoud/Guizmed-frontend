@@ -66,26 +66,36 @@ $(document).ready(function() {
 	/**
 	 * Get the list of medicines
 	 */
-	callWebservice("","/medicijnbeheer/indexAdmin",function(data){
-		var meds = $.parseJSON(data);
-		//Render the list of meds
-		var result = TrimPath.processDOMTemplate("meds_template", meds);
-		var rows = "";
-		$(result).find('tbody').each(function(){
-			rows += $(this).html();
+	renderMedicines();
+	function renderMedicines(){
+		callWebservice("","/medicijnbeheer/indexAdmin",function(data){
+			var meds = $.parseJSON(data);
+			//Render the list of meds
+			var result = TrimPath.processDOMTemplate("meds_template", meds);
+			var rows = "";
+			$(result).find('tbody').each(function(){
+				rows += $(this).html();
+			});
+			$("#m_list").html(rows);
+			/* Init the table */
+			$('#example').dataTable( );
 		});
-		$("#m_list").html(rows);
-		/* Init the table */
-		$('#example').dataTable( );
-	});
+	}
 	
 	/**
 	 * Process the form of the med
 	 */
 	$('#btn_add_medicine').click(function(){
 		processForm($(this),function(data){
-			if(!data && data != "ERROR"){
+			if(data && data != "ERROR"){
 				var result = $.parseJSON(data);
+				//clear the form
+				$('#btn_add_medicine').parents('form').find('input').val("");
+				$('#btn_add_medicine').parents('form').find('select').each(function(){
+					$(this).find('option:first').attr('selected', 'selected');
+				});
+				//reload the list with medicines
+				renderMedicines();
 			}
 		});
 	});

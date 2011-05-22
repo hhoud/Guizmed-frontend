@@ -83,6 +83,8 @@ $(document).ready(function(){
 				});
 			}
 		}).render(sub_med);
+		
+		$('#submed_spec').text($('#med_spec').text()).parents('tr').show();
 		//Show the info page of the submedicine
 		$("#submed_info").show();
 	});

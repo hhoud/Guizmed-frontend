@@ -1,7 +1,7 @@
 /**
  * CONFIG
  * */
-var host = "/index.php";
+var host = "/backend_dev.php";
 
 /**
  * Create a cookie that stays alive for 20 minutes.
@@ -99,10 +99,12 @@ function processForm($btn, callback){
 
     // get an associative array of just the values.
     var data = {};
-    data["bnf_percentage_id"] = new Array();
-    data["bnf_value"] = new Array();
-    data["chem_bonding_id"] = new Array();
-    data["med_ki_val_id"] = new Array();
+    if($form.attr('name') == "/medicijnbeheer/create"){
+	    data["bnf_percentage_id"] = new Array();
+	    data["bnf_value"] = new Array();
+	    data["chem_bonding_id"] = new Array();
+	    data["med_ki_val_id"] = new Array();
+    }
     
     $inputs.each(function() {
     	if($(this).val().split(' ').join('') != ""){
@@ -163,9 +165,11 @@ function filterList($input, $list){
 }
 $(document).ready(function(){
 	var path = ""+window.location;
-	if(!checkLoggedIn() && path.indexOf("index.html") == -1){
+	if(!checkLoggedIn() && path.indexOf("admin")>-1 && path.indexOf("index.html") == -1){
 		window.location = "index.html";
-	}else if(checkLoggedIn() && !checkTimeout() && path.indexOf("index.html") == -1){
+	}else if(!checkLoggedIn() && path.indexOf("index.html") == -1){
+		window.location = "index.html";
+	}else if(checkLoggedIn() && !checkTimeout() && path.indexOf("index.html") == -1 && path.indexOf("admin")<0){
 		window.location = "index.html?p=ul";
 	}
 	

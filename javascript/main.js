@@ -78,7 +78,7 @@ $(document).ready(function(){
 			//Render the page with all the info
 			n_info_template.notify(function(event){
 				if(event.type == TempoEvent.Types.RENDER_COMPLETE){
-					if(inout == "in" && $('#notif_checked').text() == "1"){
+					if(inout == "in" && $('#notif_checked').text() == "0"){
 						$('#btn_accept_notif').show();
 					};
 				}
