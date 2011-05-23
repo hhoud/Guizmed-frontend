@@ -146,7 +146,7 @@ $(document).ready(function() {
 				//reload the list with medicines
 				renderMedicines();
 				//show a success dialog
-				$('#success_dialog').dialog(
+				$('#success_dialog').dialog('open');
 			}
 		});
 	});

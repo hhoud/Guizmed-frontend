@@ -217,6 +217,7 @@ function processForm($btn, callback){
 	var $form = $btn.parents("form");
     var $inputs = $form.find(':input');
     var $selects = $form.find('select');
+    var $textareas = $form.find('textarea');
     var validCheckAmount = 0;
 
     // get an associative array of just the values.
@@ -271,6 +272,10 @@ function processForm($btn, callback){
     	}else{
     		data[this.name] = $(this).find('option:selected').val();
     	}
+    });
+    
+    $textareas.each(function(){
+    	data[this.name] = $(this).val();
     });
     
     if(validCheckAmount == 0){

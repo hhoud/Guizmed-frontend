@@ -15,7 +15,7 @@
         <script type="text/javascript" src="../javascript/jquery-ui-1.8.11.custom.min.js"></script>
         <script type="text/javascript" src="../javascript/core.js"></script>
         <script type="text/javascript" src="../javascript/manage_doctor.js"></script>
-<meta http-equiv="Content-Type" content="text/html;" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Guizmed - Management panel</title>
 </head>
 
@@ -26,12 +26,12 @@
       <ul>
         <li><a href="index.html" title="home"><img src="images/home_icon.png" title="home icon"  /></a></li>
         <li class="divider">&nbsp;</li>
-        <li><a href="" title="" id="manage_page">beheer</a></li>
+        <li><a href="" title="" id="manage_page">manage</a></li>
         <li class="divider">&nbsp;</li>
-        <!--<li><a href="/" title="" id="tools_page">tools</a></li>
+        <li><a href="/" title="" id="tools_page">tools</a></li>
         <li class="divider">&nbsp;</li>
         <li><a href="/" title="" id="systemlogs_page" >system logs</a></li>
-        <li class="divider">&nbsp;</li>-->
+        <li class="divider">&nbsp;</li>
         <li class="divider" style="float:right">&nbsp;</li>
         <li style="float:right"><a href="/" title="" ><img style="float:right" src="images/logout_icon.png" title="" /><span style="float:right;padding-top:2px;margin-right:5px;">Log out</span> </a></li>
         <li class="divider" style="float:right">&nbsp;</li>
@@ -42,11 +42,11 @@
     <div class="submenu" >
       <ul>
         <li class="sub_divider">&nbsp;</li>
-        <li><a href="manage_patient.html" title="" >patiënten</a></li>
+        <li><a href="manage_patient.html" title="" >patients</a></li>
         <li class="sub_divider">&nbsp;</li>
-        <li><a href="manage_doctor.html" title="" >dokters</a></li>
+        <li><a href="manage_doctor.html" title="" >doctors</a></li>
         <li class="sub_divider">&nbsp;</li>
-        <li><a href="manage_medicine.html" title="" >geneesmiddelen</a></li>
+        <li><a href="manage_medicine.html" title="" >medicine</a></li>
         <li class="sub_divider">&nbsp;</li>
       </ul>
     </div>

@@ -92,6 +92,7 @@ $(document).ready(function(){
 		width: 'auto',
 		buttons: {
 			"Toestemming vragen": function() {
+				$(this).dialog("close");
 				//ask for permission -> create notification
 				data = {
 						"user_id":u_id,
@@ -108,7 +109,6 @@ $(document).ready(function(){
 						$('#success_dialog').dialog('open');
 					}
 				});
-				$(this).dialog("close");
 			},
 			Cancel: function(){
 				$(this).dialog("close");
@@ -155,7 +155,7 @@ $(document).ready(function(){
 				$('#error_dialog').dialog('open');
 			else{
 				var result = $.parseJSON(data);
-				if(result){
+				if(result.message.allowed){
 					callWebservice("","/patienten/show/patient_id/"+p_id,function(data){
 						if(!data || data == "ERROR")
 							$('#error_dialog').dialog('open');

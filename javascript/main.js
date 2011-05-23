@@ -48,14 +48,14 @@ $(document).ready(function(){
 		modal: true,
 		buttons: {
 			"Toestaan": function() {
+				//close the dialog
+				$( this ).dialog( "close" );
 				var data = {
 						"notif_id":n_id,
 						"accepted":true
 				}
 				//save the confirmation
 				callWebservice(data,"/notifications/accept",function(data){
-					//close the dialog
-					$( this ).dialog( "close" );
 					if(!data || data == "ERROR")
 						$('#error_dialog').dialog('open');
 					else{
@@ -66,14 +66,13 @@ $(document).ready(function(){
 				});
 			},
 			"Weigeren": function() {
+				$( this ).dialog( "close" );
 				var data = {
 						"notif_id":n_id,
 						"accepted":false
 				}
 				//save the confirmation
 				callWebservice(data,"/notifications/accept",function(data){
-					//close the dialog
-					$( this ).dialog( "close" );
 					if(!data || data == "ERROR")
 						$('#error_dialog').dialog('open');
 					else{
@@ -102,7 +101,9 @@ $(document).ready(function(){
 					if(event.type == TempoEvent.Types.RENDER_COMPLETE){
 						if(inout == "in" && $('#notif_checked').text() == "0"){
 							$('#btn_accept_notif').show();
-						};
+						}else{
+							$('#btn_accept_notif').hide();
+						}
 					}
 				}).render(n_info.notification);
 			}
