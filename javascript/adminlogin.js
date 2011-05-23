@@ -13,6 +13,11 @@ $(document).ready(function(){
 		}
 	});
 	
+	$('.valCheckStringAdmin').focusout(function() {
+  		validateStringAdmin($(this));
+	});
+	
+	
 	/**
 	 * Process the login form
 	 */

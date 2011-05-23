@@ -3,6 +3,128 @@
  * */
 var host = "/backend_dev.php";
 
+function isEmail(s){
+	var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$/; 
+	return emailPattern.test(s); 
+} 
+
+
+
+/**
+ * 
+ * @param {Object} s
+ */
+function isDate(s)
+{   
+  // make sure it is in the expected format
+  if (s.search(/^[0-9]{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])/) != 0) {
+  	return false;
+  }else{
+  	return true;
+  }
+}
+  
+  
+/**
+ * 
+ * @param {Object} data
+ */
+function activateValid(data){
+        data.addClass("valid");
+        data.removeClass("notvalid");
+}
+
+/**
+ * 
+ * @param {Object} data
+ */
+function activateNotValid(data){
+    data.addClass("notvalid");
+    data.removeClass("valid");
+}
+
+
+/**
+ * 
+ * @param {Object} data
+ */
+function activateValidAdmin(data){
+        data.addClass("valid");
+        data.removeClass("notvalid");
+}
+
+/**
+ * 
+ * @param {Object} data
+ */
+function activateNotValidAdmin(data){
+    data.addClass("notvalid");
+    data.removeClass("valid");
+}
+
+/**
+ * 
+ * @param {Object} data
+ */
+function validateString(data){
+    if(data.val().length<=3){
+        activateNotValid(data.parent());
+		return false;
+	}else{
+		activateValid(data.parent());
+		return true;
+	}
+}
+
+function validateInputEmpty(data){
+	if(data.val().split(' ').join('') == ""){
+        activateNotValid(data.parent());
+		return false;
+	}else{
+		activateValid(data.parent());
+		return true;
+	}
+}
+
+function validateStringAdmin(data){
+	 if(data.val().length<=3){
+        activateNotValidAdmin(data);
+		return false;
+	}else{
+		activateValidAdmin(data);
+		return true;
+	}
+}
+
+/**
+ * 
+ * @param {Object} data
+ */
+function validateEmailAdmin(data){
+	if(isEmail(data.val())){
+		activateValid(data);
+		return true;
+	}else{
+		activateNotValid(data);
+		return false;
+	}
+}
+
+/**
+ * 
+ * @param {Object} data
+ */
+function validateDate(data){
+	if(isDate(data.val())){
+		activateValid(data.parent());
+		return true;
+	}else{
+		activateNotValid(data.parent());
+		return false;
+	}
+}
+
+
 /**
  * Create a cookie that stays alive for 20 minutes.
  * @param name key of the key-value pair
@@ -95,7 +217,7 @@ function processForm($btn, callback){
 	var $form = $btn.parents("form");
     var $inputs = $form.find(':input');
     var $selects = $form.find('select');
-    var validCheck = true;
+    var validCheckAmount = 0;
 
     // get an associative array of just the values.
     var data = {};
@@ -107,9 +229,28 @@ function processForm($btn, callback){
     }
     
     $inputs.each(function() {
-    	if($(this).val().split(' ').join('') != ""){
-    		$(this).parent().addClass("valid");
-    		$(this).parent().removeClass("notvalid");
+    		if ($(this).hasClass("valCheckString")) {
+				if (!validateString($(this))) {
+						validCheckAmount ++;
+				}
+			}else if($(this).hasClass("valCheckDate")){
+				if (!validateDate($(this))) {
+						validCheckAmount ++;
+				}
+			}else if($(this).hasClass("valCheckEmpty")){
+				if (!validateInputEmpty($(this))) {
+						validCheckAmount ++;
+				}
+			}else if($(this).hasClass("valCheckEmailAdmin")){
+				if (!validateEmailAdmin($(this))) {
+						validCheckAmount ++;
+				}
+			}else if($(this).hasClass("valCheckStringAdmin")){
+				if (!validateStringAdmin($(this))) {
+						validCheckAmount ++;
+				}
+			}
+			
     		if($(this).attr('type')=="radio"){
     			if($(this).is(':checked'))
     				data[this.name] = $(this).val();
@@ -119,13 +260,6 @@ function processForm($btn, callback){
     		}else if($(this).attr('class')!="no_process"){
     			data[this.name] = $(this).val();
     		}
-    	}else{
-    		if($(this).attr('name').indexOf("bnf_") < 0){
-				validCheck = false;
-				$(this).parent().addClass("notvalid");
-				$(this).parent().removeClass("valid");
-    		}
-    	}
     });
     
     //check the select boxes for their values
@@ -139,7 +273,7 @@ function processForm($btn, callback){
     	}
     });
     
-    if(validCheck){
+    if(validCheckAmount == 0){
 	    //the form should have the path as name attribute
 	    var path = $form.attr("name");
 	    //send the data to the database and if successful, show the new patient's page.
