@@ -9,6 +9,26 @@ $(document).ready(function(){
 	var stop_item_id;
 	var u_id = readCookie("uid");
 	
+	$('#error_dialog').dialog({
+		autoOpen: false,
+		width: 'auto',
+		buttons: {
+			"Ok": function() {
+				$(this).dialog("close");
+			}
+		}
+	});
+	
+	$('#success_dialog').dialog({
+		autoOpen: false,
+		width: 'auto',
+		buttons: {
+			"Ok": function() {
+				$(this).dialog("close");
+			}
+		}
+	});
+	
 	/**
 	 * Catch all input and filter the list
 	 */
@@ -33,27 +53,16 @@ $(document).ready(function(){
 				}
 					
 				callWebservice(data, path, function(data){
-					var result = $.parseJSON(data);
-					//Reload the patient_info
-					showInfo(p_id);
+					if(!data || data == "ERROR")
+						$('#error_dialog').dialog('open');
+					else{
+						//Reload the patient_info
+						showInfo(p_id);
+					}
 				});
 				$(this).dialog("close");
 			},
 			Cancel: function(){
-				$(this).dialog("close");
-			}
-		}
-	});
-	
-	/**
-	 * Convert dialog div into dialog and hide it
-	 * This dialog is a confirmation dialog to stop meds
-	 */
-	$('#error_dialog').dialog({
-		autoOpen: false,
-		width: 'auto',
-		buttons: {
-			"OK": function() {
 				$(this).dialog("close");
 			}
 		}
@@ -75,10 +84,14 @@ $(document).ready(function(){
 						"reason":$('#notif_reason').val()
 				};
 				callWebservice(data, "/notifications/create", function(data){
-					var result = $.parseJSON(data);
-					//Show the patient list
-					hidePages();
-					$("#lookup").show();
+					if(!data || data == "ERROR")
+						$('#error_dialog').dialog('open');
+					else{
+						//Show the patient list
+						hidePages();
+						$("#lookup").show();
+						$('#success_dialog').dialog('open');
+					}
 				});
 				$(this).dialog("close");
 			},
@@ -101,9 +114,13 @@ $(document).ready(function(){
 	 * Get the list of patients from the backend
 	 */
 	callWebservice("","/patienten",function(data){
-		var patients = $.parseJSON(data);
-		//Render the list of patients
-		Tempo.prepare("p_lookup").render(patients.allPatients);
+		if(!data || data == "ERROR")
+			$('#error_dialog').dialog('open');
+		else{
+			var patients = $.parseJSON(data);
+			//Render the list of patients
+			Tempo.prepare("p_lookup").render(patients.allPatients);
+		}
 	});
 	
 	/**
@@ -114,36 +131,44 @@ $(document).ready(function(){
 		//check if the user can see this patient, otherwise show dialog to ask permission
 		var data = {"patient_id":p_id};
 		callWebservice(data,"/users/check",function(data){
-			var result = $.parseJSON(data);
-			if(result){
-				callWebservice("","/patienten/show/patient_id/"+p_id,function(data){
-					var p_info = $.parseJSON(data);
-					
-					//Create new objects to add new prescriptions and non-psychofarmaca
-					p_info.patient[0].prescriptions.push({"id":"new","med":{"name":"Nieuw..."}});
-					p_info.patient[0].non_psycho.push({"id":"new","name":"Nieuw..."});
-					
-					//Render the page with all the info
-					p_info_template.notify(function(event){
-						if(event.type == TempoEvent.Types.RENDER_COMPLETE){
-							//remove the delete icon for the last row (adding a new item)
-							$('[name|="new"]').parent('li').find('a:nth-child(1)').hide();
-							//remove the delete button if the item has a stop_date or end_date
-							if($('.stop_date').text() != "0000-00-00" || $('.end_date').text() != "0000-00-00"){
-								$('.stop_date').parent('li').find('a:nth-child(1)').hide();
-								$('.stop_date').parent('li').find('a:nth-child(2)').addClass('stopped');
-							}
-							$('[name|="new"]').parent('li').find('.patient_start').hide();
-							$('.presc').show();
-							//activate the accordion
-							$('#accordion').accordion({ fillSpace: true, active: 1, collapsible: true });
+			if(!data || data == "ERROR")
+				$('#error_dialog').dialog('open');
+			else{
+				var result = $.parseJSON(data);
+				if(result){
+					callWebservice("","/patienten/show/patient_id/"+p_id,function(data){
+						if(!data || data == "ERROR")
+							$('#error_dialog').dialog('open');
+						else{
+							var p_info = $.parseJSON(data);
+							
+							//Create new objects to add new prescriptions and non-psychofarmaca
+							p_info.patient[0].prescriptions.push({"id":"new","med":{"name":"Nieuw..."}});
+							p_info.patient[0].non_psycho.push({"id":"new","name":"Nieuw..."});
+							
+							//Render the page with all the info
+							p_info_template.notify(function(event){
+								if(event.type == TempoEvent.Types.RENDER_COMPLETE){
+									//remove the delete icon for the last row (adding a new item)
+									$('[name|="new"]').parent('li').find('a:nth-child(1)').hide();
+									//remove the delete button if the item has a stop_date or end_date
+									if($('.stop_date').text() != "0000-00-00" || $('.end_date').text() != "0000-00-00"){
+										$('.stop_date').parent('li').find('a:nth-child(1)').hide();
+										$('.stop_date').parent('li').find('a:nth-child(2)').addClass('stopped');
+									}
+									$('[name|="new"]').parent('li').find('.patient_start').hide();
+									$('.presc').show();
+									//activate the accordion
+									$('#accordion').accordion({ fillSpace: true, active: 1, collapsible: true });
+								}
+							}).render(p_info.patient);
+							//Show the info page of the patient
+							$("#info").show();
 						}
-					}).render(p_info.patient);
-					//Show the info page of the patient
-					$("#info").show();
-				});
-			}else{
-				$('#req_perm_dialog').dialog('open');
+					});
+				}else{
+					$('#req_perm_dialog').dialog('open');
+				}
 			}
 		});
 	}
@@ -176,9 +201,13 @@ $(document).ready(function(){
 	
 	$('#btn_add_patient').click(function(){
 		processForm($(this), function(data){
-			var patient = $.parseJSON(data);
-			hidePages();
-			showInfo(patient.patient[0].personalInfo.id);
+			if(!data || data == "ERROR")
+				$('#error_dialog').dialog('open');
+			else{
+				var patient = $.parseJSON(data);
+				hidePages();
+				showInfo(patient.patient[0].personalInfo.id);
+			}
 		});
 	});
 	
@@ -190,19 +219,23 @@ $(document).ready(function(){
 			
 			//get info about the prescription
 			callWebservice("","/voorschriften/show/ad_presc_id/"+pr_id,function(data){
-				var pr_info = $.parseJSON(data);
-				
-				//Render the page with all the info
-				presc_info_template.notify(function(event){
-					if(event.type == TempoEvent.Types.RENDER_COMPLETE){
-						$("#presc_info table tr td").each(function(){
-							if($(this).text() == "")
-								$(this).parents("tr").hide();
-						});
-					}
-				}).render(pr_info.prescription);
-				//Show the info page of the patient
-				$('#presc_info').show();
+				if(!data || data == "ERROR")
+					$('#error_dialog').dialog('open');
+				else{
+					var pr_info = $.parseJSON(data);
+					
+					//Render the page with all the info
+					presc_info_template.notify(function(event){
+						if(event.type == TempoEvent.Types.RENDER_COMPLETE){
+							$("#presc_info table tr td").each(function(){
+								if($(this).text() == "")
+									$(this).parents("tr").hide();
+							});
+						}
+					}).render(pr_info.prescription);
+					//Show the info page of the patient
+					$('#presc_info').show();
+				}
 			});
 		}
 	});
@@ -215,9 +248,13 @@ $(document).ready(function(){
 			$('#presc_add').show();
 		else if(type.indexOf("npsy") != -1){
 			callWebservice("","/nonPsycho",function(data){
-				var nonpsys = $.parseJSON(data);
-				var result = TrimPath.processDOMTemplate("nonpsy_template", nonpsys);
-				$("#non_psychos").html(result);
+				if(!data || data == "ERROR")
+					$('#error_dialog').dialog('open');
+				else{
+					var nonpsys = $.parseJSON(data);
+					var result = TrimPath.processDOMTemplate("nonpsy_template", nonpsys);
+					$("#non_psychos").html(result);
+				}
 			});
 			$('#npsy_add').show();
 		}
@@ -225,11 +262,9 @@ $(document).ready(function(){
 	
 	$('#btn_presc_add').click(function(){
 		processForm($(this),function(data){
-			if(!data){
-				return false;
-			}else{
-				//check if the insert was successful
-				var result = $.parseJSON(data);
+			if(!data || data == "ERROR")
+				$('#error_dialog').dialog('open');
+			else{
 				//show the patient info
 				hidePages();
 				showInfo(p_id);
@@ -240,8 +275,8 @@ $(document).ready(function(){
 	$('#btn_nonpsy_add').click(function(){
 		$('#patId').val(p_id);
 		processForm($(this),function(data){
-			if(!data)
-				return false;
+			if(!data || data == "ERROR")
+				$('#error_dialog').dialog('open');
 			else{
 				//check if the insert was successful
 				var result = $.parseJSON(data);
@@ -263,14 +298,14 @@ $(document).ready(function(){
 		var m_id = $.QueryString("m_id").replace('#','');
 		//get the name of the medicine for the m_id
 		callWebservice("","/medicijnbeheer/getmedname/medFormId/"+m_id,function(data){
-			if(data !== "ERROR"){
+			if(!data || data == "ERROR")
+				$('#error_dialog').dialog('open');
+			else{
 				var m_info = $.parseJSON(data);
 				//Show the name of the med in the form and put the id in the value
 				$('#presc_add input[name="medName"]').val(m_info.medicine.name);
 				$('#presc_add input[name="medFormId"]').val(m_id);
 				$('#poss_doses').text("Mogelijke dosissen: " + m_info.medicine.dose);
-			}else{
-				$('#error_dialog').dialog('open');
 			}
 		});
 	}

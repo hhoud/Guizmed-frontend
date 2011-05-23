@@ -2,6 +2,17 @@ $(document).ready(function(){
 	var m_info;
 	var m_info_template = Tempo.prepare('info');
 	var submed_info_template = Tempo.prepare("submed_info");
+	
+	$('#error_dialog').dialog({
+		autoOpen: false,
+		width: 'auto',
+		buttons: {
+			"Ok": function() {
+				$(this).dialog("close");
+			}
+		}
+	});
+	
 	/**
 	 * Show more info about the chosen medicine.
 	 * @param m_id is the id of the medicine that has been chosen. 
@@ -11,24 +22,28 @@ $(document).ready(function(){
 		$("#lookup").hide();
 		//Retrieve med info
 		callWebservice("","/medicijnbeheer/show/med_form_id/"+m_id,function(data){
-			m_info = $.parseJSON(data);
-			//Add a "unknown type" text if the magister form is unknown
-			for(var i in m_info.medicine[0].submeds){
-				if(m_info.medicine[0].submeds[i].med_magister_form == ""){
-					m_info.medicine[0].submeds[i].med_magister_form = "Onbekend type";
+			if(!data || data == "ERROR")
+				$('#error_dialog').dialog('open');
+			else{
+				m_info = $.parseJSON(data);
+				//Add a "unknown type" text if the magister form is unknown
+				for(var i in m_info.medicine[0].submeds){
+					if(m_info.medicine[0].submeds[i].med_magister_form == ""){
+						m_info.medicine[0].submeds[i].med_magister_form = "Onbekend type";
+					}
 				}
+				//Render the page with all the info
+				m_info_template.notify(function(event){
+					if(event.type == TempoEvent.Types.RENDER_COMPLETE){
+						$("#m_info tr td").each(function(){
+							if($(this).text() == "")
+								$(this).parents("tr").hide();
+						});
+					}
+				}).render(m_info.medicine);
+				//Show the info page of the medicine
+				$("#info").show();
 			}
-			//Render the page with all the info
-			m_info_template.notify(function(event){
-				if(event.type == TempoEvent.Types.RENDER_COMPLETE){
-					$("#m_info tr td").each(function(){
-						if($(this).text() == "")
-							$(this).parents("tr").hide();
-					});
-				}
-			}).render(m_info.medicine);
-			//Show the info page of the medicine
-			$("#info").show();
 		});
 	};
 	
@@ -48,9 +63,13 @@ $(document).ready(function(){
 	 * Get the list of meds from the backend
 	 */
 	callWebservice("","/medicijnbeheer",function(data){
-		var meds = $.parseJSON(data);
-		//Render the list of patients
-		Tempo.prepare("m_lookup").render(meds.allMedicines);
+		if(!data || data == "ERROR")
+			$('#error_dialog').dialog('open');
+		else{
+			var meds = $.parseJSON(data);
+			//Render the list of patients
+			Tempo.prepare("m_lookup").render(meds.allMedicines);
+		}
 	});
 	
 	$(".m_item").live('click',function(){

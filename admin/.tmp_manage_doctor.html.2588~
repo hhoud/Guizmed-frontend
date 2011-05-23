@@ -190,8 +190,8 @@
     <p>Bent u zeker dat u <span id="del_name"></span> wil verwijderen?</p>
 </div>
 <!-- ui-dialog -->
-<div id="error_dialog" title="Fout">
-    <p>Er is een fout gebeurd, probeer opnieuw.</p>
+<div id="error" title="Fout">
+    <p>Er is een fout gebeurd, gelieve opnieuw te proberen.</p>
 </div>
 <!-- ui-dialog -->
 <div id="success" title="Succesvol toegevoegd">

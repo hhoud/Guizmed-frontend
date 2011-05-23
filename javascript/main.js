@@ -28,6 +28,19 @@ $(document).ready(function(){
 		}
 	});
 	
+	$('#error_dialog').dialog({
+		resizable: false,
+		autoOpen: false,
+		width: 'auto',
+		modal: true,
+		buttons: {
+			"Ok": function() {
+				//close the dialog
+				$( this ).dialog( "close" );
+			}
+		}
+	});
+	
 	$('#accept_dialog').dialog({
 		resizable: false,
 		autoOpen: false,
@@ -41,12 +54,15 @@ $(document).ready(function(){
 				}
 				//save the confirmation
 				callWebservice(data,"/notifications/accept",function(data){
-					var result = $.parseJSON(data);
 					//close the dialog
 					$( this ).dialog( "close" );
-					//send back to the main screen
-					hidePages();
-					$("#notif_lookup").show();
+					if(!data || data == "ERROR")
+						$('#error_dialog').dialog('open');
+					else{
+						//send back to the main screen
+						hidePages();
+						$("#notif_lookup").show();
+					}
 				});
 			},
 			"Weigeren": function() {
@@ -56,12 +72,15 @@ $(document).ready(function(){
 				}
 				//save the confirmation
 				callWebservice(data,"/notifications/accept",function(data){
-					var result = $.parseJSON(data);
 					//close the dialog
 					$( this ).dialog( "close" );
-					//send back to the main screen
-					hidePages();
-					$("#notif_lookup").show();
+					if(!data || data == "ERROR")
+						$('#error_dialog').dialog('open');
+					else{
+						//send back to the main screen
+						hidePages();
+						$("#notif_lookup").show();
+					}
 				});
 			}
 		}
@@ -74,15 +93,19 @@ $(document).ready(function(){
 		inout = ($(this).hasClass('in'))?"in":"out";
 		//Retrieve notification info
 		callWebservice("","/notifications/shownot/notification_id/"+n_id+"/userId/"+u_id,function(data){
-			n_info = $.parseJSON(data);
-			//Render the page with all the info
-			n_info_template.notify(function(event){
-				if(event.type == TempoEvent.Types.RENDER_COMPLETE){
-					if(inout == "in" && $('#notif_checked').text() == "0"){
-						$('#btn_accept_notif').show();
-					};
-				}
-			}).render(n_info.notification);
+			if(!data || data == "ERROR"){
+				$('#error_dialog').dialog('open');
+			else{
+				n_info = $.parseJSON(data);
+				//Render the page with all the info
+				n_info_template.notify(function(event){
+					if(event.type == TempoEvent.Types.RENDER_COMPLETE){
+						if(inout == "in" && $('#notif_checked').text() == "0"){
+							$('#btn_accept_notif').show();
+						};
+					}
+				}).render(n_info.notification);
+			}
 		});
 		$('#notif_info').show();
 		$('#leftbutton').show();
@@ -91,9 +114,13 @@ $(document).ready(function(){
 	$('#btn_notifications').click(function(){
 		hidePages();
 		callWebservice("","/notifications/show/uId/"+u_id,function(data){
-			var notifs = $.parseJSON(data);
-			//Render the list of patients
-			n_lookup_template.render(notifs.notifications);
+			if(!data || data == "ERROR")
+				$('#error_dialog').dialog('open');
+			else{
+				var notifs = $.parseJSON(data);
+				//Render the list of patients
+				n_lookup_template.render(notifs.notifications);
+			}
 		});
 		$('#notif_lookup').show();
 		$('#leftbutton').show();

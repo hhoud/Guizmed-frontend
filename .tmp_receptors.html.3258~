@@ -45,10 +45,6 @@
         <p data-template-fallback>Sorry, javascript required!</p>
     </div>
 </div>
-<!-- ui-dialog -->
-<div id="error_dialog" title="Fout">
-    <p>Er is een fout gebeurd, probeer opnieuw.</p>
-</div>
 <div id="footer">
     <!-- Support iWebKit by sending us traffic; please keep this footer on your page, consider it a thank you for our work :-) -->
     <a class="noeffect" href="http://snippetspace.com">Powered by iWebKit</a></div>

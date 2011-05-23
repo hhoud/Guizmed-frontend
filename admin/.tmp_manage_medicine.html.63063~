@@ -248,13 +248,5 @@
             </table>
             {/for}
         </div>
-<!-- ui-dialog -->
-<div id="error_dialog" title="Fout">
-    <p>Er is een fout gebeurd, probeer opnieuw.</p>
-</div>
-<!-- ui-dialog -->
-<div id="success_dialog" title="Succesvol toegevoegd">
-    <p>Het nieuwe geneesmiddel is succesvol toegevoegd.</p>
-</div>
 </body>
 </html>

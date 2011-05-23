@@ -199,16 +199,12 @@
 </div>
 <!-- ui-dialog -->
 <div id="error_dialog" title="Fout!" style="display:none;">
-    <p>Er is een fout gebeurd, probeer opnieuw.</p>
+    <p>Er is een fout gebeurd, gelieve opnieuw te proberen.</p>
 </div>
 <!-- ui-dialog -->
 <div id="req_perm_dialog" title="Geen toegang" style="display:none;">
     <p>U heeft geen toegang tot deze patient.</p>
     <p><textarea id="notif_reason" name="reason" rows="4"></textarea></p>
-</div>
-<!-- ui-dialog -->
-<div id="success_dialog" title="Succesvol verstuurd">
-    <p>De aanvraag is succesvol verstuurd.</p>
 </div>
 <div id="footer">
     <!-- Support iWebKit by sending us traffic; please keep this footer on your page, consider it a thank you for our work :-) -->

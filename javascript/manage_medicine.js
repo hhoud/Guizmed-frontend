@@ -4,63 +4,107 @@ var giRedraw = false;
 $(document).ready(function() {
 	var kilist;
 	
+	$('#error_dialog').dialog({
+		autoOpen: false,
+		width: 'auto',
+		buttons: {
+			"Ok": function() {
+				$(this).dialog("close");
+			}
+		}
+	});
+	
+	$('#success_dialog').dialog({
+		autoOpen: false,
+		width: 'auto',
+		buttons: {
+			"Ok": function() {
+				$(this).dialog("close");
+			}
+		}
+	});
+	
 	/**
 	 * Get the list of ki-values
 	 */
 	callWebservice("","/ki",function(data){
-		kilist = $.parseJSON(data);
-		
-		//Get the list of receptors and show it in the form
-		callWebservice("","/receptoren",function(data){
-			var receptors = $.parseJSON(data);
-			for(var i in receptors.receptors){
-				receptors.receptors[i]["ki_list"] = kilist.ki;
-				receptors.receptors[i]["field_name"] = receptors.receptors[i].name.replace(' ','_').toLowerCase();
-			}
+		if(!data || data == "ERROR")
+			$('#error_dialog').dialog('open');
+		else{
+			kilist = $.parseJSON(data);
 			
-			var result = TrimPath.processDOMTemplate("neuro_template", receptors);
-			$("#neuro_list").html(result);
-		});
+			//Get the list of receptors and show it in the form
+			callWebservice("","/receptoren",function(data){
+				if(!data || data == "ERROR")
+					$('#error_dialog').dialog('open');
+				else{
+					var receptors = $.parseJSON(data);
+					for(var i in receptors.receptors){
+						receptors.receptors[i]["ki_list"] = kilist.ki;
+						receptors.receptors[i]["field_name"] = receptors.receptors[i].name.replace(' ','_').toLowerCase();
+					}
+					
+					var result = TrimPath.processDOMTemplate("neuro_template", receptors);
+					$("#neuro_list").html(result);
+				}
+			});
+		}
 	});
 	
 	/**
 	 * Get the list of enzymes
 	 */
 	callWebservice("","/enzym",function(data){
-		var enzymes = $.parseJSON(data);
-		var result = TrimPath.processDOMTemplate("enz_template", enzymes);
-		$("#meta_enzymes").html(result);
-		$("#act_enzymes").html(result);
-		$("#inh_enzymes").html(result);
+		if(!data || data == "ERROR")
+			$('#error_dialog').dialog('open');
+		else{
+			var enzymes = $.parseJSON(data);
+			var result = TrimPath.processDOMTemplate("enz_template", enzymes);
+			$("#meta_enzymes").html(result);
+			$("#act_enzymes").html(result);
+			$("#inh_enzymes").html(result);
+		}
 	});
 	
 	/**
 	 * Get the list of magister forms
 	 */
 	callWebservice("","/medmagister",function(data){
-		var mags = $.parseJSON(data);
-		var result = TrimPath.processDOMTemplate("magister_template", mags);
-		$("#med_magister_form_id").html(result);
+		if(!data || data == "ERROR")
+			$('#error_dialog').dialog('open');
+		else{
+			var mags = $.parseJSON(data);
+			var result = TrimPath.processDOMTemplate("magister_template", mags);
+			$("#med_magister_form_id").html(result);
+		}
 	});
 	
 	/**
 	 * Get the list of med types
 	 */
 	callWebservice("","/medtypes",function(data){
-		var types = $.parseJSON(data);
-		var result = TrimPath.processDOMTemplate("type1_template", types.types);
-		$("#med_subtype1_id").html(result);
-		var result2 = TrimPath.processDOMTemplate("type2_template", types.types);
-		$("#med_subtype2_id").html(result2);
+		if(!data || data == "ERROR")
+			$('#error_dialog').dialog('open');
+		else{
+			var types = $.parseJSON(data);
+			var result = TrimPath.processDOMTemplate("type1_template", types.types);
+			$("#med_subtype1_id").html(result);
+			var result2 = TrimPath.processDOMTemplate("type2_template", types.types);
+			$("#med_subtype2_id").html(result2);
+		}
 	});
 	
 	/**
 	 * Get the list of bnf values
 	 */
 	callWebservice("","/bnfpercentage",function(data){
-		var bnfs = $.parseJSON(data);
-		var result = TrimPath.processDOMTemplate("bnf_template", bnfs);
-		$("#bnf_list").html(result);
+		if(!data || data == "ERROR")
+			$('#error_dialog').dialog('open');
+		else{
+			var bnfs = $.parseJSON(data);
+			var result = TrimPath.processDOMTemplate("bnf_template", bnfs);
+			$("#bnf_list").html(result);
+		}
 	});
 	
 	/**
@@ -69,16 +113,20 @@ $(document).ready(function() {
 	renderMedicines();
 	function renderMedicines(){
 		callWebservice("","/medicijnbeheer/indexAdmin",function(data){
-			var meds = $.parseJSON(data);
-			//Render the list of meds
-			var result = TrimPath.processDOMTemplate("meds_template", meds);
-			var rows = "";
-			$(result).find('tbody').each(function(){
-				rows += $(this).html();
-			});
-			$("#m_list").html(rows);
-			/* Init the table */
-			$('#example').dataTable( );
+			if(!data || data == "ERROR")
+				$('#error_dialog').dialog('open');
+			else{
+				var meds = $.parseJSON(data);
+				//Render the list of meds
+				var result = TrimPath.processDOMTemplate("meds_template", meds);
+				var rows = "";
+				$(result).find('tbody').each(function(){
+					rows += $(this).html();
+				});
+				$("#m_list").html(rows);
+				/* Init the table */
+				$('#example').dataTable( );
+			}
 		});
 	}
 	
@@ -87,8 +135,9 @@ $(document).ready(function() {
 	 */
 	$('#btn_add_medicine').click(function(){
 		processForm($(this),function(data){
-			if(data && data != "ERROR"){
-				var result = $.parseJSON(data);
+			if(!data || data == "ERROR")
+				$('#error_dialog').dialog('open');
+			else{
 				//clear the form
 				$('#btn_add_medicine').parents('form').find('input').val("");
 				$('#btn_add_medicine').parents('form').find('select').each(function(){
@@ -96,6 +145,8 @@ $(document).ready(function() {
 				});
 				//reload the list with medicines
 				renderMedicines();
+				//show a success dialog
+				$('#success_dialog').dialog(
 			}
 		});
 	});

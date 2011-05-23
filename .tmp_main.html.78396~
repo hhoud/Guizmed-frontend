@@ -76,7 +76,7 @@
             </tr>
         </table>
         <p data-template-fallback>Sorry, javascript required!</p>
-        <a href="#" id="btn_accept_notif" style="display:none;" class="button">Reageren</a>
+        <a href="#" id="btn_accept_notif" style="display:none;">Aanvaarden</a>
     </div>
 </div>
 <div id="notifications">
@@ -89,10 +89,6 @@
 <!-- ui-dialog -->
 <div id="accept_dialog" title="Reageren" style="display:none;">
     <p>Wil u deze arts toegang verlenen aan deze patient?</p>
-</div>
-<!-- ui-dialog -->
-<div id="error_dialog" title="Fout" style="display:none;">
-    <p>Er is een fout opgetreden, probeer opnieuw.</p>
 </div>
 <div id="footer">
 	<!-- Support iWebKit by sending us traffic; please keep this footer on your page, consider it a thank you for our work :-) -->

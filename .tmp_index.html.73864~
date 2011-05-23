@@ -64,10 +64,6 @@
 <div id="dialog" title="Foutieve gegevens">
     <p>Deze gegevens zijn niet correct, gelieve opnieuw te proberen.</p>
 </div>
-<!-- ui-dialog -->
-<div id="error_dialog" title="Fout">
-    <p>Er is een fout gebeurd, probeer opnieuw.</p>
-</div>
 <div id="footer">
 	<!-- Support iWebKit by sending us traffic; please keep this footer on your page, consider it a thank you for our work :-) -->
 	<a class="noeffect" href="http://snippetspace.com">Powered by iWebKit</a></div>

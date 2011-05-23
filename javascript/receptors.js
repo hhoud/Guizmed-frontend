@@ -1,5 +1,16 @@
 $(document).ready(function(){
 	var r_info_template = Tempo.prepare("info");
+	
+	$('#error_dialog').dialog({
+		autoOpen: false,
+		width: 'auto',
+		buttons: {
+			"Ok": function() {
+				$(this).dialog("close");
+			}
+		}
+	});
+	
 	/**
 	 * Show more info about the chosen medicine.
 	 * @param r_id is the id of the medicine that has been chosen. 
@@ -9,18 +20,22 @@ $(document).ready(function(){
 		$("#lookup").hide();
 		//Retrieve med info
 		callWebservice("","/receptoren/show/med_chem_bonding_id/"+r_id,function(data){
-			var r_info = $.parseJSON(data);
-			//Render the page with all the info
-			r_info_template.notify(function(event){
-				if(event.type == TempoEvent.Types.RENDER_COMPLETE){
-					$("#r_info tr td").each(function(){
-						if($(this).text() == "")
-							$(this).parents("tr").hide();
-					});
-				}
-			}).render(r_info.receptor);
-			//Show the info page of the medicine
-			$("#info").show();
+			if(!data || data == "ERROR")
+				$('#error_dialog').dialog('open');
+			else{
+				var r_info = $.parseJSON(data);
+				//Render the page with all the info
+				r_info_template.notify(function(event){
+					if(event.type == TempoEvent.Types.RENDER_COMPLETE){
+						$("#r_info tr td").each(function(){
+							if($(this).text() == "")
+								$(this).parents("tr").hide();
+						});
+					}
+				}).render(r_info.receptor);
+				//Show the info page of the medicine
+				$("#info").show();
+			}
 		});
 	};
 	
@@ -29,12 +44,16 @@ $(document).ready(function(){
 	});
 
 	/**
-	 * Get the list of meds from the backend
+	 * Get the list of receptors from the backend
 	 */
 	callWebservice("","/receptoren",function(data){
-		var rec = $.parseJSON(data);
-		//Render the list of patients
-		Tempo.prepare("r_lookup").render(rec.receptors);
+		if(!data || data == "ERROR")
+			$('#error_dialog').dialog('open');
+		else{
+			var rec = $.parseJSON(data);
+			//Render the list of patients
+			Tempo.prepare("r_lookup").render(rec.receptors);
+		}
 	});
 	
 	$(".r_item").live('click',function(){

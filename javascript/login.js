@@ -17,12 +17,22 @@ $(document).ready(function(){
 		}
 	});
 	
+	$('#error_dialog').dialog({
+		autoOpen: false,
+		width: 'auto',
+		buttons: {
+			"Ok": function() {
+				$(this).dialog("close");
+			}
+		}
+	});
+	
 	/**
 	 * Process the login form
 	 */
 	$("#btn_login").click(function(){
 		processForm($(this), function(data){
-			if(!data){
+			if(!data || data == "ERROR"){
 				//show error message
 				$('#dialog').dialog('open');
 			}else{
@@ -60,6 +70,7 @@ $(document).ready(function(){
 			//if successful unlock, send through to main
 			if(data == "ERROR" || !data){
 				$('#dialog').dialog('open');
+				//TODO: clear the dontType unlock screen
 			}else{
 				var check = $.parseJSON(data);
 				if(check.message.login)
@@ -81,14 +92,11 @@ $(document).ready(function(){
 		//check if conf and new password are the same
 		if($('#new_pass').val() == $('#conf_pass').val()){
 			processForm($(this),function(data){
-				//check if successful
-				var result = $.parseJSON(data); 
-				//if successful registration, send through to main.html
-				if(result)
+				if(!data || data == "ERROR"){
+					$('#error_dialog').dialog('open');
+					//TODO: clear the dontType unlock screen
+				}else{
 					window.location = "main.html";
-				else{
-					//show error message
-					$('#dialog').dialog('open');
 				}
 			});
 		}

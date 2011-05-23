@@ -4,22 +4,36 @@ var giRedraw = false;
 $(document).ready(function() {
 	var item_id;
 	
+	$('#error_dialog').dialog({
+		autoOpen: false,
+		width: 'auto',
+		buttons: {
+			"Ok": function() {
+				$(this).dialog("close");
+			}
+		}
+	});
+	
 	renderUsers();
 	/**
 	 * Get the list of users from the backend and render it
 	 */
 	function renderUsers(){
 		callWebservice("","/users",function(data){
-			var users = $.parseJSON(data);
-			//Render the list of users
-			var result = TrimPath.processDOMTemplate("users_template", users);
-			var rows = "";
-			$(result).find('tbody').each(function(){
-				rows += $(this).html();
-			});
-			$("#u_lookup").html(rows);
-			/* Init the table */
-			$('#example').dataTable( );
+			if(!data || data == "ERROR")
+				$('#error_dialog').dialog('open');
+			else{
+				var users = $.parseJSON(data);
+				//Render the list of users
+				var result = TrimPath.processDOMTemplate("users_template", users);
+				var rows = "";
+				$(result).find('tbody').each(function(){
+					rows += $(this).html();
+				});
+				$("#u_lookup").html(rows);
+				/* Init the table */
+				$('#example').dataTable( );
+			}
 		});
 	}
 	
@@ -33,7 +47,9 @@ $(document).ready(function() {
 		buttons: {
 			"Yes": function() {
 				callWebservice("", "/users/delete/user_id/"+item_id, function(data){
-					if(data != "ERROR"){
+					if(!data || data == "ERROR")
+						$('#error_dialog').dialog('open');
+					else{
 						var users = $.parseJSON(data);
 						renderUsers();
 					}
@@ -45,15 +61,7 @@ $(document).ready(function() {
 			}
 		}
 	});
-	$('#error').dialog({
-		autoOpen: false,
-		width: 'auto',
-		buttons: {
-			"Ok": function() {
-				$(this).dialog("close");
-			}
-		}
-	});
+	
 	$('#success').dialog({
 		autoOpen: false,
 		width: 'auto',
@@ -67,10 +75,14 @@ $(document).ready(function() {
 	function showInfo(item_id){
 		$('#doctor_list').hide();
 		callWebservice("","/users/show/user_id/"+item_id,function(data){
-			var user_info = $.parseJSON(data);
-			var result = TrimPath.processDOMTemplate("user_template", user_info);
-			$('#doctor_info').html(result);
-			$('#doctor_info').show();
+			if(!data || data == "ERROR")
+				$('#error_dialog').dialog('open');
+			else{
+				var user_info = $.parseJSON(data);
+				var result = TrimPath.processDOMTemplate("user_template", user_info);
+				$('#doctor_info').html(result);
+				$('#doctor_info').show();
+			}
 		});
 	}
 	
@@ -94,8 +106,8 @@ $(document).ready(function() {
 	
 	$('#btnRegister').click(function(e){
 		processForm($(this),function(data){
-			if(data == "ERROR"){
-				$('#error').dialog('open');
+			if(!data || data == "ERROR"){
+				$('#error_dialog').dialog('open');
 			}else{
 				var result = $.parseJSON(data);
 				$('#success').dialog('open');
