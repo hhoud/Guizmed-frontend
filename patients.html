@@ -10,6 +10,7 @@
 <link href="css/guizmed.css" rel="stylesheet" media="screen" type="text/css" />
 <link href="css/cupertino/jquery-ui-1.8.11.custom.css" rel="stylesheet" media="screen" type="text/css" />
 <script src="javascript/jquery_1.5.2.js" type="text/javascript"></script>
+<script src="javascript/jquery.numeric.js" type="text/javascript"></script>
 <script src="javascript/jquery-ui-1.8.11.custom.min.js" type="text/javascript"></script>
 <script src="javascript/querystring-0.9.0-min.js" type="text/javascript"></script>
 <script src="javascript/trimpath.template.js" type="text/javascript"></script>
@@ -102,9 +103,9 @@
     <div id="pat_add" style="display:none">
         <form name="/patienten/create" method="post">
             <ul class="pageitem input_fields">
-                <li class="bigfield_override bigfield"><input placeholder="Voornaam" type="text" name="fName" /></li>
-                <li class="bigfield bigfield_override"><input placeholder="Achternaam" type="text" name="lName" /></li>
-                <li class="bigfield bigfield_override"><input placeholder="Geboortedatum" type="text" name="bDate" class="datepicker" /></li>
+                <li class="bigfield_override bigfield"><input placeholder="Voornaam" type="text" name="fName" class="valCheckString" /></li>
+                <li class="bigfield bigfield_override"><input placeholder="Achternaam" type="text" name="lName" class="valCheckString" /></li>
+                <li class="bigfield bigfield_override"><input placeholder="Geboortedatum" type="text" name="bDate" class="valCheckDate datepicker"/></li>
             </ul>
             <ul class="pageitem radiobuttons">
                 <li class="radiobutton"><span class="name">Man</span>
@@ -121,12 +122,12 @@
         <form name="/voorschriften/create" method="post">
             <ul class="pageitem">
                 <input type="hidden" name="patientId" />
-                <li class="smallfield"><input placeholder="Geneesmiddel" type="text" disabled="true" name="medName" class="no_process" /><a href="#" id="presc_s_med"><img src="images/icon_search.png" alt="Search" /></a></li>
+                <li class="smallfield"><input placeholder="Geneesmiddel" type="text" disabled="true" name="medName" class="no_process valCheckString" /><a href="#" id="presc_s_med"><img src="images/icon_search.png" alt="Search" /></a></li>
                 <input type="hidden" name="medFormId" />
                 <p id="poss_doses"></p>
-                <li class="bigfield"><input placeholder="Dosering (enkel getal)" type="text" name="dose" /></li>
-                <li class="bigfield"><input placeholder="Frequentie (per dag)" type="text" name="frequency" /></li>
-                <li class="bigfield"><input placeholder="Start datum" type="text" class="datepicker" name="startDate" /></li>
+                <li class="bigfield"><input placeholder="Dosering (enkel getal)" type="text" name="dose" class="numeric valCheckEmpty" /></li>
+                <li class="bigfield"><input placeholder="Frequentie (per dag)" type="text" name="frequency" class="numeric valCheckEmpty"/></li>
+                <li class="bigfield"><input placeholder="Start datum" type="text" class="datepicker valCheckDate" name="startDate " /></li>
                 <li class="textbox"><span class="header">Aanvullingen</span><textarea name="comment" rows="4"></textarea></li>
             </ul>
             <a href="#" id="btn_presc_add" class="button">Toevoegen</a>

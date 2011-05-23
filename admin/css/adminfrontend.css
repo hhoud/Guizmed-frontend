@@ -439,3 +439,11 @@ h3{
 	
 	text-align:center;
 }
+
+.notvalid{
+	background-color:#FF4242;
+		
+}
+.valid{
+	background-color:white;
+}
