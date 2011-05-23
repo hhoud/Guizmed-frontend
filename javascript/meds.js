@@ -41,6 +41,7 @@ $(document).ready(function(){
 						});
 					}
 				}).render(m_info.medicine);
+				$('.submed_spec').append($('#med_spec').text());
 				//Show the info page of the medicine
 				$("#info").show();
 			}
@@ -103,7 +104,6 @@ $(document).ready(function(){
 			}
 		}).render(sub_med);
 		
-		$('#submed_spec').text($('#med_spec').text()).parents('tr').show();
 		//Show the info page of the submedicine
 		$("#submed_info").show();
 	});

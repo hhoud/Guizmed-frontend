@@ -3,6 +3,7 @@ $(document).ready(function(){
 	var p_info_template = Tempo.prepare("info");
 	var dialog_template = Tempo.prepare("dialog");
 	var presc_info_template = Tempo.prepare("presc_info");
+	var p_lookup = Tempo.prepare("p_lookup");
 	var p_id;
 	var presc_id;
 	var stop_item;
@@ -113,15 +114,18 @@ $(document).ready(function(){
 	/**
 	 * Get the list of patients from the backend
 	 */
-	callWebservice("","/patienten",function(data){
-		if(!data || data == "ERROR")
-			$('#error_dialog').dialog('open');
-		else{
-			var patients = $.parseJSON(data);
-			//Render the list of patients
-			Tempo.prepare("p_lookup").render(patients.allPatients);
-		}
-	});
+	renderPatients();
+	function renderPatients(){
+		callWebservice("","/patienten",function(data){
+			if(!data || data == "ERROR")
+				$('#error_dialog').dialog('open');
+			else{
+				var patients = $.parseJSON(data);
+				//Render the list of patients
+				p_lookup.render(patients.allPatients);
+			}
+		});
+	}
 	
 	/**
 	 * Show all information about a patient
@@ -204,9 +208,9 @@ $(document).ready(function(){
 			if(!data || data == "ERROR")
 				$('#error_dialog').dialog('open');
 			else{
-				var patient = $.parseJSON(data);
 				hidePages();
-				showInfo(patient.patient[0].personalInfo.id);
+				renderPatients();
+				$("#lookup").show();
 			}
 		});
 	});

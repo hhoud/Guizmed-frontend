@@ -39,9 +39,6 @@
     </div>
     <div id="info" style="display:none">
         <table id="m_info" data-template >
-            <div id="recept_name">
-            <p class="submed_spec"><img src="images/icon_info.png" alt="icon" /></p>
-            </div>
             <tr>
                 <td class="name_tag">Hoofdklasse:</td>
                 <td>{{mainclass}}</td>
@@ -71,9 +68,10 @@
     <div id="submed_info" style="display:none">
         <a href="#" id="add_to_presc" class="button">Toevoegen aan voorschrift</a>
         <table id="m_info_submed" data-template>
-            <div id="recept_name">
-            <p class="submed_spec"><img src="images/icon_info.png" alt="icon" /></p>
-            </div>
+            <tr>
+                <td class="name_tag">Specialiteit: </td>
+                <td id="submed_spec"></td>
+            </tr>
             <tr id="med_id" name="{{med_form}}">
                 <td class="name_tag">Magistraal type:</td>
                 <td>{{med_magister_form}}</td>

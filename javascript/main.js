@@ -93,7 +93,7 @@ $(document).ready(function(){
 		inout = ($(this).hasClass('in'))?"in":"out";
 		//Retrieve notification info
 		callWebservice("","/notifications/shownot/notification_id/"+n_id+"/userId/"+u_id,function(data){
-			if(!data || data == "ERROR"){
+			if(!data || data == "ERROR")
 				$('#error_dialog').dialog('open');
 			else{
 				n_info = $.parseJSON(data);

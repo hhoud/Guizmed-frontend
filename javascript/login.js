@@ -1,7 +1,4 @@
 $(document).ready(function(){
-	$('#unlockField').dontType();
-	$('#pin').dontType();
-	//$('#unlockF').dontType();
 	
 	/**
 	 * Convert dialog div into dialog and hide it
@@ -65,15 +62,13 @@ $(document).ready(function(){
 	});
 	
 	$('#unlock_submit').bind('click',function(e){
-		var unlockcode = $(document.getElementById('unlockField')).val();
 		processForm($(this),function(data){
 			//if successful unlock, send through to main
 			if(data == "ERROR" || !data){
 				$('#dialog').dialog('open');
-				//TODO: clear the dontType unlock screen
 			}else{
 				var check = $.parseJSON(data);
-				if(check.message.login)
+				if(check.message.inlog)
 					window.location = "main.html";
 				else
 					$('#dialog').dialog('open');
@@ -94,7 +89,6 @@ $(document).ready(function(){
 			processForm($(this),function(data){
 				if(!data || data == "ERROR"){
 					$('#error_dialog').dialog('open');
-					//TODO: clear the dontType unlock screen
 				}else{
 					window.location = "main.html";
 				}
