@@ -24,6 +24,11 @@ $(document).ready(function(){
 		}
 	});
 	
+	$('.valCheckString').focusout(function() {
+  		validateString($(this));
+	});
+	
+	
 	/**
 	 * Process the login form
 	 */

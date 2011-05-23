@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	
+	$(".numeric").numeric();
 	var p_info_template = Tempo.prepare("info");
 	var dialog_template = Tempo.prepare("dialog");
 	var presc_info_template = Tempo.prepare("presc_info");
@@ -29,6 +29,20 @@ $(document).ready(function(){
 			}
 		}
 	});
+	
+	$('.valCheckString').focusout(function() {
+  		validateString($(this));
+	});
+	
+	$('.valCheckDate').focusout(function(){
+		validateDate($(this));
+	})
+	
+	$('.valCheckEmpty').focusout(function(){
+		console.log("test");
+		validateInputEmpty($(this));
+	})
+	
 	
 	/**
 	 * Catch all input and filter the list
@@ -104,7 +118,9 @@ $(document).ready(function(){
 			}
 		}
 	});
-	$('.datepicker').datepicker({ autoSize: true, dateFormat: 'yy-mm-dd' });
+	$('.datepicker').datepicker({ autoSize: true, dateFormat: 'yy-mm-dd',onClose: function(){
+		validateDate($(this))
+	} });
 	
 	$('.pat_add').click(function(ev){
 		hidePages();

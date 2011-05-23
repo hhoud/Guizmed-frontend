@@ -14,6 +14,15 @@ $(document).ready(function() {
 		}
 	});
 	
+	$('.valCheckStringAdmin').focusout(function() {
+  		validateStringAdmin($(this));
+	});
+	
+	$('.valCheckEmailAdmin').focusout(function() {
+  		validateEmailAdmin($(this));
+	});
+	
+	
 	renderUsers();
 	/**
 	 * Get the list of users from the backend and render it
