@@ -293,7 +293,7 @@ h2{
 	
 	margin-top:20px;
 	
-	width:110px;
+	width:182px;
 	display:block;
 	height:50px;
 	
@@ -301,7 +301,38 @@ h2{
 	
 	line-height:20px;
 }
+#neuro_list{
+	
+	padding-left:15px;	
+}
 .component_group_3 label{
+	
+	width:60px;	
+	display:block;
+	height:20px;
+	float:left;
+	text-align:right;
+	line-height:27px;
+	padding-right:6px;
+}
+.component_group_4{
+	
+	margin-top:20px;
+	
+	width:108px;
+	display:block;
+	height:50px;
+	
+	float:left;
+	
+	line-height:20px;
+}
+.component_group_4 input{
+	
+	width:30px;
+	height:20px;
+}
+.component_group_4 label{
 	
 	width:60px;	
 	display:block;
@@ -376,7 +407,7 @@ h2{
 .block_div{
 	
 	width:450px;	
-	height:350px;
+	height:auto;
 	float:left;
 }
 h3{
@@ -429,7 +460,7 @@ h3{
 
 #add_new_medicine,#btnEditMedicine{
 	
-	height:900px;	
+	height:auto;	
 }
 .icon{
 	
@@ -446,4 +477,11 @@ h3{
 }
 .valid{
 	background-color:white;
+}
+#login_page a{
+	margin-top:4px;
+	margin-left:20px;	
+}
+#register_doctor fieldset{
+	float:left;	
 }

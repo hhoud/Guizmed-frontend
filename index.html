@@ -38,9 +38,12 @@
     </div>
     <div id="unlock" style="display:none;">
         <form name="/inlog/unlock">
-            <label for="password">PIN code: </label>
-            <input type="password" name="unlock" />
-            <a href="#" id="unlock_submit" class="button">Ontgrendelen</button>
+			<ul>
+				<li class="bigfield"><input placeholder="PIN code" class="valCheckString" type="password" name="unlock" /></li>
+			</ul>
+			<div class="unlock_div">
+				<a href="#" id="unlock_submit" class="button">Ontgrendelen</a>
+			</div>
         </form>
     </div>
     <div id="first_login" style="display:none;">

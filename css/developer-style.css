@@ -105,7 +105,7 @@ a:hover .arrow {
 	max-width:55%
 }
 .textbox textarea {
-	width: 280px;
+	width:90%;
 }
 .bigfield input{
 	width:295px
@@ -148,7 +148,7 @@ a:hover .arrow {
 	max-width:70%
 }
 .textbox textarea {
-	width: 440px;
+	width: 90%;
 }
 #tributton a:first-child, #duobutton a:first-child {
 	width: 152px;
@@ -428,7 +428,7 @@ fieldset {
 	margin: 0!important;
 }
 .pageitem li:first-child, .pageitem li.form:first-child {
-	border-top: 0;
+	/*border-top: 0;*/
 }
 .menu, .checkbox, .radiobutton, .select, li.button, li.bigfield, li.smallfield {
 	position: relative;
@@ -1070,7 +1070,7 @@ select {
 	-webkit-transform: rotate(90deg);
 	position: absolute;
 	right: 10px;
-	top: 18px;
+	top: 12px;
 }
 .button input {
 	width: 100%;

@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	
+    
 	/**
 	 * Convert dialog div into dialog and hide it
 	 */

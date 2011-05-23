@@ -441,7 +441,7 @@ fieldset {
 	margin:0!important
 }
 .pageitem li:first-child, .pageitem li.form:first-child {
-	border-top:0
+	/*border-top:0*/
 }
 .menu, .checkbox, .radiobutton, .select, li.button, li.bigfield, li.smallfield {
 	position:relative;

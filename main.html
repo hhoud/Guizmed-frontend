@@ -28,21 +28,21 @@
 <div id="content">
     <div>
         <ul class="pageitem">
-            <li class="griditem"><a href="meds.html"><img src="images/icon_medicine.png" alt="Medicine"/><br />medicine</a></li>
-            <li class="griditem"><a href="patients.html"><img src="images/icon_patients.png" alt="Patients"/><br />patient</a></li>
-            <li class="griditem"><a href="receptors.html"><img src="images/icon_receptors.png" alt="Receptors" /><br />receptors</a></li>
+            <li class="griditem"><a href="meds.html"><img src="images/icon_medicine.png" alt="Medicine"/><br />medicatie</a></li>
+            <li class="griditem"><a href="patients.html"><img src="images/icon_patients.png" alt="Patients"/><br />patienten</a></li>
+            <li class="griditem"><a href="receptors.html"><img src="images/icon_receptors.png" alt="Receptors" /><br />receptoren</a></li>
             <li class="griditem"><a href="#" id="btn_logout"><img src="images/icon_logout.png" alt="Log Out" /><br />log out</a></li>
         </ul>
     </div>
     <div id="notif_lookup" style="display:none;">
-        <ul class="pageitem list_view" id="notif_list">
+        <ul class="pageitem" id="notif_list">
             <li data-template>
-                Binnenkomend
-                <ul>
+                <span class="notif_header">Binnenkomend</span>
+                <ul class="ul_extra">
                     <li data-template="incoming" class="n_item textbox in"><span class="name" id="{{id}}">{{fName}} {{lName}}</span></li>
                 </ul>
-                Uitgaand
-                <ul>
+                <span class="notif_header">Uitgaand</span>
+                <ul class="ul_extra">
                     <li data-template="outgoing" class="n_item textbox out"><span class="name" id="{{id}}">{{fName}} {{lName}}</span></li>
                 </ul>
             </li>
@@ -95,8 +95,7 @@
     <p>Er is een fout opgetreden, probeer opnieuw.</p>
 </div>
 <div id="footer">
-	<!-- Support iWebKit by sending us traffic; please keep this footer on your page, consider it a thank you for our work :-) -->
-	<a class="noeffect" href="http://snippetspace.com">Powered by iWebKit</a></div>
+	
 
 </body>
 
