@@ -3,7 +3,7 @@ var giRedraw = false;
 
 $(document).ready(function() {
 	var kilist;
-	
+
 	$('#error_dialog').dialog({
 		autoOpen: false,
 		width: 'auto',
@@ -24,6 +24,11 @@ $(document).ready(function() {
 		}
 	});
 	
+		
+	$('.valCheckStringAdmin').focusout(function() {
+  		validateStringAdmin($(this));
+	});
+
 	/**
 	 * Get the list of ki-values
 	 */
@@ -104,6 +109,7 @@ $(document).ready(function() {
 			var bnfs = $.parseJSON(data);
 			var result = TrimPath.processDOMTemplate("bnf_template", bnfs);
 			$("#bnf_list").html(result);
+			$(".numeric").numeric();
 		}
 	});
 	

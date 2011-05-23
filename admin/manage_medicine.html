@@ -11,6 +11,7 @@
 <script type="text/javascript" language="javascript" src="../javascript/jquery.dataTables.js"></script>
 <script type="text/javascript" src="../javascript/trimpath.template.js"></script>
 <script type="text/javascript" src="../javascript/jquery-ui-1.8.11.custom.min.js"></script>
+<script src="../javascript/jquery.numeric.js" type="text/javascript"></script>
 <script type="text/javascript" src="../javascript/core.js"></script>
 <script type="text/javascript" src="../javascript/manage_medicine.js"></script>
 <meta http-equiv="Content-Type" content="text/html;" />
@@ -127,21 +128,21 @@
                   <fieldset>
                     <div class="component_group">
                       <label for='bioavailability' >Bioavailability:</label>
-                      <input type='text' name='bioavailability' id='bioavailability' class="valCheckStringAdmin"  maxlength="50" />
+                      <input type='text' name='bioavailability' id='bioavailability' maxlength="50" />
                     </div>
                      <div class="component_group">
                       <label for='proteine_binding' >Proteine binding:</label>
-                      <input type='text' name='proteine_binding' id='proteine_binding' class="valCheckStringAdmin"  maxlength="50" />
+                      <input type='text' name='proteine_binding' id='proteine_binding' maxlength="50" />
                     </div>
                      <div class="component_group">
                       <label for='t_max_h' >T max h:</label>
-                      <input type='text' name='t_max_h' id='t_max_h' class="valCheckStringAdmin"  maxlength="50" />
+                      <input type='text' name='t_max_h' id='t_max_h' maxlength="50" />
                     </div>
                      <div class="component_group">
                       <label for='hlf' >Hlf:</label>
-                      <input type='text' name='hlf' id='hlf' class="valCheckStringAdmin"  maxlength="50" />
+                      <input type='text' name='hlf' id='hlf' maxlength="50" />
                     </div>
-                     <div class="component_group">
+                     <div class="component_group">q
                       <label for='ddd' >DDD:</label>
                       <input type='text' name='ddd' id='ddd'  maxlength="50" />
                     </div>
@@ -231,7 +232,7 @@
             {for b in bnf_percentages}
                 <div class="component_group_4">
                   <label for='${b.id}' >%${b.name}:</label>
-                  <input type='text' name='bnf_p${b.name}' id='${b.id}'  maxlength="50" />
+                  <input type='text' name='bnf_p${b.name}' id='${b.id}'  maxlength="50" class="numeric" />
                 </div>
             {/for}
         </div>
