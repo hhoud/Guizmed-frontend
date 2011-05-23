@@ -25,6 +25,11 @@ $(document).ready(function() {
 		}
 	});
 	
+	$('.valCheckStringAdmin').focusout(function() {
+  		validateStringAdmin($(this));
+	});
+	
+	
 	/**
 	 * Get the list of nonpsychos from the backend
 	 */
