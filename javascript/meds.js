@@ -2,6 +2,7 @@ $(document).ready(function(){
 	var m_info;
 	var m_info_template = Tempo.prepare('info');
 	var submed_info_template = Tempo.prepare("submed_info");
+	var icon = $('.submed_spec').html();
 	
 	$('#error_dialog').dialog({
 		autoOpen: false,
@@ -41,7 +42,7 @@ $(document).ready(function(){
 						});
 					}
 				}).render(m_info.medicine);
-				$('.submed_spec').append($('#med_spec').text());
+				$('.submed_spec').html(icon + $('#med_spec').text());
 				//Show the info page of the medicine
 				$("#info").show();
 			}

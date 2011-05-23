@@ -327,7 +327,7 @@ $(document).ready(function(){
 	/**
 	 * If a user presses enter, send it to the next input or if it's the last one, to the submit button.
 	 */
-	$("form :input").keyup(function(event){
+	$("form :input").keydown(function(event){
 		if(event.keyCode == 13){
 			$el = $(":input:eq(" + $(":input").index(this) + 1 + ")");
 			if($el.is("input"))

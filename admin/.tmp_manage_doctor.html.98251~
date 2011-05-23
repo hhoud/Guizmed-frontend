@@ -105,7 +105,7 @@
                <input type='text' name='eMail' id='email' class="valCheckEmailAdmin"  maxlength="80" />
              </div>
              <div class="component_group">
-                 <a href="#" id="btnRegister" class="button">Toevoegen</a>
+                 <input type='submit' name='Submit' value='Submit' id="btnRegister" class="no_process" />
              </div>
      </fieldset>
      </form>

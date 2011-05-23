@@ -46,8 +46,6 @@
         <li class="sub_divider">&nbsp;</li>
         <li><a href="manage_medicine.html" title="" >geneesmiddelen</a></li>
         <li class="sub_divider">&nbsp;</li>
-        <li><a href="manage_nonpsycho.html" title="" >niet-psychofarmaca</a></li>
-        <li class="sub_divider">&nbsp;</li>
       </ul>
     </div>
   </div>
@@ -76,8 +74,8 @@
     </div>
   </div>
   <div id="content">
-    <h1>Patiënten</h1>
-    <h2>Alle patiënten</h2>
+    <h1>Patients</h1>
+    <h2>All patients</h2>
     <div id="patient_list">
        <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
         <thead>

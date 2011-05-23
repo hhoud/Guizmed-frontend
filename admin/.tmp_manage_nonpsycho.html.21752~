@@ -1,18 +1,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-		<head>
-		<link type="text/css" rel="stylesheet" href="css/adminfrontend.css"/>
-		<style type="text/css" title="currentStyle">
+        <head>
+        <link type="text/css" rel="stylesheet" href="css/adminfrontend.css"/>
+        <style type="text/css" title="currentStyle">
 @import "css/demo_page.css";
  @import "css/demo_table.css";
 </style>
-		<link href="../css/cupertino/jquery-ui-1.8.11.custom.css" rel="stylesheet" type="text/css" />
+        <link href="../css/cupertino/jquery-ui-1.8.11.custom.css" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="../javascript/jquery_1.5.2.js"></script>
         <script type="text/javascript" language="javascript" src="../javascript/jquery.dataTables.js"></script>
         <script type="text/javascript" src="../javascript/trimpath.template.js"></script>
         <script type="text/javascript" src="../javascript/jquery-ui-1.8.11.custom.min.js"></script>
         <script type="text/javascript" src="../javascript/core.js"></script>
-        <script type="text/javascript" src="../javascript/manage_patient.js"></script>
+        <script type="text/javascript" src="../javascript/manage_nonpsycho.js"></script>
 <meta http-equiv="Content-Type" content="text/html;" />
 <title>Guizmed - Management panel</title>
 </head>
@@ -76,20 +76,33 @@
     </div>
   </div>
   <div id="content">
-    <h1>Patiënten</h1>
-    <h2>Alle patiënten</h2>
-    <div id="patient_list">
+    <h1>Niet-Psychofarmaca</h1>
+    <h2>Niet-Psychofarmaca toevoegen</h2>
+    <div id="add_new_doctor"> 
+    
+    <div class="block_div">
+      <form id='register_nonpsy' name='/nonPsycho/createNonPsycho' accept-charset='UTF-8'>
+        <fieldset >
+            <div class="component_group">
+               <label for='name' >Naam:</label>
+               <input type='text' name='name' id='name' class="valCheckStringAdmin"  maxlength="50" />
+            </div>
+            <div class="component_group">
+                 <input type='submit' name='Submit' value='Submit' id="btnRegister" class="no_process" />
+             </div>
+     </fieldset>
+     </form>
+    </div>
+    
+    <h2>Alle Niet-psychofarmaca</h2>
+    <div id="nonpsycho_list">
        <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
         <thead>
             <tr>
                 <th>Naam</th>
-                <th>Voornaam</th>
-                <th class="icon">Geboortedatum</th>
-                <th class="icon">Geslacht</th>
-                <th>Dokters</th>
             </tr>
         </thead>
-        <tbody id="p_lookup">
+        <tbody id="np_lookup">
           
         </tbody>
       </table>
@@ -99,21 +112,11 @@
             <div id="footer"><p>Guizmed team</p></div>
     </div>
   </div>
-<div id="pats_template" style="display:none;">
-    {for p in patienten}
+<div id="nonpsy_template" style="display:none;">
+    {for np in nonPsycho}
     <table>
     <tr>
-        <td>${p.personalInfo.lName}</td>
-        <td>${p.personalInfo.fName}</td>
-        <td>${p.personalInfo.bDate}</td>
-        <td>${p.personalInfo.sex}</td>
-        <td class="center">
-        <select name="doctor">
-            {for d in p.doctors}
-            <option>Dr. ${d.lName} ${d.fName}</option>
-            {/for}
-        </select>
-        </td>
+        <td>${np.name}</td>
     </tr>
     </table>
     {/for}
@@ -121,6 +124,10 @@
 <!-- ui-dialog -->
 <div id="error_dialog" title="Fout">
     <p>Er is een fout gebeurd, probeer opnieuw.</p>
+</div>
+<!-- ui-dialog -->
+<div id="success" title="Succesvol toegevoegd">
+    <p>De nieuwe gebruiker is succesvol toegevoegd.</p>
 </div>
 </body>
 </html>

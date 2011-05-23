@@ -172,6 +172,7 @@ $(document).ready(function(){
 	 * p_id: the id of the patient.
 	 */
 	function showInfo(p_id){
+		hidePages();
 		//check if the user can see this patient, otherwise show dialog to ask permission
 		var data = {"patient_id":p_id};
 		callWebservice(data,"/users/check",function(data){
@@ -196,10 +197,14 @@ $(document).ready(function(){
 									//remove the delete icon for the last row (adding a new item)
 									$('[name|="new"]').parent('li').find('a:nth-child(1)').hide();
 									//remove the delete button if the item has a stop_date or end_date
-									if(($('.stop_date').text() != "0000-00-00" && $('.stop_date').text()) || $('.end_date').text() != "0000-00-00"){
-										$('.stop_date').parent('li').find('a:nth-child(1)').hide();
-										$('.stop_date').parent('li').find('a:nth-child(2)').addClass('stopped');
-									}
+									$('.presc_item').each(function(){
+										var stop = $(this).find('.stop_date').text();
+										var end = $(this).find('.end_date').text();
+										if((stop != "0000-00-00" && stop) || end != "0000-00-00"){
+											$(this).find('a:nth-child(1)').hide();
+											$(this).find('a:nth-child(2)').addClass('stopped');
+										}
+									})
 									$('[name|="new"]').parent('li').find('.patient_start').hide();
 									$('.presc').show();
 									//activate the accordion
@@ -324,6 +329,8 @@ $(document).ready(function(){
 					hidePages();
 					showInfo(p_id);
 				}
+				$('#btn_presc_add').parents('form').find('input').val('');
+				$('#btn_presc_add').parents('form').find('textarea').val('');
 			}
 		});
 	});

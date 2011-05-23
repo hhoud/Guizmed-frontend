@@ -46,8 +46,6 @@
         <li class="sub_divider">&nbsp;</li>
         <li><a href="manage_medicine.html" title="" >geneesmiddelen</a></li>
         <li class="sub_divider">&nbsp;</li>
-        <li><a href="manage_nonpsycho.html" title="" >niet-psychofarmaca</a></li>
-        <li class="sub_divider">&nbsp;</li>
       </ul>
     </div>
   </div>
@@ -76,8 +74,8 @@
     </div>
   </div>
           <div id="content">
-            <h1>Geneesmiddelen</h1>
-            <h2>Geneesmiddel toevoegen</h2>
+            <h1>Medicine</h1>
+            <h2>Add new medicine</h2>
             <div id="add_new_medicine">
               <form id="add_new_medicine_form" name="/medicijnbeheer/create" method='post' accept-charset='UTF-8'>
                 <div class="block_div">

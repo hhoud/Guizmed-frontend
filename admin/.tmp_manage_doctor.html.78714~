@@ -89,15 +89,15 @@
       <form id='register_doctor' name='/users/create' accept-charset='UTF-8'>
         <fieldset >
             <div class="component_group">
-               <label for='username' >Naam:</label>
+               <label for='username' >Name:</label>
                <input type='text' name='lName' id='name' class="valCheckStringAdmin"  maxlength="50" />
             </div>
             <div class="component_group">
-               <label for='username' >Voornaam:</label>
+               <label for='username' >Firstname:</label>
                <input type='text' name='fName' id='firstname'  class="valCheckStringAdmin" maxlength="50" />
              </div>
               <div class="component_group">
-               <label for='username' >Telefoonnummer:</label>
+               <label for='username' >Phone number:</label>
                <input type='text' name='phone' id='phonenumber' class="valCheckStringAdmin"  maxlength="50" />
              </div>
               <div class="component_group">
@@ -105,21 +105,20 @@
                <input type='text' name='eMail' id='email' class="valCheckEmailAdmin"  maxlength="80" />
              </div>
              <div class="component_group">
-                 <a href="#" id="btnRegister" class="button">Toevoegen</a>
+                 <input type='submit' name='Submit' value='Submit' id="btnRegister" class="no_process" />
              </div>
      </fieldset>
      </form>
     </div>
   	<div class="block_div">
         <div class="help_div">
-            <h4>Extra informatie:</h4>
-            <p>Het systeem zal een combinatie van voor- en achternaam gebruiken om een logische gebruikersnaam te genereren.
-             Een wachtwoord zal gegenereerd worden voor het inloggen. Deze informatie zal per mail naar de gebruiker verstuurd worden.</p>
+            <h4>Some extra information:</h4>
+            <p>The system will use a combination of name and firstname to create a logical username. Password will be generated to match a secure password. All this information will be directly e-mail to the user.</p>
         </div>
     </div>
     </div>
 
-    <h2>All dokters</h2>
+    <h2>All doctors</h2>
     <div id="doctor_list">
     <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
     	<thead>
