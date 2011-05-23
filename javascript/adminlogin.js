@@ -35,6 +35,7 @@ $(document).ready(function(){
 					createCookie("tk",token, 2*60);
 					createCookie("uid",result.message.userId, 2*60);
 					createCookie("to","timeout",5);
+					createCookie("ad",true, 2*60);
 					window.location = "manage_doctor.html";
 				}else{
 					//show error message

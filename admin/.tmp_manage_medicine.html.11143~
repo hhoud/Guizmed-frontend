@@ -180,6 +180,8 @@
                     <th>Naam</th>
                     <th>specialiteit</th>
                     <th>type</th>
+                    <th class="icon"></th>
+                    <th class="icon"></th>
                   </tr>
                 </thead>
                 <tbody id="m_list">
@@ -240,6 +242,8 @@
                     <td>${m.mainclass}</td>
                     <td>${m.speciality}</td>
                     <td>${m.generic_name}</td>
+                    <td class="icon"><a href="/" title="edit" name="${m.id}" ><img src="images/edit_icon.png" alt="Edit icon"/></a></td>
+                    <td class="icon"><a href="/" title="delete" name="${m.id}"><img src="images/icon_cross.png" alt="cross icon"/></a></td>
                   </tr>
             </table>
             {/for}

@@ -2,6 +2,7 @@ $(document).ready(function(){
 	$(".numeric").numeric();
 	var p_info_template = Tempo.prepare("info");
 	var dialog_template = Tempo.prepare("dialog");
+	var bnf_dialog_template = Tempo.prepare("bnf_dialog");
 	var presc_info_template = Tempo.prepare("presc_info");
 	var p_lookup = Tempo.prepare("p_lookup");
 	var p_id;
@@ -39,7 +40,6 @@ $(document).ready(function(){
 	})
 	
 	$('.valCheckEmpty').focusout(function(){
-		console.log("test");
 		validateInputEmpty($(this));
 	})
 	
@@ -59,7 +59,7 @@ $(document).ready(function(){
 		autoOpen: false,
 		width: 'auto',
 		buttons: {
-			"Yes": function() {
+			"Ja": function() {
 				data = {"reason":$('#stop_reason').val()};
 				if(stop_item=="med")path="/voorschriften/stop/ad_presc_id/"+stop_item_id;
 				if(stop_item=="npsy"){
@@ -77,8 +77,32 @@ $(document).ready(function(){
 				});
 				$(this).dialog("close");
 			},
-			Cancel: function(){
+			"Annuleren": function(){
 				$(this).dialog("close");
+			}
+		}
+	});
+	
+	$('#bnf_dialog').dialog({
+		autoOpen: false,
+		width: 'auto',
+		buttons: {
+			"Ja": function() {
+				$(this).dialog("close");
+				//show the patient info
+				hidePages();
+				showInfo(p_id);
+			},
+			"Annuleren": function(){
+				$(this).dialog("close");
+				callWebservice("", "/voorschriften/delete/ad_presc_id/"+presc_id, function(data){
+					if(!data || data == "ERROR")
+						$('#error_dialog').dialog('open');
+					else{
+						//Reload the patient_info
+						showInfo(p_id);
+					}
+				});
 			}
 		}
 	});
@@ -91,7 +115,7 @@ $(document).ready(function(){
 		autoOpen: false,
 		width: 'auto',
 		buttons: {
-			"Toestemming vragen": function() {
+			"Vraag toegang": function() {
 				$(this).dialog("close");
 				//ask for permission -> create notification
 				data = {
@@ -110,7 +134,7 @@ $(document).ready(function(){
 					}
 				});
 			},
-			Cancel: function(){
+			"Annuleren": function(){
 				$(this).dialog("close");
 				//Show the patient list
 				hidePages();
@@ -172,7 +196,7 @@ $(document).ready(function(){
 									//remove the delete icon for the last row (adding a new item)
 									$('[name|="new"]').parent('li').find('a:nth-child(1)').hide();
 									//remove the delete button if the item has a stop_date or end_date
-									if($('.stop_date').text() != "0000-00-00" || $('.end_date').text() != "0000-00-00"){
+									if(($('.stop_date').text() != "0000-00-00" && $('.stop_date').text()) || $('.end_date').text() != "0000-00-00"){
 										$('.stop_date').parent('li').find('a:nth-child(1)').hide();
 										$('.stop_date').parent('li').find('a:nth-child(2)').addClass('stopped');
 									}
@@ -285,9 +309,21 @@ $(document).ready(function(){
 			if(!data || data == "ERROR")
 				$('#error_dialog').dialog('open');
 			else{
-				//show the patient info
-				hidePages();
-				showInfo(p_id);
+				var result = $.parseJSON(data);
+				if(result.message.BNFboolean){
+					presc_id = result.message.id;
+					//render dialog
+					bnf_dialog_template.notify(function(event){
+						if(event.type == TempoEvent.Types.RENDER_COMPLETE){
+							//open the dialog when rendered
+							$('#bnf_dialog').dialog('open');
+						}
+					}).render(result.message);
+				}else{
+					//show the patient info
+					hidePages();
+					showInfo(p_id);
+				}
 			}
 		});
 	});

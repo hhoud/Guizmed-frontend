@@ -54,7 +54,7 @@ $(document).ready(function() {
 		autoOpen: false,
 		width: 'auto',
 		buttons: {
-			"Yes": function() {
+			"Ja": function() {
 				callWebservice("", "/users/delete/user_id/"+item_id, function(data){
 					if(!data || data == "ERROR")
 						$('#error_dialog').dialog('open');
@@ -65,7 +65,7 @@ $(document).ready(function() {
 				});
 				$(this).dialog("close");
 			},
-			Cancel: function(){
+			"Annuleren": function(){
 				$(this).dialog("close");
 			}
 		}

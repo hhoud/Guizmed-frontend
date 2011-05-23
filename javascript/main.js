@@ -22,7 +22,7 @@ $(document).ready(function(){
 				//send back to the login screen
 				window.location = 'index.html';
 			},
-			Cancel: function() {
+			"Annuleren": function() {
 				$( this ).dialog( "close" );
 			}
 		}

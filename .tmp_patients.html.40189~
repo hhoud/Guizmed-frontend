@@ -127,7 +127,7 @@
                 <p id="poss_doses"></p>
                 <li class="bigfield"><input placeholder="Dosering (enkel getal)" type="text" name="dose" class="numeric valCheckEmpty" /></li>
                 <li class="bigfield"><input placeholder="Frequentie (per dag)" type="text" name="frequency" class="numeric valCheckEmpty"/></li>
-                <li class="bigfield"><input placeholder="Start datum" type="text" class="datepicker valCheckDate" name="startDate" /></li>
+                <li class="bigfield"><input placeholder="Start datum" type="text" class="datepicker valCheckDate" name="startDate " /></li>
                 <li class="textbox"><span class="header">Aanvullingen</span><textarea name="comment" rows="4"></textarea></li>
             </ul>
             <a href="#" id="btn_presc_add" class="button">Toevoegen</a>

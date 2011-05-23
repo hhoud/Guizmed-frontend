@@ -208,6 +208,13 @@ function checkTimeout(){
 	else return false;
 }
 
+function checkAdmin(){
+	//find the admin
+	var ad = readCookie("ad");
+	if(ad)return true;
+	else return false;
+}
+
 /**
  * Get all the input fields of a form and send them through to the function taking care of the ajax call.
  * @param $btn	The submit button that has been clicked
@@ -304,7 +311,7 @@ function filterList($input, $list){
 }
 $(document).ready(function(){
 	var path = ""+window.location;
-	if(!checkLoggedIn() && path.indexOf("admin")>-1 && path.indexOf("index.html") == -1){
+	if((!checkLoggedIn() || !checkAdmin()) && path.indexOf("admin")>-1 && path.indexOf("index.html") == -1){
 		window.location = "index.html";
 	}else if(!checkLoggedIn() && path.indexOf("index.html") == -1){
 		window.location = "index.html";
