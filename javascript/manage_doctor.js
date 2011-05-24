@@ -22,6 +22,12 @@ $(document).ready(function() {
   		validateEmailAdmin($(this));
 	});
 	
+	$('#btn_logout').click(function(){
+		eraseCookie("ad");
+		eraseCookie("tk");
+		eraseCookie("td");
+		window.location = "index.html";
+	});
 	
 	renderUsers();
 	/**

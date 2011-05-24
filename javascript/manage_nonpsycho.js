@@ -29,7 +29,12 @@ $(document).ready(function() {
   		validateStringAdmin($(this));
 	});
 	
-	
+	$('#btn_logout').click(function(){
+		eraseCookie("ad");
+		eraseCookie("tk");
+		eraseCookie("td");
+		window.location = "index.html";
+	});
 	/**
 	 * Get the list of nonpsychos from the backend
 	 */

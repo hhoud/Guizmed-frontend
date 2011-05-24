@@ -52,8 +52,17 @@ $(document).ready(function(){
 	//Check the querystring for a medicine_id or patient_id
 	var m_id = $.QueryString("m_id");
 	var p_id = $.QueryString("p_id");
-	if(m_id)
-		showInfo(m_id);
+	if(m_id){
+		data = {"med_form_id":m_id};
+		callWebservice(data,"/medicijnbeheer/getmedbaseid",function(data){
+			if(!data || data == "ERROR"){
+				$('#error_dialog').dialog('open');
+			}else{
+				var result = $.parseJSON(data);
+				showInfo(result.med_base_id.id);
+			}
+		});
+	}
 	if(!p_id)
 		$('#add_to_presc').hide();
 	

@@ -35,6 +35,13 @@ $(document).ready(function() {
 		}
 	});
 
+	$('#btn_logout').click(function(){
+		eraseCookie("ad");
+		eraseCookie("tk");
+		eraseCookie("td");
+		window.location = "index.html";
+	});
+	
 	$("#manage_page").hover(
 		function () {
 		$("#manage_page").addClass("active_link");
